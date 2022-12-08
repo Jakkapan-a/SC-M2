@@ -16,7 +16,7 @@ namespace SC_M2.Modules
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<T>("select * from " + table_name, new DynamicParameters());
+                var output = cnn.Query<T>("select * from " + table_name +" order by id desc limit 100", new DynamicParameters());
                 return output.ToList();
             }
         }
@@ -30,9 +30,8 @@ namespace SC_M2.Modules
             }
         }
 
-
         // Insert to Db
-        public static void InserTnputDB(string sql, Dictionary<string, object> parameters)
+        public static void InserInputDB(string sql, Dictionary<string, object> parameters)
         {
             using (IDbConnection con = new SQLiteConnection(LoadConnectionString()))
             {
@@ -48,6 +47,7 @@ namespace SC_M2.Modules
                 con.Execute(sql, parameters);
             }
         }
+
 
         private static string LoadConnectionString(string id = "Default")
         {

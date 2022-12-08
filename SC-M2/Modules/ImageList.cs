@@ -71,7 +71,7 @@ namespace SC_M2.Modules
             parameters.Add("@model_id", model_id);
             parameters.Add("@created_at", GetDateTimeNow());
             parameters.Add("@updated_at", GetDateTimeNow());
-            SQliteDataAccess.InserTnputDB(sql, parameters);
+            SQliteDataAccess.InserInputDB(sql, parameters);
         }
         
         public void Update()

@@ -155,6 +155,7 @@
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Modules\Delete_image.cs" />
+    <Compile Include="Modules\History.cs" />
     <Compile Include="Modules\ImageList.cs" />
     <Compile Include="Modules\Model.cs" />
     <Compile Include="Modules\SQliteDataAccess.cs" />

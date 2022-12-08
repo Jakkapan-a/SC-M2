@@ -44,7 +44,7 @@ namespace SC_M2.Modules
             parameters.Add("@name", name);
             parameters.Add("@path", path);
             parameters.Add("@created_at", created_at);
-            SQliteDataAccess.InserTnputDB(sql, parameters);
+            SQliteDataAccess.InserInputDB(sql, parameters);
         }
 
         public void Update()
