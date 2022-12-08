@@ -45,12 +45,16 @@
             this.tbName = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tbDisconnect = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelPage2 = new System.Windows.Forms.Panel();
             this.pictureBoxC = new System.Windows.Forms.PictureBox();
             this.comboBoxDevice = new System.Windows.Forms.ComboBox();
             this.btnCapture = new System.Windows.Forms.Button();
             this.btnConnect = new System.Windows.Forms.Button();
             this.timerVideo = new System.Windows.Forms.Timer(this.components);
+            this.contextMenuStripSeleteImage = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripStatusLabel_ImageID = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -58,12 +62,15 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbAccept)).BeginInit();
             this.tabPage2.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panelPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxC)).BeginInit();
+            this.contextMenuStripSeleteImage.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
             // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel_ImageID});
             this.statusStrip1.Location = new System.Drawing.Point(0, 556);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(908, 22);
@@ -99,6 +106,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.flowLayoutPanel);
             this.groupBox2.Location = new System.Drawing.Point(301, 6);
             this.groupBox2.Name = "groupBox2";
@@ -112,6 +122,8 @@
             this.flowLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel.AutoScroll = true;
+            this.flowLayoutPanel.ContextMenuStrip = this.contextMenuStripSeleteImage;
             this.flowLayoutPanel.Location = new System.Drawing.Point(6, 19);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
             this.flowLayoutPanel.Size = new System.Drawing.Size(557, 301);
@@ -129,6 +141,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.btnUpdate);
@@ -216,7 +230,7 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.tbDisconnect);
-            this.tabPage2.Controls.Add(this.panel1);
+            this.tabPage2.Controls.Add(this.panelPage2);
             this.tabPage2.Controls.Add(this.comboBoxDevice);
             this.tabPage2.Controls.Add(this.btnCapture);
             this.tabPage2.Controls.Add(this.btnConnect);
@@ -239,16 +253,18 @@
             this.tbDisconnect.UseVisualStyleBackColor = true;
             this.tbDisconnect.Click += new System.EventHandler(this.tbDisconnect_Click);
             // 
-            // panel1
+            // panelPage2
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panelPage2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.pictureBoxC);
-            this.panel1.Location = new System.Drawing.Point(7, 6);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(863, 468);
-            this.panel1.TabIndex = 4;
+            this.panelPage2.AutoScroll = true;
+            this.panelPage2.Controls.Add(this.pictureBoxC);
+            this.panelPage2.Location = new System.Drawing.Point(7, 6);
+            this.panelPage2.Name = "panelPage2";
+            this.panelPage2.Padding = new System.Windows.Forms.Padding(5);
+            this.panelPage2.Size = new System.Drawing.Size(863, 468);
+            this.panelPage2.TabIndex = 4;
             // 
             // pictureBoxC
             // 
@@ -256,9 +272,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxC.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBoxC.Location = new System.Drawing.Point(3, 3);
+            this.pictureBoxC.Location = new System.Drawing.Point(8, 8);
             this.pictureBoxC.Name = "pictureBoxC";
-            this.pictureBoxC.Size = new System.Drawing.Size(857, 462);
+            this.pictureBoxC.Size = new System.Drawing.Size(847, 452);
             this.pictureBoxC.TabIndex = 3;
             this.pictureBoxC.TabStop = false;
             this.pictureBoxC.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxC_Paint);
@@ -302,6 +318,26 @@
             this.timerVideo.Interval = 45;
             this.timerVideo.Tick += new System.EventHandler(this.timerVideo_Tick);
             // 
+            // contextMenuStripSeleteImage
+            // 
+            this.contextMenuStripSeleteImage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteImageToolStripMenuItem});
+            this.contextMenuStripSeleteImage.Name = "contextMenuStripSeleteImage";
+            this.contextMenuStripSeleteImage.Size = new System.Drawing.Size(144, 26);
+            // 
+            // deleteImageToolStripMenuItem
+            // 
+            this.deleteImageToolStripMenuItem.Name = "deleteImageToolStripMenuItem";
+            this.deleteImageToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.deleteImageToolStripMenuItem.Text = "Delete Image";
+            this.deleteImageToolStripMenuItem.Click += new System.EventHandler(this.deleteImageToolStripMenuItem_Click);
+            // 
+            // toolStripStatusLabel_ImageID
+            // 
+            this.toolStripStatusLabel_ImageID.Name = "toolStripStatusLabel_ImageID";
+            this.toolStripStatusLabel_ImageID.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel_ImageID.Text = "toolStripStatusLabel1";
+            // 
             // Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -314,6 +350,8 @@
             this.Text = "Edit";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Edit_FormClosing);
             this.Load += new System.EventHandler(this.Edit_Load);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -322,8 +360,9 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbAccept)).EndInit();
             this.tabPage2.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.panelPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxC)).EndInit();
+            this.contextMenuStripSeleteImage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -350,8 +389,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox pictureBoxC;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelPage2;
         private System.Windows.Forms.Button tbDisconnect;
         private System.Windows.Forms.Timer timerVideo;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripSeleteImage;
+        private System.Windows.Forms.ToolStripMenuItem deleteImageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_ImageID;
     }
 }

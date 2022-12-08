@@ -77,8 +77,19 @@ namespace SC_M2
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            Edit edit = new Edit(this.model.id);
-            edit.ShowDialog();
+            try
+            {
+                if(this.model.id == 0)
+                {
+                    throw new Exception("Model is empty!");
+                }
+                Edit edit = new Edit(this.model.id);
+                edit.ShowDialog();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+            }
+         
         }
 
         private void tbLoadTable_Click(object sender, EventArgs e)

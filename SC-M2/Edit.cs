@@ -20,6 +20,8 @@ namespace SC_M2
     public partial class Edit : Form
     {
         Modules.Model model;
+        Modules.ImageList Images = new Modules.ImageList();
+
         
         private VideoCapture capture;
         private bool IsCapture;
@@ -33,6 +35,8 @@ namespace SC_M2
         {
             InitializeComponent();
             this.model = new Model(id);
+            renderPicture();
+            toolStripStatusLabel_ImageID.Text = "";
         }
 
         private void Edit_Load(object sender, EventArgs e)
@@ -79,12 +83,30 @@ namespace SC_M2
             int deviceIndex = comboBoxDevice.SelectedIndex;
             capture = new VideoCapture(deviceIndex);
             capture.Open(deviceIndex);
-            capture.Set(VideoCaptureProperties.FrameHeight, 1080);
-            capture.Set(VideoCaptureProperties.FrameWidth, 1920);
+            SetSizeImage();
             timerVideo.Start();
             IsCapture = true;
         }
 
+        private void SetSizeImage(string name = "HD")
+        {
+            int _height = 1080;
+            int _width = 1920;
+            switch (name.ToUpper())
+            {
+                case "HD":
+                    _height = 720;
+                    _width = 1280;
+                    break;
+                case "FULLHD":
+                    _height = 1080;
+                    _width = 1920;
+                    break;
+            }
+
+            capture.Set(VideoCaptureProperties.FrameHeight, _height);
+            capture.Set(VideoCaptureProperties.FrameWidth, _width);
+        }
         private void Edit_FormClosing(object sender, FormClosingEventArgs e)
         {
             DisposeCaptureResources();
@@ -131,6 +153,7 @@ namespace SC_M2
 
                 pictureBoxC.Image = null;
                 IsCapture = false;
+                timerVideo.Stop();
             }
 
         }
@@ -217,6 +240,50 @@ namespace SC_M2
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             DisposeCaptureResources();
+            renderPicture();
+        }
+
+        private void renderPicture()
+        {
+            flowLayoutPanel.Controls.Clear();
+            SC_M2.Modules.ImageList image = new SC_M2.Modules.ImageList();
+            var list = image.GetAll();
+            foreach(var item in list)
+            {
+                var pb = new PictureBox();
+                pb.Height = 112;
+                pb.Width = 200;
+                pb.SizeMode = PictureBoxSizeMode.Zoom;
+                pb.Image = Image.FromFile(item.path);
+                pb.Tag = item.id;
+                pb.BorderStyle = BorderStyle.FixedSingle;
+                pb.MouseDown += new System.Windows.Forms.MouseEventHandler(pictureBox_Click);
+
+                // Add Flow
+                flowLayoutPanel.Controls.Add(pb);
+            }
+            flowLayoutPanel.Update();
+        }
+
+        
+        private void pictureBox_Click(object sender, MouseEventArgs e)
+        {
+            // Picture Box
+            PictureBox pb = (PictureBox)sender;
+            // Get and set ID
+            Images.id = (int)pb.Tag;
+            toolStripStatusLabel_ImageID.Text = "Image ID: " + Images.id;
+
+        }
+        //private void pictureBoxC_MouseDown(object sender, MouseEventArgs e)
+        //{
+            
+        //}
+        private void deleteImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Images.Get();
+            Images.Delete();
+            renderPicture();
         }
     }
 }

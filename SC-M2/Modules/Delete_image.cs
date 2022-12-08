@@ -10,14 +10,14 @@ namespace SC_M2.Modules
     {
         public int id { get; set; }
         public string name { get; set; }
-        public string from { get; set; }
+        public string path { get; set; }
         public string created_at { get; set; }
 
-        public Delete_image(int id, string name, string from)
+        public Delete_image(string name, string path)
         {
             this.id = id;
             this.name = name;
-            this.from = from;
+            this.path = path;
             this.created_at = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
@@ -38,29 +38,30 @@ namespace SC_M2.Modules
 
         public void Save()
         {
-            string sql = "INSERT INTO delete_image (id, name, from, created_at) VALUES (@id, @name, @from, @created_at)";
+            string sql = "INSERT INTO delete_image (id, name, path, created_at) VALUES (@id, @name, @path, @created_at)";
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@id", id);
             parameters.Add("@name", name);
-            parameters.Add("@from", from);
+            parameters.Add("@path", path);
             parameters.Add("@created_at", created_at);
             SQliteDataAccess.InserTnputDB(sql, parameters);
         }
 
         public void Update()
         { 
-            string sql = "update delete_image set name = @name, from = @from, created_at = @created_at where id = @id";
+            string sql = "update delete_image set name = @name, path = @path, created_at = @created_at where id = @id";
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@id", id);
             parameters.Add("@name", name);
-            parameters.Add("@from", from);
+            parameters.Add("@path", path);
             parameters.Add("@created_at", created_at);
             SQliteDataAccess.Update(sql, parameters);
         }
 
         public void Delete()
         {
-            string sql = "delete from delete_image where id = @id";
+            
+            string sql = "delete from delete_image where id = @id";           
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@id", id);
             SQliteDataAccess.Update(sql, parameters);
