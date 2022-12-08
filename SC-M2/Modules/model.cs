@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,13 +9,33 @@ namespace SC_M2.Modules
 {
     internal class Model
     {
+        [DisplayName("ID")]
         public int id { get; set; }
+        [DisplayName("Model")]
         public string name { get; set; }
+        [DisplayName("Full Name")]
         public string fullname { get; set; }
-        public string percent { get; set; }
+        [DisplayName("Accept")]
+        public int percent { get; set; }
+        [DisplayName("Date")]
         public string created_at { get; set; }
+        [DisplayName("Update")]
         public string updated_at { get; set; }
+        public Model()
+        {
+            
+        }
+        public Model(int id)
+        {
+            var data = SQliteDataAccess.GetRow<Model>("select * from model where id = " + id);
+            this.id = data[0].id;
+            this.name = data[0].name;
+            this.fullname = data[0].fullname;
+            this.percent = data[0].percent;
+            this.created_at = data[0].created_at;
+            this.updated_at = data[0].updated_at;
 
+        }
         public List<Model> GetAll()
         {
             return SQliteDataAccess.GetAll<Model>("model");
@@ -30,6 +51,22 @@ namespace SC_M2.Modules
             return SQliteDataAccess.GetRow<Model>("select * from model where id = " + id);
         }
 
+        public bool isName()
+        {
+            if (SQliteDataAccess.GetRow<Model>("select * from model where name = '" + name + "'").Count > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool isnNotName()
+        {
+            if (SQliteDataAccess.GetRow<Model>("select * from model where name = '" + name + "'").Count > 1)
+            {
+                return true;
+            }
+            return false;
+        }
         public void Save()
         {
             string sql = "INSERT INTO model (name, fullname, percent, created_at, updated_at) VALUES (@name, @fullname, @percent, @created_at, @updated_at)";

@@ -11,13 +11,17 @@ namespace SC_M2.Modules
         public string id { get; set; }
         public string name { get; set; }
         public string path { get; set; }
-        public string model_id { get; set; }
+        public int model_id { get; set; }
         public string created_at { get; set; }
         public string updated_at { get; set; }
 
-        public ImageList(string id, string name, string path, string model_id)
+        public ImageList()
         {
-            this.id = id;
+            this.created_at = GetDateTimeNow();
+            this.updated_at = GetDateTimeNow();
+        }
+        public ImageList(string name, string path, int model_id)
+        {
             this.name = name;
             this.path = path;
             this.model_id = model_id;

@@ -1,0 +1,222 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using DirectShowLib;
+using OpenCvSharp;
+using OpenCvSharp.Extensions;
+using System.IO;
+using SC_M2.Modules;
+using System.Drawing.Imaging;
+using System.Text.RegularExpressions;
+
+namespace SC_M2
+{
+    public partial class Edit : Form
+    {
+        Modules.Model model;
+        
+        private VideoCapture capture;
+        private bool IsCapture;
+        Rectangle Rect;
+        System.Drawing.Point LocationXY;
+        System.Drawing.Point LocationX1Y1;
+        bool IsMouseDown = false;
+
+        private string _path = @"./system";
+        public Edit(int id)
+        {
+            InitializeComponent();
+            this.model = new Model(id);
+        }
+
+        private void Edit_Load(object sender, EventArgs e)
+        {
+            tbName.Text = model.fullname;
+            tbAccept.Value = model.percent;
+            
+            var videoDevices = new List<DsDevice>(DsDevice.GetDevicesOfCat(FilterCategory.VideoInputDevice));
+            foreach (var device in videoDevices)
+            {
+                comboBoxDevice.Items.Add(device.Name);
+            }
+            comboBoxDevice.SelectedIndex = 0;
+            if(!Directory.Exists(_path))
+            {
+                Directory.CreateDirectory(_path);
+            }
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (tbName.Text == String.Empty)
+                {
+                    throw new Exception("Please enter name");
+                }
+                this.model.fullname = tbName.Text.Trim();
+                this.model.name = tbName.Text.Trim().Substring(0, tbName.Text.Trim().Length - 10);
+                this.model.percent = Convert.ToInt32(tbAccept.Value);
+
+                // Update
+                this.model.Update();
+                MessageBox.Show("Updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+            int deviceIndex = comboBoxDevice.SelectedIndex;
+            capture = new VideoCapture(deviceIndex);
+            capture.Open(deviceIndex);
+            capture.Set(VideoCaptureProperties.FrameHeight, 1080);
+            capture.Set(VideoCaptureProperties.FrameWidth, 1920);
+            timerVideo.Start();
+            IsCapture = true;
+        }
+
+        private void Edit_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DisposeCaptureResources();
+            timerVideo.Stop();
+        }
+
+        private void tbDisconnect_Click(object sender, EventArgs e)
+        {
+            DisposeCaptureResources();
+            timerVideo.Stop();
+        }
+
+        private void timerVideo_Tick(object sender, EventArgs e)
+        {
+            if (capture.IsOpened())
+            {
+                try
+                {
+                    using (Mat frame = new Mat())
+                    {
+                        capture.Read(frame);
+                        if (!frame.Empty())
+                        {
+                            pictureBoxC.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(frame);
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    pictureBoxC.Image = null;
+                }
+                finally
+                {
+                }
+            }
+        }
+
+        private void DisposeCaptureResources()
+        {
+            if (capture != null)
+            {
+                //capture.Release();
+                capture.Dispose();
+
+                pictureBoxC.Image = null;
+                IsCapture = false;
+            }
+
+        }
+
+        private void pictureBoxC_MouseDown(object sender, MouseEventArgs e)
+        {
+            IsMouseDown = true;
+            LocationXY = e.Location;
+        }
+
+        private void pictureBoxC_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (IsMouseDown)
+            {
+                LocationX1Y1 = e.Location;
+                Refresh();
+            }
+        }
+
+        private void pictureBoxC_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (IsMouseDown)
+            {
+                LocationX1Y1 = e.Location;
+                Refresh();
+                IsMouseDown = false;
+            }  
+        }
+
+        private void pictureBoxC_Paint(object sender, PaintEventArgs e)
+        {
+            if(Rect != null&& IsCapture)
+            {
+                e.Graphics.DrawRectangle(Pens.Red, GetRect());
+            }
+        }
+        private Rectangle GetRect()
+        {
+            Rect = new Rectangle();
+            Rect.X = Math.Min(LocationXY.X, LocationX1Y1.X);
+            Rect.Y = Math.Min(LocationXY.Y, LocationX1Y1.Y);
+            Rect.Width = Math.Abs(LocationXY.X - LocationX1Y1.X);
+            Rect.Height = Math.Abs(LocationXY.Y - LocationX1Y1.Y);
+            return Rect;
+        }
+
+        private void btnCapture_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (Bitmap bitmap = new Bitmap(pictureBoxC.Image))
+                {
+                    using (Bitmap bmp = new Bitmap(Rect.Width, Rect.Height))
+                    {
+                        using (Graphics g = Graphics.FromImage(bmp))
+                        {
+                            g.DrawImage(bitmap, 0, 0, Rect, GraphicsUnit.Pixel);
+                        }
+                        string filename = $"{Guid.NewGuid()}.jpg";
+                        string path = $"{_path}/images/{filename}";
+                        CheckPath($"{_path}/images/");
+                        bmp.Save(path, ImageFormat.Jpeg);
+
+                        // Save to database
+                        Modules.ImageList image = new Modules.ImageList(filename, path, model.id);
+                        image.Save();
+                        MessageBox.Show("Saved", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void CheckPath(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DisposeCaptureResources();
+        }
+    }
+}
