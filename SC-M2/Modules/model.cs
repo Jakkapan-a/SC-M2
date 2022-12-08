@@ -45,7 +45,18 @@ namespace SC_M2.Modules
         {
             return SQliteDataAccess.GetRow<Model>(sql);
         }
-
+        public void GetRow()
+        {
+            var data = SQliteDataAccess.GetRow<Model>("select * from model where id = " + id);
+            if(data.Count > 0)
+            {
+                this.name = data[0].name;
+                this.fullname = data[0].fullname;
+                this.percent = data[0].percent;
+                this.created_at= data[0].created_at;
+                this.updated_at= data[0].updated_at;
+            }
+        }
         public List<Model> GetRow(int id)
         {
             return SQliteDataAccess.GetRow<Model>("select * from model where id = " + id);

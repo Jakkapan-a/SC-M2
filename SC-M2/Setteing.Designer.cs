@@ -32,14 +32,13 @@
             this.toolStripStatusLabelID = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tbLoadTable = new System.Windows.Forms.Button();
             this.dataGridViewModel = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanelSetting = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.tbLoadTable = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -96,6 +95,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "MODELS";
             // 
+            // tbLoadTable
+            // 
+            this.tbLoadTable.BackgroundImage = global::SC_M2.Properties.Resources.refresh_32;
+            this.tbLoadTable.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.tbLoadTable.Location = new System.Drawing.Point(466, 439);
+            this.tbLoadTable.Name = "tbLoadTable";
+            this.tbLoadTable.Size = new System.Drawing.Size(24, 22);
+            this.tbLoadTable.TabIndex = 1;
+            this.tbLoadTable.UseVisualStyleBackColor = true;
+            this.tbLoadTable.Click += new System.EventHandler(this.tbLoadTable_Click);
+            // 
             // dataGridViewModel
             // 
             this.dataGridViewModel.AllowUserToAddRows = false;
@@ -122,7 +132,7 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.flowLayoutPanel1);
+            this.groupBox2.Controls.Add(this.flowLayoutPanelSetting);
             this.groupBox2.Location = new System.Drawing.Point(516, 10);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(5);
             this.groupBox2.Name = "groupBox2";
@@ -131,19 +141,19 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "PICTURE LIST";
             // 
-            // flowLayoutPanel1
+            // flowLayoutPanelSetting
             // 
-            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.flowLayoutPanelSetting.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(6, 19);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(485, 442);
-            this.flowLayoutPanel1.TabIndex = 0;
+            this.flowLayoutPanelSetting.AutoScroll = true;
+            this.flowLayoutPanelSetting.Location = new System.Drawing.Point(6, 19);
+            this.flowLayoutPanelSetting.Name = "flowLayoutPanelSetting";
+            this.flowLayoutPanelSetting.Size = new System.Drawing.Size(485, 442);
+            this.flowLayoutPanelSetting.TabIndex = 0;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.btnEdit);
             this.panel1.Controls.Add(this.btnAdd);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -151,16 +161,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1047, 61);
             this.panel1.TabIndex = 2;
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(951, 12);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(84, 39);
-            this.button3.TabIndex = 0;
-            this.button3.Text = "DELETE";
-            this.button3.UseVisualStyleBackColor = true;
             // 
             // btnEdit
             // 
@@ -181,17 +181,6 @@
             this.btnAdd.Text = "ADD";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // tbLoadTable
-            // 
-            this.tbLoadTable.BackgroundImage = global::SC_M2.Properties.Resources.refresh_32;
-            this.tbLoadTable.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.tbLoadTable.Location = new System.Drawing.Point(466, 439);
-            this.tbLoadTable.Name = "tbLoadTable";
-            this.tbLoadTable.Size = new System.Drawing.Size(24, 22);
-            this.tbLoadTable.TabIndex = 1;
-            this.tbLoadTable.UseVisualStyleBackColor = true;
-            this.tbLoadTable.Click += new System.EventHandler(this.tbLoadTable_Click);
             // 
             // Setteing
             // 
@@ -221,13 +210,12 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dataGridViewModel;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelSetting;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelID;
         private System.Windows.Forms.Button tbLoadTable;
     }

@@ -34,7 +34,10 @@ namespace SC_M2.Modules
         {
             return SQliteDataAccess.GetAll<ImageList>("image");
         }
-
+        public List<ImageList> GetModel()
+        {
+            return SQliteDataAccess.GetRow<ImageList>("select * from image where model_id = " + model_id);
+        }
         public List<ImageList> GetRow(string sql)
         {
             return SQliteDataAccess.GetRow<ImageList>(sql);
@@ -86,11 +89,18 @@ namespace SC_M2.Modules
         public void Delete()
         {
             string sql = "delete from image where id = @id";
-           
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@id", id);
             SQliteDataAccess.Update(sql, parameters);
         }
+        public void Delete(int model_id)
+        {
+            string sql = "delete from image where model_id = @id";
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("@id", model_id);
+            SQliteDataAccess.Update(sql, parameters);
+        }
+
         private string GetDateTimeNow()
         {
             return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");

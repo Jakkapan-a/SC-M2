@@ -22,7 +22,7 @@ namespace SC_M2
         Modules.Model model;
         Modules.ImageList Images = new Modules.ImageList();
 
-        
+        Setteing setteing;
         private VideoCapture capture;
         private bool IsCapture;
         Rectangle Rect;
@@ -31,12 +31,13 @@ namespace SC_M2
         bool IsMouseDown = false;
 
         private string _path = @"./system";
-        public Edit(int id)
+        public Edit(int id,Setteing setteing)
         {
             InitializeComponent();
             this.model = new Model(id);
             renderPicture();
             toolStripStatusLabel_ImageID.Text = "";
+            this.setteing = setteing;
         }
 
         private void Edit_Load(object sender, EventArgs e)
@@ -247,7 +248,8 @@ namespace SC_M2
         {
             flowLayoutPanel.Controls.Clear();
             SC_M2.Modules.ImageList image = new SC_M2.Modules.ImageList();
-            var list = image.GetAll();
+            image.model_id = model.id;
+            var list = image.GetModel();
             foreach(var item in list)
             {
                 var pb = new PictureBox();
@@ -275,15 +277,34 @@ namespace SC_M2
             toolStripStatusLabel_ImageID.Text = "Image ID: " + Images.id;
 
         }
-        //private void pictureBoxC_MouseDown(object sender, MouseEventArgs e)
-        //{
-            
-        //}
+        
         private void deleteImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Images.Get();
             Images.Delete();
             renderPicture();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            // Delete or not
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this model and image?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if(dialogResult == DialogResult.Yes)
+            {
+                try
+                {
+                    SC_M2.Modules.ImageList image = new SC_M2.Modules.ImageList();
+                    image.Delete(model.id);
+                    model.Delete();
+                    setteing.loadTable();
+                    this.Close();
+                }catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                }
+
+            }
         }
     }
 }

@@ -18,9 +18,12 @@ namespace SC_M2
             InitializeComponent();
         }
         Model model = new Model();
+        Modules.ImageList Images = new Modules.ImageList();
+        
         private void Setteing_Load(object sender, EventArgs e)
         {
             loadTable();
+            renderPicture();
         }
 
         public void loadTable()
@@ -67,6 +70,7 @@ namespace SC_M2
                     dynamic row = dataGridViewModel.SelectedRows[0].DataBoundItem;
                     this.model.id = row.ID;
                     toolStripStatusLabelID.Text = "ID : " + model.id.ToString();
+                    renderPicture();
                 }
             }
             catch(Exception ex)
@@ -83,7 +87,7 @@ namespace SC_M2
                 {
                     throw new Exception("Model is empty!");
                 }
-                Edit edit = new Edit(this.model.id);
+                Edit edit = new Edit(this.model.id,this);
                 edit.ShowDialog();
             }catch(Exception ex)
             {
@@ -96,5 +100,40 @@ namespace SC_M2
         {
             loadTable();
         }
+
+        private void renderPicture()
+        {
+            flowLayoutPanelSetting.Controls.Clear();
+            SC_M2.Modules.ImageList image = new SC_M2.Modules.ImageList();
+            image.model_id = model.id;
+            var list = image.GetModel();
+            foreach (var item in list)
+            {
+                var pb = new PictureBox();
+                pb.Height = 112;
+                pb.Width = 200;
+                pb.SizeMode = PictureBoxSizeMode.Zoom;
+                pb.Image = Image.FromFile(item.path);
+                pb.Tag = item.id;
+                pb.BorderStyle = BorderStyle.FixedSingle;
+                //pb.MouseDown += new System.Windows.Forms.MouseEventHandler(pictureBox_Click);
+
+                // Add Flow
+                flowLayoutPanelSetting.Controls.Add(pb);
+            }
+            flowLayoutPanelSetting.Update();
+        }
+
+
+        //private void pictureBox_Click(object sender, MouseEventArgs e)
+        //{
+        //    // Picture Box
+        //    PictureBox pb = (PictureBox)sender;
+        //    // Get and set ID
+        //    Images.id = (int)pb.Tag;
+        //    toolStripStatusLabel_ImageID.Text = "Image ID: " + Images.id;
+
+        //}
+        
     }
 }
