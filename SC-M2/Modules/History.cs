@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SC_M2.Modules
 {
-    internal class History
+    internal class History : IDisposable
     {
         [DisplayName("ID")]
         public int id { get; set; }
@@ -19,24 +19,19 @@ namespace SC_M2.Modules
         public string qrcode { get; set; }
         [DisplayName("Judgement")]
         public string judgement { get; set; }
-        [DisplayName("DateTime")]
+       
         public string created_at { get; set; }
         public string updated_at { get; set; }
-
-        public List<History> GetAll()
+        void IDisposable.Dispose()
         {
-            return SQliteDataAccess.GetAll<History>("history");
+            
         }
+        public static List<History> GetAll() => SQliteDataAccess.GetAll<History>("history");
 
-        public List<History> GetRow(string sql)
-        {
-            return SQliteDataAccess.GetRow<History>(sql);
-        }
+        public List<History> GetRow(string sql) => SQliteDataAccess.GetRow<History>(sql);
 
-        public List<History> GetRow(int id)
-        {
-            return SQliteDataAccess.GetRow<History>("select * from history where id = " + id);
-        }
+        public List<History> GetRow(int id) => SQliteDataAccess.GetRow<History>("select * from history where id = " + id);
+        
 
         public void Get()
         {

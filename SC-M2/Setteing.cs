@@ -30,9 +30,8 @@ namespace SC_M2
         {
 
             dataGridViewModel.DataSource = null;
-            Model m = new Model();
 
-            List<Model> ml = m.GetAll();
+            List<Model> ml = Model.GetAll();
             int num = 1;
 
             var ml2 = (from x in ml
@@ -104,9 +103,7 @@ namespace SC_M2
         private void renderPicture()
         {
             flowLayoutPanelSetting.Controls.Clear();
-            SC_M2.Modules.ImageList image = new SC_M2.Modules.ImageList();
-            image.model_id = model.id;
-            var list = image.GetModel();
+            var list = SC_M2.Modules.ImageList.GetModel(model.id);
             foreach (var item in list)
             {
                 var pb = new PictureBox();

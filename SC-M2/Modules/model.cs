@@ -36,15 +36,11 @@ namespace SC_M2.Modules
             this.updated_at = data[0].updated_at;
 
         }
-        public List<Model> GetAll()
-        {
-            return SQliteDataAccess.GetAll<Model>("model");
-        }
+        public static List<Model> GetAll() => SQliteDataAccess.GetAll<Model>("model");
+        
 
-        public List<Model> GetRow(string sql)
-        {
-            return SQliteDataAccess.GetRow<Model>(sql);
-        }
+        public static List<Model> GetRow(string sql) => SQliteDataAccess.GetRow<Model>(sql);
+        
         public void GetRow()
         {
             var data = SQliteDataAccess.GetRow<Model>("select * from model where id = " + id);
@@ -57,27 +53,14 @@ namespace SC_M2.Modules
                 this.updated_at= data[0].updated_at;
             }
         }
-        public List<Model> GetRow(int id)
-        {
-            return SQliteDataAccess.GetRow<Model>("select * from model where id = " + id);
-        }
+        public static List<Model> GetRow(int id) => SQliteDataAccess.GetRow<Model>("select * from model where id = " + id);
+        
+        public static List<Model> GetByName(string model_name) => SQliteDataAccess.GetRow<Model>("select * from model where name = '" + model_name+"'");
 
-        public bool isName()
-        {
-            if (SQliteDataAccess.GetRow<Model>("select * from model where name = '" + name + "'").Count > 0)
-            {
-                return true;
-            }
-            return false;
-        }
-        public bool isnNotName()
-        {
-            if (SQliteDataAccess.GetRow<Model>("select * from model where name = '" + name + "'").Count > 1)
-            {
-                return true;
-            }
-            return false;
-        }
+        public bool isName() => (SQliteDataAccess.GetRow<Model>("select * from model where name = '" + name + "'").Count > 0) ? true : false;
+
+        public bool isnNotName() => (SQliteDataAccess.GetRow<Model>("select * from model where name = '" + name + "'").Count > 1) ? true : false;
+
         public void Save()
         {
             string sql = "INSERT INTO model (name, fullname, percent, created_at, updated_at) VALUES (@name, @fullname, @percent, @created_at, @updated_at)";

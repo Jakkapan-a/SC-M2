@@ -30,7 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabelConnect = new System.Windows.Forms.ToolStripStatusLabel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBoxC = new System.Windows.Forms.PictureBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -50,6 +52,8 @@
             this.comboBoxComPort = new System.Windows.Forms.ComboBox();
             this.serialPort = new System.IO.Ports.SerialPort(this.components);
             this.timerVideo = new System.Windows.Forms.Timer(this.components);
+            this.statusStrip1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -59,16 +63,34 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelConnect});
             this.statusStrip1.Location = new System.Drawing.Point(0, 571);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(913, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // toolStripStatusLabelConnect
+            // 
+            this.toolStripStatusLabelConnect.Name = "toolStripStatusLabelConnect";
+            this.toolStripStatusLabelConnect.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabelConnect.Text = "toolStripStatusLabel1";
+            // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(112, 26);
+            // 
+            // settingToolStripMenuItem
+            // 
+            this.settingToolStripMenuItem.Image = global::SC_M2.Properties.Resources.settings_32;
+            this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
+            this.settingToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+            this.settingToolStripMenuItem.Text = "Setting";
+            this.settingToolStripMenuItem.Click += new System.EventHandler(this.settingToolStripMenuItem_Click);
             // 
             // pictureBoxC
             // 
@@ -79,16 +101,21 @@
             this.pictureBoxC.Location = new System.Drawing.Point(12, 12);
             this.pictureBoxC.Name = "pictureBoxC";
             this.pictureBoxC.Size = new System.Drawing.Size(575, 424);
+            this.pictureBoxC.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxC.TabIndex = 1;
             this.pictureBoxC.TabStop = false;
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 443);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridView1.Size = new System.Drawing.Size(575, 125);
             this.dataGridView1.TabIndex = 2;
             // 
@@ -135,6 +162,7 @@
             this.tbQrcode.Name = "tbQrcode";
             this.tbQrcode.Size = new System.Drawing.Size(184, 22);
             this.tbQrcode.TabIndex = 1;
+            this.tbQrcode.KeyDown += new System.Windows.Forms.KeyEventHandler(this._KeyDown);
             // 
             // tbName
             // 
@@ -145,6 +173,7 @@
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(184, 22);
             this.tbName.TabIndex = 0;
+            this.tbName.KeyDown += new System.Windows.Forms.KeyEventHandler(this._KeyDown);
             // 
             // groupBox2
             // 
@@ -191,7 +220,7 @@
             this.btConnect.Location = new System.Drawing.Point(177, 126);
             this.btConnect.Name = "btConnect";
             this.btConnect.Size = new System.Drawing.Size(121, 23);
-            this.btConnect.TabIndex = 1;
+            this.btConnect.TabIndex = 3;
             this.btConnect.Text = "Connect";
             this.btConnect.UseVisualStyleBackColor = true;
             this.btConnect.Click += new System.EventHandler(this.btConnect_Click);
@@ -232,7 +261,7 @@
             this.comboBoxCameraDevice.Location = new System.Drawing.Point(118, 93);
             this.comboBoxCameraDevice.Name = "comboBoxCameraDevice";
             this.comboBoxCameraDevice.Size = new System.Drawing.Size(180, 21);
-            this.comboBoxCameraDevice.TabIndex = 0;
+            this.comboBoxCameraDevice.TabIndex = 2;
             // 
             // comboBoxBaudRate
             // 
@@ -240,7 +269,7 @@
             this.comboBoxBaudRate.Location = new System.Drawing.Point(118, 62);
             this.comboBoxBaudRate.Name = "comboBoxBaudRate";
             this.comboBoxBaudRate.Size = new System.Drawing.Size(180, 21);
-            this.comboBoxBaudRate.TabIndex = 0;
+            this.comboBoxBaudRate.TabIndex = 1;
             // 
             // comboBoxComPort
             // 
@@ -260,6 +289,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(913, 593);
+            this.ContextMenuStrip = this.contextMenuStrip1;
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
@@ -269,7 +299,11 @@
             this.MinimumSize = new System.Drawing.Size(929, 632);
             this.Name = "Main";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxC)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -305,6 +339,8 @@
         private System.Windows.Forms.Label label4;
         private System.IO.Ports.SerialPort serialPort;
         private System.Windows.Forms.Timer timerVideo;
+        private System.Windows.Forms.ToolStripMenuItem settingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelConnect;
     }
 }
 

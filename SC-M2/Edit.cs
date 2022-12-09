@@ -17,7 +17,7 @@ using System.Text.RegularExpressions;
 
 namespace SC_M2
 {
-    public partial class Edit : Form
+    public partial class Edit : Form 
     {
         Modules.Model model;
         Modules.ImageList Images = new Modules.ImageList();
@@ -57,7 +57,7 @@ namespace SC_M2
             }
         }
 
-        private void btnUpdate_Click(object sender, EventArgs e)
+            private void btnUpdate_Click(object sender, EventArgs e)
         {
             try
             {
@@ -111,18 +111,16 @@ namespace SC_M2
         private void Edit_FormClosing(object sender, FormClosingEventArgs e)
         {
             DisposeCaptureResources();
-            timerVideo.Stop();
         }
 
         private void tbDisconnect_Click(object sender, EventArgs e)
         {
             DisposeCaptureResources();
-            timerVideo.Stop();
         }
 
         private void timerVideo_Tick(object sender, EventArgs e)
         {
-            if (capture.IsOpened())
+            if (capture.IsOpened() && capture != null)
             {
                 try
                 {
@@ -247,9 +245,9 @@ namespace SC_M2
         private void renderPicture()
         {
             flowLayoutPanel.Controls.Clear();
-            SC_M2.Modules.ImageList image = new SC_M2.Modules.ImageList();
-            image.model_id = model.id;
-            var list = image.GetModel();
+            //SC_M2.Modules.ImageList image = new SC_M2.Modules.ImageList();
+            //image.model_id = model.id;
+            var list = Modules.ImageList.GetModel(model.id);
             foreach(var item in list)
             {
                 var pb = new PictureBox();
@@ -280,9 +278,15 @@ namespace SC_M2
         
         private void deleteImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Images.Get();
-            Images.Delete();
-            renderPicture();
+            try
+            {
+                Images.Get();
+                Images.Delete();
+                renderPicture();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

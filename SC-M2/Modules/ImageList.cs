@@ -34,7 +34,7 @@ namespace SC_M2.Modules
         {
             return SQliteDataAccess.GetAll<ImageList>("image");
         }
-        public List<ImageList> GetModel()
+        public static List<ImageList> GetModel(int model_id)
         {
             return SQliteDataAccess.GetRow<ImageList>("select * from image where model_id = " + model_id);
         }
