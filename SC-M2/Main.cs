@@ -28,16 +28,18 @@ namespace SC_M2
         }
         public string[] baudList = { "9600", "19200", "38400", "57600", "115200" };
 
-        private bool isCameraOpen = false;
-        private bool isConnection = false;
+        //private bool isCameraOpen = false;
+        //private bool isConnection = false;
 
         private string _path = @"./system";
-        
+
+        int Count = 0;
         private OpenCvSharp.VideoCapture capture;
         private bool IsCapture;
         
         private void Main_Load(object sender, EventArgs e)
         {
+            reloadTable();
             var videoDevices = new List<DsDevice>(DsDevice.GetDevicesOfCat(FilterCategory.VideoInputDevice));
             foreach (var device in videoDevices)
             {
@@ -59,16 +61,20 @@ namespace SC_M2
             this.ActiveControl = tbName;
             tbName.Focus();
 
-            toolStripStatusLabelConnect.Text = "Not Connected";
+            toolStripStatusLabelConnectControl.Text = "Not Connected";
             string log = "/temp";
             //string[] files = Directory.GetFiles(_path + log);
             DirectoryInfo yourRootDir = new DirectoryInfo(_path + log);
+            if (!Directory.Exists(_path + log))
+            {
+                Directory.CreateDirectory(_path + log);
+            }
+            
             foreach (FileInfo file in yourRootDir.GetFiles())
                 if (file.LastWriteTime < DateTime.Now.AddDays(-7))
                     file.Delete();
 
-            reloadTable();
-
+            timerCouter.Start();
         }
 
 
@@ -87,7 +93,18 @@ namespace SC_M2
                             tbQrcode.Focus();
                             break;
                         case "tbQrcode":
+                            if (pictureBoxC.Image == null || capture == null)
+                            {
+                                btConnect.PerformClick();
+                            }
                             Processing();
+                            tbQrcode.Select();
+                            this.ActiveControl = tbQrcode;
+                            tbQrcode.Focus();
+                            if (!timerCouter.Enabled)
+                            {
+                                timerCouter.Start();
+                            }
                             break;
                     }
                 }
@@ -98,9 +115,12 @@ namespace SC_M2
             
         }
         Modules.Model model = new Modules.Model();
-        private void Processing()
+        private async void Processing()
         {
-            using(History history = new History())
+            SetOutput("L");
+            Count = 0;
+            await Task.Delay(100);
+            using (History history = new History())
             {
                 history.name = tbName.Text;
                 history.qrcode = tbQrcode.Text;
@@ -109,18 +129,28 @@ namespace SC_M2
                 history.model = name;
                 if (list.Count > 0)
                 {
+
                     if (ImageProcessing(list[0].id)){
-                        Console.WriteLine("true");
+                        //Console.WriteLine("true");
                         history.judgement = "OK";
+                        SetOutput("OK");
+                        sendSerialData("OK");
                     }
                     else
                     {
-                        Console.WriteLine("false");
+                        //Console.WriteLine("false");
                         history.judgement = "NG";
+                        SetOutput("NG");
                     }
+                }
+                else
+                {
+                    history.judgement = "NG";
+                    SetOutput("NG");
                 }
                 history.Save();
                 reloadTable();
+                tbQrcode.Text = "";
             }
         }
 
@@ -137,8 +167,10 @@ namespace SC_M2
 
             var list = Modules.ImageList.GetModel(model_id);
             if (list.Count == 0 )
-                return false;
+                throw new Exception("Not found image in model");
 
+
+            
             string log = "/temp";
             using (Bitmap bmpC = new Bitmap(pictureBoxC.Image))
             {
@@ -167,11 +199,14 @@ namespace SC_M2
                         Console.WriteLine(compare.ToString()+"%");
 
 
-                        string logpath = System.IO.Path.Combine(_path, DateTime.Now.ToString("yyyy-MM-dd_HH")+"-Log.txt");
+                        string logpath = _path+"/log/"+ DateTime.Now.ToString("yyyy-MM-dd_HH")+"-Log.txt";
+
+                        if (!Directory.Exists(_path + "/log/"))
+                            Directory.CreateDirectory(_path + "/log/");
+
                         if (!File.Exists(logpath))
-                        {
                             File.Create(logpath).Dispose();
-                        }
+                        
                         // Add text log
                         using (StreamWriter sw = File.AppendText(logpath))
                         {
@@ -207,7 +242,6 @@ namespace SC_M2
                 var diffImage = new Image<Gray, byte>(imageMaster.Width, imageMaster.Height);
                 // Get the image of different pixels.
                 CvInvoke.AbsDiff(imageMaster, imageSlave, diffImage);
-
                 var threadholdImage = new Image<Gray, byte>(imageMaster.Width, imageMaster.Height);
                 // Check the pixies difference.
                 // For instance, if difference between the same pixel on both image are less then 20,
@@ -280,6 +314,10 @@ namespace SC_M2
             tbQrcode.Select();
             this.ActiveControl = tbQrcode;
             tbQrcode.Focus();
+
+            // Serial
+            ConnectionSerial();
+            
         }
 
         private void SetSizeImage(string name = "HD")
@@ -312,6 +350,12 @@ namespace SC_M2
                 IsCapture = false;
                 timerVideo.Stop();
                 pictureBoxC.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+
+            if (timerCouter.Enabled)
+            {
+                timerCouter.Stop();
+                Count = 0;
             }
 
         }
@@ -353,15 +397,36 @@ namespace SC_M2
         {
             DisposeCaptureResources();
         }
-
+        private void SetOutput(string input="wait")
+        {
+            switch (input.ToUpper())
+            {
+                case "OK":
+                    lbOutput.Text = "OK";
+                    lbOutput.BackColor = Color.Green;
+                    break;
+                case "NG":
+                    lbOutput.Text = "NG";
+                    lbOutput.BackColor = Color.Red;
+                    break;
+                case "L":
+                    lbOutput.Text = "Loading..";
+                    lbOutput.BackColor = Color.Yellow;
+                    break;
+                case "WAIT":
+                    lbOutput.Text = "Wait..";
+                    lbOutput.BackColor = Color.Transparent;
+                    break;
+            }
+        }
         private void reloadTable()
         {
             try
             {
                 dataGridView1.DataSource = null;
-                var h = History.GetAll();
+                var table = History.GetAll();
                 int num = 1;
-                var ml2 = (from x in h
+                var ml2 = (from x in table
                            select new
                            {
                                ID = x.id,
@@ -370,8 +435,9 @@ namespace SC_M2
                                Model = x.model,
                                Qr_Code = x.qrcode,
                                Juggement = x.judgement,
-                               Date = x.created_at,
+                               x.created_at
                            }).ToList();
+                
                 dataGridView1.DataSource = ml2;
                 dataGridView1.Columns[0].Visible = false;
                 dataGridView1.Columns[1].Width = (int)(dataGridView1.Width * 0.1);
@@ -381,6 +447,70 @@ namespace SC_M2
                 MessageBox.Show(ex.Message, "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
            
+        }
+        
+        private void timerCouter_Tick(object sender, EventArgs e)
+        {
+            Count++;
+            if (Count > 60)
+            {
+                Count = 0;
+            }
+
+            if (serialPort.IsOpen)
+            {
+                toolStripStatusLabelConnectControl.Text = "Disconnection";
+                toolStripStatusLabelConnectControl.BackColor = Color.Red;
+            }
+        }
+
+        public bool ConnectionSerial()
+        {
+            if (!serialPort.IsOpen)
+            {
+                serialPort.Close();
+            }
+            try
+            {
+                serialPort.PortName = comboBoxComPort.SelectedItem.ToString();
+                serialPort.BaudRate = Int32.Parse(comboBoxBaudRate.SelectedItem.ToString());
+                serialPort.Open();
+                toolStripStatusLabelConnectControl.Text = "Connection: " + comboBoxComPort.SelectedItem.ToString() + " " + comboBoxBaudRate.SelectedItem.ToString();
+                toolStripStatusLabelConnectControl.ForeColor = Color.Green;
+                sendSerialData("Conn");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("E008 " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return serialPort.IsOpen;
+        }
+
+        public void sendSerialData(string data)
+        {
+            try
+            {
+                toolStripStatusData.Text = String.Empty;
+                toolStripStatusData.Text = "Data: " + data;
+                if (serialPort.IsOpen)
+                {
+                    serialPort.Write(">" + data.ToUpper() + "<#");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void connectControllerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConnectionSerial();
+        }
+
+        private void connectCameraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btConnect.PerformClick();
         }
     }
 }

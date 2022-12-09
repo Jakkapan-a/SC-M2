@@ -29,19 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabelConnect = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelConnectControl = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusData = new System.Windows.Forms.ToolStripStatusLabel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBoxC = new System.Windows.Forms.PictureBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tbQrcode = new System.Windows.Forms.TextBox();
             this.tbName = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lbOutput = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btConnect = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -52,72 +51,52 @@
             this.comboBoxComPort = new System.Windows.Forms.ComboBox();
             this.serialPort = new System.IO.Ports.SerialPort(this.components);
             this.timerVideo = new System.Windows.Forms.Timer(this.components);
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.timerCouter = new System.Windows.Forms.Timer(this.components);
+            this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.connectControllerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.connectCameraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBoxC = new System.Windows.Forms.PictureBox();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxC)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxC)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabelConnect});
+            this.toolStripStatusLabelConnectControl,
+            this.toolStripStatusData});
             this.statusStrip1.Location = new System.Drawing.Point(0, 571);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(913, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripStatusLabelConnect
+            // toolStripStatusLabelConnectControl
             // 
-            this.toolStripStatusLabelConnect.Name = "toolStripStatusLabelConnect";
-            this.toolStripStatusLabelConnect.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabelConnect.Text = "toolStripStatusLabel1";
+            this.toolStripStatusLabelConnectControl.Name = "toolStripStatusLabelConnectControl";
+            this.toolStripStatusLabelConnectControl.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabelConnectControl.Text = "toolStripStatusLabel1";
+            // 
+            // toolStripStatusData
+            // 
+            this.toolStripStatusData.Name = "toolStripStatusData";
+            this.toolStripStatusData.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusData.Text = "toolStripStatusLabel1";
             // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.settingToolStripMenuItem});
+            this.settingToolStripMenuItem,
+            this.connectControllerToolStripMenuItem,
+            this.connectCameraToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(112, 26);
-            // 
-            // settingToolStripMenuItem
-            // 
-            this.settingToolStripMenuItem.Image = global::SC_M2.Properties.Resources.settings_32;
-            this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
-            this.settingToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
-            this.settingToolStripMenuItem.Text = "Setting";
-            this.settingToolStripMenuItem.Click += new System.EventHandler(this.settingToolStripMenuItem_Click);
-            // 
-            // pictureBoxC
-            // 
-            this.pictureBoxC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxC.BackColor = System.Drawing.Color.DimGray;
-            this.pictureBoxC.Location = new System.Drawing.Point(12, 12);
-            this.pictureBoxC.Name = "pictureBoxC";
-            this.pictureBoxC.Size = new System.Drawing.Size(575, 424);
-            this.pictureBoxC.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxC.TabIndex = 1;
-            this.pictureBoxC.TabStop = false;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 443);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(575, 125);
-            this.dataGridView1.TabIndex = 2;
+            this.contextMenuStrip1.Size = new System.Drawing.Size(176, 70);
             // 
             // groupBox1
             // 
@@ -178,7 +157,7 @@
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.lbOutput);
             this.groupBox2.Location = new System.Drawing.Point(593, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(10);
@@ -187,16 +166,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "JUDGEMENT";
             // 
-            // label3
+            // lbOutput
             // 
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(10, 23);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(288, 119);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Wait..";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbOutput.Location = new System.Drawing.Point(10, 23);
+            this.lbOutput.Name = "lbOutput";
+            this.lbOutput.Size = new System.Drawing.Size(288, 119);
+            this.lbOutput.TabIndex = 0;
+            this.lbOutput.Text = "Wait..";
+            this.lbOutput.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBox3
             // 
@@ -284,18 +263,83 @@
             this.timerVideo.Interval = 45;
             this.timerVideo.Tick += new System.EventHandler(this.timerVideo_Tick);
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView1.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGridView1.Location = new System.Drawing.Point(12, 441);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToFirstHeader;
+            this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(575, 120);
+            this.dataGridView1.TabIndex = 5;
+            // 
+            // timerCouter
+            // 
+            this.timerCouter.Interval = 2000;
+            this.timerCouter.Tick += new System.EventHandler(this.timerCouter_Tick);
+            // 
+            // settingToolStripMenuItem
+            // 
+            this.settingToolStripMenuItem.Image = global::SC_M2.Properties.Resources.settings_32;
+            this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
+            this.settingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.settingToolStripMenuItem.Text = "Setting";
+            this.settingToolStripMenuItem.Click += new System.EventHandler(this.settingToolStripMenuItem_Click);
+            // 
+            // connectControllerToolStripMenuItem
+            // 
+            this.connectControllerToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
+            this.connectControllerToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.connectControllerToolStripMenuItem.Image = global::SC_M2.Properties.Resources.USB_Connector_32;
+            this.connectControllerToolStripMenuItem.Name = "connectControllerToolStripMenuItem";
+            this.connectControllerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.connectControllerToolStripMenuItem.Text = "Connect Controller";
+            this.connectControllerToolStripMenuItem.Click += new System.EventHandler(this.connectControllerToolStripMenuItem_Click);
+            // 
+            // connectCameraToolStripMenuItem
+            // 
+            this.connectCameraToolStripMenuItem.Image = global::SC_M2.Properties.Resources.camera_32;
+            this.connectCameraToolStripMenuItem.Name = "connectCameraToolStripMenuItem";
+            this.connectCameraToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.connectCameraToolStripMenuItem.Text = "Connect Camera";
+            this.connectCameraToolStripMenuItem.Click += new System.EventHandler(this.connectCameraToolStripMenuItem_Click);
+            // 
+            // pictureBoxC
+            // 
+            this.pictureBoxC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxC.BackColor = System.Drawing.Color.DimGray;
+            this.pictureBoxC.Location = new System.Drawing.Point(12, 12);
+            this.pictureBoxC.Name = "pictureBoxC";
+            this.pictureBoxC.Size = new System.Drawing.Size(575, 424);
+            this.pictureBoxC.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxC.TabIndex = 1;
+            this.pictureBoxC.TabStop = false;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(913, 593);
             this.ContextMenuStrip = this.contextMenuStrip1;
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.pictureBoxC);
             this.Controls.Add(this.statusStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(929, 632);
             this.Name = "Main";
             this.Text = "Form1";
@@ -304,13 +348,13 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxC)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxC)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -321,14 +365,13 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.PictureBox pictureBoxC;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox tbQrcode;
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lbOutput;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ComboBox comboBoxComPort;
         private System.Windows.Forms.ComboBox comboBoxCameraDevice;
@@ -340,7 +383,12 @@
         private System.IO.Ports.SerialPort serialPort;
         private System.Windows.Forms.Timer timerVideo;
         private System.Windows.Forms.ToolStripMenuItem settingToolStripMenuItem;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelConnect;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelConnectControl;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Timer timerCouter;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusData;
+        private System.Windows.Forms.ToolStripMenuItem connectControllerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem connectCameraToolStripMenuItem;
     }
 }
 

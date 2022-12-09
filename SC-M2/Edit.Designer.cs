@@ -29,13 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Edit));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel_ImageID = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.contextMenuStripSeleteImage = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnUpdate = new System.Windows.Forms.Button();
@@ -51,21 +56,17 @@
             this.btnCapture = new System.Windows.Forms.Button();
             this.btnConnect = new System.Windows.Forms.Button();
             this.timerVideo = new System.Windows.Forms.Timer(this.components);
-            this.contextMenuStripSeleteImage = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.deleteImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripStatusLabel_ImageID = new System.Windows.Forms.ToolStripStatusLabel();
-            this.btnDelete = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.contextMenuStripSeleteImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbAccept)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.panelPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxC)).BeginInit();
-            this.contextMenuStripSeleteImage.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -77,6 +78,12 @@
             this.statusStrip1.Size = new System.Drawing.Size(908, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel_ImageID
+            // 
+            this.toolStripStatusLabel_ImageID.Name = "toolStripStatusLabel_ImageID";
+            this.toolStripStatusLabel_ImageID.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel_ImageID.Text = "toolStripStatusLabel1";
             // 
             // tabControl1
             // 
@@ -130,6 +137,20 @@
             this.flowLayoutPanel.Size = new System.Drawing.Size(557, 301);
             this.flowLayoutPanel.TabIndex = 0;
             // 
+            // contextMenuStripSeleteImage
+            // 
+            this.contextMenuStripSeleteImage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteImageToolStripMenuItem});
+            this.contextMenuStripSeleteImage.Name = "contextMenuStripSeleteImage";
+            this.contextMenuStripSeleteImage.Size = new System.Drawing.Size(144, 26);
+            // 
+            // deleteImageToolStripMenuItem
+            // 
+            this.deleteImageToolStripMenuItem.Name = "deleteImageToolStripMenuItem";
+            this.deleteImageToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.deleteImageToolStripMenuItem.Text = "Delete Image";
+            this.deleteImageToolStripMenuItem.Click += new System.EventHandler(this.deleteImageToolStripMenuItem_Click);
+            // 
             // dataGridView1
             // 
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -160,6 +181,17 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Information";
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnDelete.Location = new System.Drawing.Point(7, 296);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.TabIndex = 6;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // label4
             // 
@@ -322,37 +354,6 @@
             this.timerVideo.Interval = 45;
             this.timerVideo.Tick += new System.EventHandler(this.timerVideo_Tick);
             // 
-            // contextMenuStripSeleteImage
-            // 
-            this.contextMenuStripSeleteImage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deleteImageToolStripMenuItem});
-            this.contextMenuStripSeleteImage.Name = "contextMenuStripSeleteImage";
-            this.contextMenuStripSeleteImage.Size = new System.Drawing.Size(144, 26);
-            // 
-            // deleteImageToolStripMenuItem
-            // 
-            this.deleteImageToolStripMenuItem.Name = "deleteImageToolStripMenuItem";
-            this.deleteImageToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.deleteImageToolStripMenuItem.Text = "Delete Image";
-            this.deleteImageToolStripMenuItem.Click += new System.EventHandler(this.deleteImageToolStripMenuItem_Click);
-            // 
-            // toolStripStatusLabel_ImageID
-            // 
-            this.toolStripStatusLabel_ImageID.Name = "toolStripStatusLabel_ImageID";
-            this.toolStripStatusLabel_ImageID.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel_ImageID.Text = "toolStripStatusLabel1";
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnDelete.Location = new System.Drawing.Point(7, 296);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
-            this.btnDelete.TabIndex = 6;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
             // Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -360,6 +361,7 @@
             this.ClientSize = new System.Drawing.Size(908, 578);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit";
@@ -370,6 +372,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.contextMenuStripSeleteImage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -377,7 +380,6 @@
             this.tabPage2.ResumeLayout(false);
             this.panelPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxC)).EndInit();
-            this.contextMenuStripSeleteImage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

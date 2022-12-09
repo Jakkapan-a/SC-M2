@@ -19,14 +19,17 @@ namespace SC_M2.Modules
         public string qrcode { get; set; }
         [DisplayName("Judgement")]
         public string judgement { get; set; }
-       
+        [DisplayName("DateTime")]
         public string created_at { get; set; }
         public string updated_at { get; set; }
         void IDisposable.Dispose()
         {
-            
+
         }
-        public static List<History> GetAll() => SQliteDataAccess.GetAll<History>("history");
+        public static List<History> GetAll() 
+        {
+           return SQliteDataAccess.GetAll<History>("history");
+        }
 
         public List<History> GetRow(string sql) => SQliteDataAccess.GetRow<History>(sql);
 

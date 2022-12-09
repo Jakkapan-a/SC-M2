@@ -20,7 +20,16 @@ namespace SC_M2.Modules
                 return output.ToList();
             }
         }
-
+        // GetAllNolimit
+        public static List<T> GetAllNolimit<T>(string table_name)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<T>("select * from " + table_name + " order by id desc", new DynamicParameters());
+                return output.ToList();
+            }
+        }
+        
         public static List<T> GetRow<T>(string sql)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))

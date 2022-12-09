@@ -36,7 +36,7 @@ namespace SC_M2.Modules
             this.updated_at = data[0].updated_at;
 
         }
-        public static List<Model> GetAll() => SQliteDataAccess.GetAll<Model>("model");
+        public static List<Model> GetAll() => SQliteDataAccess.GetAllNolimit<Model>("model");
         
 
         public static List<Model> GetRow(string sql) => SQliteDataAccess.GetRow<Model>(sql);
