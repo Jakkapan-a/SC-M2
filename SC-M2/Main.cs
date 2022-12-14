@@ -63,26 +63,11 @@ namespace SC_M2
 
             toolStripStatusLabelConnectControl.Text = "Not Connected";
             string log = "/temp";
-            //string[] files = Directory.GetFiles(_path + log);
-            DirectoryInfo yourRootDir = new DirectoryInfo(_path + log);
-            if (!Directory.Exists(_path + log))
+
+            Task.Run(() =>
             {
-                Directory.CreateDirectory(_path + log);
-            }
-            
-            try
-            {
-                foreach (FileInfo file in yourRootDir.GetFiles())
-                {
-                    if (file.LastWriteTime < DateTime.Now.AddDays(-1))
-                    { 
-                        file.Delete(); 
-                    }
-                }
-            }catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+                deleteFile();
+            });
 
             timerCouter.Start();
             toolStripStatusLabelConnectControl.Text = "";
@@ -104,11 +89,31 @@ namespace SC_M2
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Exclamation", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
-            }
-
+            }   
         }
 
+      
+        private void deleteFile()
+        {
+            string log = "/temp";
+            DirectoryInfo yourRootDir = new DirectoryInfo(_path + log);
+            if (!Directory.Exists(_path + log))
+            {
+                Directory.CreateDirectory(_path + log);
+            }
 
+            try
+            {
+                foreach (FileInfo file in yourRootDir.GetFiles())
+                    if (file.LastWriteTime < DateTime.Now.AddDays(-1))
+                        file.Delete();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
         private void _KeyDown(object sender, KeyEventArgs e)
         {
             try
