@@ -27,16 +27,11 @@ namespace SC_M2.Modules
         public static List<Delete_image> GetAll() => SQliteDataAccess.GetAll<Delete_image>("delete_image");
         
 
-        public List<Delete_image> GetRow(string sql)
-        {
-            return SQliteDataAccess.GetRow<Delete_image>(sql);
-        }
-
-        public List<Delete_image> GetRow(int id)
-        {
-            return SQliteDataAccess.GetRow<Delete_image>("select * from delete_image where id = " + id);
-        }
-
+        public static List<Delete_image> GetRow(string sql) => SQliteDataAccess.GetRow<Delete_image>(sql);
+        
+        
+        public static List<Delete_image> GetRow(int id) => SQliteDataAccess.GetRow<Delete_image>("select * from delete_image where id = " + id);
+        
         public void Save()
         {
             string sql = "INSERT INTO delete_image (id, name, path, created_at) VALUES (@id, @name, @path, @created_at)";

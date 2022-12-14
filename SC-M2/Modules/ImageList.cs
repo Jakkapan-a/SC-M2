@@ -30,24 +30,14 @@ namespace SC_M2.Modules
             this.updated_at = GetDateTimeNow();
         }
 
-        public List<ImageList> GetAll()
-        {
-            return SQliteDataAccess.GetAll<ImageList>("image");
-        }
-        public static List<ImageList> GetModel(int model_id)
-        {
-            return SQliteDataAccess.GetRow<ImageList>("select * from image where model_id = " + model_id);
-        }
-        public List<ImageList> GetRow(string sql)
-        {
-            return SQliteDataAccess.GetRow<ImageList>(sql);
-        }
-
-        public List<ImageList> GetRow(int id)
-        {
-            return SQliteDataAccess.GetRow<ImageList>("select * from image where id = " + id);
-        }
-
+        public static List<ImageList> GetAll() => SQliteDataAccess.GetAll<ImageList>("image");
+        
+        public static List<ImageList> GetModel(int model_id) => SQliteDataAccess.GetRow<ImageList>("select * from image where model_id = " + model_id);
+        
+        public static List<ImageList> GetRow(string sql)=>SQliteDataAccess.GetRow<ImageList>(sql);
+        
+        public static List<ImageList> GetRow(int id) => SQliteDataAccess.GetRow<ImageList>("select * from image where id = " + id);
+        
         public void Get()
         {
             var data = SQliteDataAccess.GetRow<ImageList>("select * from image where id = " + id);

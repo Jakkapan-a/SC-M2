@@ -26,16 +26,12 @@ namespace SC_M2.Modules
         {
 
         }
-        public static List<History> GetAll() 
-        {
-           return SQliteDataAccess.GetAll<History>("history");
-        }
-
-        public List<History> GetRow(string sql) => SQliteDataAccess.GetRow<History>(sql);
-
-        public List<History> GetRow(int id) => SQliteDataAccess.GetRow<History>("select * from history where id = " + id);
+        public static List<History> GetAll() => SQliteDataAccess.GetAll<History>("history");
         
+        public static List<History> GetRow(string sql) => SQliteDataAccess.GetRow<History>(sql);
 
+        public static List<History> GetRow(int id) => SQliteDataAccess.GetRow<History>("select * from history where id = " + id);
+        
         public void Get()
         {
             var data = SQliteDataAccess.GetRow<History>("select * from history where id = " + id);
