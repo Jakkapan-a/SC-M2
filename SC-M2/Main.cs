@@ -529,7 +529,7 @@ namespace SC_M2
             try
             {
                 toolStripStatusData.Text = String.Empty;
-                toolStripStatusData.Text = "Data: " + data;
+                toolStripStatusData.Text = "Data : " + data;
                 if (serialPort.IsOpen)
                 {
                     serialPort.Write(">" + data.ToUpper() + "<#");
