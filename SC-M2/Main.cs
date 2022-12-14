@@ -519,7 +519,7 @@ namespace SC_M2
             }
             catch(Exception ex)
             {
-                MessageBox.Show("E008 " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("E008 :" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return serialPort.IsOpen;
         }
