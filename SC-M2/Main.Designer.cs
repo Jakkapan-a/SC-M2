@@ -33,7 +33,11 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelConnectControl = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusData = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelData = new System.Windows.Forms.ToolStripStatusLabel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.connectControllerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.connectCameraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -53,9 +57,6 @@
             this.timerVideo = new System.Windows.Forms.Timer(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.timerCouter = new System.Windows.Forms.Timer(this.components);
-            this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.connectControllerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.connectCameraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBoxC = new System.Windows.Forms.PictureBox();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -70,7 +71,8 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelConnectControl,
-            this.toolStripStatusData});
+            this.toolStripStatusData,
+            this.toolStripStatusLabelData});
             this.statusStrip1.Location = new System.Drawing.Point(0, 571);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(913, 22);
@@ -89,6 +91,12 @@
             this.toolStripStatusData.Size = new System.Drawing.Size(118, 17);
             this.toolStripStatusData.Text = "toolStripStatusLabel1";
             // 
+            // toolStripStatusLabelData
+            // 
+            this.toolStripStatusLabelData.Name = "toolStripStatusLabelData";
+            this.toolStripStatusLabelData.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabelData.Text = "toolStripStatusLabel1";
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -97,6 +105,32 @@
             this.connectCameraToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(176, 70);
+            // 
+            // settingToolStripMenuItem
+            // 
+            this.settingToolStripMenuItem.Image = global::SC_M2.Properties.Resources.settings_32;
+            this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
+            this.settingToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.settingToolStripMenuItem.Text = "Setting";
+            this.settingToolStripMenuItem.Click += new System.EventHandler(this.settingToolStripMenuItem_Click);
+            // 
+            // connectControllerToolStripMenuItem
+            // 
+            this.connectControllerToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
+            this.connectControllerToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.connectControllerToolStripMenuItem.Image = global::SC_M2.Properties.Resources.USB_Connector_32;
+            this.connectControllerToolStripMenuItem.Name = "connectControllerToolStripMenuItem";
+            this.connectControllerToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.connectControllerToolStripMenuItem.Text = "Connect Controller";
+            this.connectControllerToolStripMenuItem.Click += new System.EventHandler(this.connectControllerToolStripMenuItem_Click);
+            // 
+            // connectCameraToolStripMenuItem
+            // 
+            this.connectCameraToolStripMenuItem.Image = global::SC_M2.Properties.Resources.camera_32;
+            this.connectCameraToolStripMenuItem.Name = "connectCameraToolStripMenuItem";
+            this.connectCameraToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.connectCameraToolStripMenuItem.Text = "Connect Camera";
+            this.connectCameraToolStripMenuItem.Click += new System.EventHandler(this.connectCameraToolStripMenuItem_Click);
             // 
             // groupBox1
             // 
@@ -271,14 +305,12 @@
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridView1.Location = new System.Drawing.Point(12, 441);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToFirstHeader;
-            this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(575, 120);
             this.dataGridView1.TabIndex = 5;
@@ -287,32 +319,6 @@
             // 
             this.timerCouter.Interval = 2000;
             this.timerCouter.Tick += new System.EventHandler(this.timerCouter_Tick);
-            // 
-            // settingToolStripMenuItem
-            // 
-            this.settingToolStripMenuItem.Image = global::SC_M2.Properties.Resources.settings_32;
-            this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
-            this.settingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.settingToolStripMenuItem.Text = "Setting";
-            this.settingToolStripMenuItem.Click += new System.EventHandler(this.settingToolStripMenuItem_Click);
-            // 
-            // connectControllerToolStripMenuItem
-            // 
-            this.connectControllerToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
-            this.connectControllerToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.connectControllerToolStripMenuItem.Image = global::SC_M2.Properties.Resources.USB_Connector_32;
-            this.connectControllerToolStripMenuItem.Name = "connectControllerToolStripMenuItem";
-            this.connectControllerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.connectControllerToolStripMenuItem.Text = "Connect Controller";
-            this.connectControllerToolStripMenuItem.Click += new System.EventHandler(this.connectControllerToolStripMenuItem_Click);
-            // 
-            // connectCameraToolStripMenuItem
-            // 
-            this.connectCameraToolStripMenuItem.Image = global::SC_M2.Properties.Resources.camera_32;
-            this.connectCameraToolStripMenuItem.Name = "connectCameraToolStripMenuItem";
-            this.connectCameraToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.connectCameraToolStripMenuItem.Text = "Connect Camera";
-            this.connectCameraToolStripMenuItem.Click += new System.EventHandler(this.connectCameraToolStripMenuItem_Click);
             // 
             // pictureBoxC
             // 
@@ -342,7 +348,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(929, 632);
             this.Name = "Main";
-            this.Text = "Form1";
+            this.Text = "731TMC ECU INSPECTION SOFTWARE";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
             this.statusStrip1.ResumeLayout(false);
@@ -389,6 +395,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusData;
         private System.Windows.Forms.ToolStripMenuItem connectControllerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem connectCameraToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelData;
     }
 }
 

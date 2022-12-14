@@ -70,11 +70,42 @@ namespace SC_M2
                 Directory.CreateDirectory(_path + log);
             }
             
-            foreach (FileInfo file in yourRootDir.GetFiles())
-                if (file.LastWriteTime < DateTime.Now.AddDays(-7))
-                    file.Delete();
+            try
+            {
+                foreach (FileInfo file in yourRootDir.GetFiles())
+                {
+                    if (file.LastWriteTime < DateTime.Now.AddDays(-1))
+                    { 
+                        file.Delete(); 
+                    }
+                }
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
             timerCouter.Start();
+            toolStripStatusLabelConnectControl.Text = "";
+            toolStripStatusData.Text = "Ready";
+            toolStripStatusLabelData.Text = "";
+
+            try
+            {
+                var delete = Delete_image.GetAll();
+                foreach (var item in delete)
+                {
+                    if (File.Exists(item.path))
+                    {
+                        File.Delete(item.path);
+                        item.Delete();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Exclamation", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+            }
+
         }
 
 
@@ -457,16 +488,16 @@ namespace SC_M2
                 Count = 0;
             }
 
-            if (serialPort.IsOpen)
+            if (!serialPort.IsOpen)
             {
                 toolStripStatusLabelConnectControl.Text = "Disconnection";
-                toolStripStatusLabelConnectControl.BackColor = Color.Red;
+                toolStripStatusLabelConnectControl.ForeColor = Color.Red;
             }
         }
 
         public bool ConnectionSerial()
         {
-            if (!serialPort.IsOpen)
+            if (serialPort.IsOpen)
             {
                 serialPort.Close();
             }

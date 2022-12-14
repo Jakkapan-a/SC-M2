@@ -13,6 +13,9 @@ namespace SC_M2.Modules
         public string path { get; set; }
         public string created_at { get; set; }
 
+        public Delete_image()
+        {
+        }
         public Delete_image(string name, string path)
         {
             this.id = id;
@@ -21,10 +24,8 @@ namespace SC_M2.Modules
             this.created_at = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
-        public List<Delete_image> GetAll()
-        {
-            return SQliteDataAccess.GetAll<Delete_image>("delete_image");
-        }
+        public static List<Delete_image> GetAll() => SQliteDataAccess.GetAll<Delete_image>("delete_image");
+        
 
         public List<Delete_image> GetRow(string sql)
         {

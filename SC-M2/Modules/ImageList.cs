@@ -89,6 +89,8 @@ namespace SC_M2.Modules
         public void Delete()
         {
             string sql = "delete from image where id = @id";
+            var delete = new Delete_image(name, path);
+            delete.Save();
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@id", id);
             SQliteDataAccess.Update(sql, parameters);
@@ -96,6 +98,14 @@ namespace SC_M2.Modules
         public void Delete(int model_id)
         {
             string sql = "delete from image where model_id = @id";
+
+            var all = GetModel(model_id);
+           
+            foreach (var i in all)
+            {
+                var delete = new Delete_image(i.name,i.path);
+                delete.Save();
+            }
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@id", model_id);
             SQliteDataAccess.Update(sql, parameters);
