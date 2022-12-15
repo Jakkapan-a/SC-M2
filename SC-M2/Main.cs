@@ -132,6 +132,8 @@ namespace SC_M2
                             if (pictureBoxC.Image == null || capture == null)
                             {
                                 btConnect.PerformClick();
+                                SetOutput("LO");
+                                Task.Delay(700);
                             }
                             Processing();
                             tbQrcode.Select();
@@ -304,8 +306,8 @@ namespace SC_M2
         {
             try
             {
-                var imgScene = imageSlave.ToImage<Bgr, byte>();// new Bitmap(@"D:\CPush\Image\008.JPG").ToImage<Bgr, byte>(); // Image imput
-                var template = imageMaster.ToImage<Bgr, byte>(); // new Bitmap(@"D:\CPush\Image\007.JPG").ToImage<Bgr, byte>(); // Master 
+                var imgScene = imageSlave.ToImage<Bgr, byte>();     //  Image imput
+                var template = imageMaster.ToImage<Bgr, byte>();    // Master 
                 string pathCurrent = Directory.GetCurrentDirectory();
 
                 Mat imgout = new Mat();
@@ -321,13 +323,11 @@ namespace SC_M2
                 Rectangle r = new Rectangle(maxLoc, template.Size);
                 var imgCrop = imgScene.Copy(r);
                 CvInvoke.Rectangle(imgScene, r, new MCvScalar(0, 0, 255), 2);
-                //this.pictureBox2.Image = imgScene.ToBitmap();
 
                 if (pathSave != null)
                 {
                     imgScene.Save(pathSave);
                 }
-                //this.pictureBox1.Hide();
                 return imgCrop.ToBitmap();
             }
             catch (Exception ex)
@@ -445,8 +445,12 @@ namespace SC_M2
                     lbOutput.Text = "NG";
                     lbOutput.BackColor = Color.Red;
                     break;
+                case "LO":
+                    lbOutput.Text = "Loading.";
+                    lbOutput.BackColor = Color.Yellow;
+                    break;
                 case "L":
-                    lbOutput.Text = "Loading..";
+                    lbOutput.Text = "Loading...";
                     lbOutput.BackColor = Color.Yellow;
                     break;
                 case "WAIT":
@@ -473,7 +477,7 @@ namespace SC_M2
                                Model = x.model,
                                Qr_Code = x.qrcode,
                                Juggement = x.judgement,
-                               x.created_at
+                               Date = x.created_at
                            }).ToList();
                 
                 dataGridView1.DataSource = ml2;
@@ -519,7 +523,7 @@ namespace SC_M2
             }
             catch(Exception ex)
             {
-                MessageBox.Show("E008 :" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("E008" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return serialPort.IsOpen;
         }
