@@ -135,6 +135,12 @@ namespace SC_M2
                                 SetOutput("LO");
                                 Task.Delay(700);
                             }
+                            if (tbName.Text == "" || tbQrcode.Text == "")
+                            {
+                                MessageBox.Show("Please enter the name and QR code", "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                return;
+                            }
+                            
                             Processing();
                             tbQrcode.Select();
                             this.ActiveControl = tbQrcode;
@@ -167,19 +173,23 @@ namespace SC_M2
                 history.model = name;
                 if (list.Count > 0)
                 {
-
-                    if (ImageProcessing(list[0].id)){
+                    string result = "";
+                     if (ImageProcessing(list[0].id)){
                         //Console.WriteLine("true");
                         history.judgement = "OK";
-                        SetOutput("OK");
-                        sendSerialData("OK");
+                        result = "OK";
+                        sendSerialData(result);
+                        SetOutput(result);
                     }
                     else
                     {
                         //Console.WriteLine("false");
                         history.judgement = "NG";
-                        SetOutput("NG");
+                        result = "NG";
+                        sendSerialData(result);
+                        SetOutput(result);
                     }
+
                 }
                 else
                 {
@@ -254,7 +264,7 @@ namespace SC_M2
                             sw.WriteLine("Image 2 : " + image2);
                             sw.WriteLine("Result : " + compare +"%");
                         }
-                        
+                        toolStripStatusLabelData.Text = "RATE : "+compare.ToString() + "%";
                         if (compare < model.percent)
                         {
                             return false;
@@ -537,6 +547,21 @@ namespace SC_M2
                 if (serialPort.IsOpen)
                 {
                     serialPort.Write(">" + data.ToUpper() + "<#");
+
+                    string logpath = _path + "/log/" + DateTime.Now.ToString("yyyy-MM-dd_HH") + "-Log.txt";
+
+                    if (!Directory.Exists(_path + "/log/"))
+                        Directory.CreateDirectory(_path + "/log/");
+
+                    if (!File.Exists(logpath))
+                        File.Create(logpath).Dispose();
+
+                    // Add text log
+                    using (StreamWriter sw = File.AppendText(logpath))
+                    {
+                        sw.WriteLine("dt-Time : " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                        sw.WriteLine("Data : " + data);
+                    }
                 }
             }
             catch (Exception ex)

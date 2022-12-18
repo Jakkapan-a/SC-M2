@@ -18,7 +18,6 @@ namespace SC_M2.Modules
         }
         public Delete_image(string name, string path)
         {
-            this.id = id;
             this.name = name;
             this.path = path;
             this.created_at = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -34,9 +33,8 @@ namespace SC_M2.Modules
         
         public void Save()
         {
-            string sql = "INSERT INTO delete_image (id, name, path, created_at) VALUES (@id, @name, @path, @created_at)";
+            string sql = "INSERT INTO delete_image (name, path, created_at) VALUES (@name, @path, @created_at)";
             Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("@id", id);
             parameters.Add("@name", name);
             parameters.Add("@path", path);
             parameters.Add("@created_at", created_at);

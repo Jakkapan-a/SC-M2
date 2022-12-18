@@ -282,6 +282,7 @@ namespace SC_M2
             {
                 Images.Get();
                 Images.Delete();
+
                 renderPicture();
             }catch(Exception ex)
             {

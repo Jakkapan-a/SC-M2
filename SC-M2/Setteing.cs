@@ -106,31 +106,27 @@ namespace SC_M2
             var list = SC_M2.Modules.ImageList.GetModel(model.id);
             foreach (var item in list)
             {
-                var pb = new PictureBox();
-                pb.Height = 112;
-                pb.Width = 200;
-                pb.SizeMode = PictureBoxSizeMode.Zoom;
-                pb.Image = Image.FromFile(item.path);
-                pb.Tag = item.id;
-                pb.BorderStyle = BorderStyle.FixedSingle;
-                //pb.MouseDown += new System.Windows.Forms.MouseEventHandler(pictureBox_Click);
-
-                // Add Flow
-                flowLayoutPanelSetting.Controls.Add(pb);
+                try
+                {
+                    var pb = new PictureBox();
+                    pb.Height = 112;
+                    pb.Width = 200;
+                    pb.SizeMode = PictureBoxSizeMode.Zoom;
+                    pb.Image = Image.FromFile(item.path);
+                    pb.Tag = item.id;
+                    pb.BorderStyle = BorderStyle.FixedSingle;
+                    // Add Flow
+                    flowLayoutPanelSetting.Controls.Add(pb);
+                    
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                }
+               
             }
             flowLayoutPanelSetting.Update();
-        }
-
-
-        //private void pictureBox_Click(object sender, MouseEventArgs e)
-        //{
-        //    // Picture Box
-        //    PictureBox pb = (PictureBox)sender;
-        //    // Get and set ID
-        //    Images.id = (int)pb.Tag;
-        //    toolStripStatusLabel_ImageID.Text = "Image ID: " + Images.id;
-
-        //}
-        
+        }        
     }
 }
