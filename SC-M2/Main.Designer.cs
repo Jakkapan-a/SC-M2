@@ -73,28 +73,30 @@
             this.toolStripStatusLabelConnectControl,
             this.toolStripStatusData,
             this.toolStripStatusLabelData});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 571);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 569);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(913, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(913, 24);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabelConnectControl
             // 
             this.toolStripStatusLabelConnectControl.Name = "toolStripStatusLabelConnectControl";
-            this.toolStripStatusLabelConnectControl.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabelConnectControl.Size = new System.Drawing.Size(118, 19);
             this.toolStripStatusLabelConnectControl.Text = "toolStripStatusLabel1";
             // 
             // toolStripStatusData
             // 
+            this.toolStripStatusData.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.toolStripStatusData.Name = "toolStripStatusData";
-            this.toolStripStatusData.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusData.Size = new System.Drawing.Size(122, 19);
             this.toolStripStatusData.Text = "toolStripStatusLabel1";
             // 
             // toolStripStatusLabelData
             // 
+            this.toolStripStatusLabelData.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.toolStripStatusLabelData.Name = "toolStripStatusLabelData";
-            this.toolStripStatusLabelData.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabelData.Size = new System.Drawing.Size(122, 19);
             this.toolStripStatusLabelData.Text = "toolStripStatusLabel1";
             // 
             // contextMenuStrip1

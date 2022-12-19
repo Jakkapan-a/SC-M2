@@ -62,8 +62,8 @@ namespace SC_M2
             tbName.Focus();
 
             toolStripStatusLabelConnectControl.Text = "Not Connected";
-            string log = "/temp";
-
+            // string log = "/temp";
+            
             Task.Run(() =>
             {
                 deleteFile();
@@ -189,7 +189,6 @@ namespace SC_M2
                         sendSerialData(result);
                         SetOutput(result);
                     }
-
                 }
                 else
                 {
@@ -233,14 +232,14 @@ namespace SC_M2
                         }
                         // 1
                         string image1 = "/A-" + Guid.NewGuid().ToString() + ".jpg";
-                        string path_bm = _path + log + image1;
+                        string path_bm1 = _path + log + image1;
                         var bmm = new Image<Gray, byte>(im.path);
-                        bmm.Save(path_bm);
+                        bmm.Save(path_bm1);
                         // 2
                         string image2 = "/B-" + Guid.NewGuid().ToString() + ".jpg";
-                        string bml = _path + log+ image2;
-                        bm.Save(bml);
-                        var bmll = new Image<Gray, byte>(bml);
+                        string path_bm2 = _path + log+ image2;
+                        bm.Save(path_bm2);
+                        var bmll = new Image<Gray, byte>(path_bm2);
 
                         
                         double compare = Compare(bmm, bmll);
@@ -271,7 +270,21 @@ namespace SC_M2
                         }
                         bmm.Dispose();
                         bmll.Dispose();
-              
+                        try
+                        {
+                            // Delete file image 1
+                            if (File.Exists(path_bm1))
+                                File.Delete(path_bm1);
+
+                            // Delete file image 2
+                            if (File.Exists(path_bm2))
+                                File.Delete(path_bm2);
+                        }
+                        catch(Exception ex)
+                        {
+                            MessageBox.Show("DF01 :" +ex.Message, "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+
                     }
                 }
             }
