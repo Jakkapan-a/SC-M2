@@ -8,8 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DirectShowLib;
-//using OpenCvSharp;
-//using OpenCvSharp.Extensions;
 using System.IO;
 using SC_M2.Modules;
 using System.Drawing.Imaging;
@@ -17,6 +15,7 @@ using System.IO.Ports;
 using System.Text.RegularExpressions;
 using Emgu.CV;
 using Emgu.CV.Structure;
+using Microsoft.VisualBasic.FileIO;
 
 namespace SC_M2
 {
@@ -81,7 +80,7 @@ namespace SC_M2
                 {
                     if (File.Exists(item.path))
                     {
-                        File.Delete(item.path);
+                        FileSystem.DeleteFile(item.path, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
                         item.Delete();
                     }
                 }
@@ -173,21 +172,14 @@ namespace SC_M2
                 history.model = name;
                 if (list.Count > 0)
                 {
-                    string result = "";
                      if (ImageProcessing(list[0].id)){
-                        //Console.WriteLine("true");
                         history.judgement = "OK";
-                        result = "OK";
-                        sendSerialData(result);
-                        SetOutput(result);
+                        SetOutput("OK");
                     }
                     else
                     {
-                        //Console.WriteLine("false");
                         history.judgement = "NG";
-                        result = "NG";
-                        sendSerialData(result);
-                        SetOutput(result);
+                        SetOutput("NG");
                     }
                 }
                 else
@@ -274,11 +266,11 @@ namespace SC_M2
                         {
                             // Delete file image 1
                             if (File.Exists(path_bm1))
-                                File.Delete(path_bm1);
+                                FileSystem.DeleteFile(path_bm1, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
 
                             // Delete file image 2
                             if (File.Exists(path_bm2))
-                                File.Delete(path_bm2);
+                                FileSystem.DeleteFile(path_bm2, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
                         }
                         catch(Exception ex)
                         {
@@ -463,10 +455,12 @@ namespace SC_M2
                 case "OK":
                     lbOutput.Text = "OK";
                     lbOutput.BackColor = Color.Green;
+                    sendSerialData("OK");
                     break;
                 case "NG":
                     lbOutput.Text = "NG";
                     lbOutput.BackColor = Color.Red;
+                    sendSerialData("NG");
                     break;
                 case "LO":
                     lbOutput.Text = "Loading.";
