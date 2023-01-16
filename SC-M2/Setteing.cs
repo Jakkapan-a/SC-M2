@@ -13,9 +13,11 @@ namespace SC_M2
 {
     public partial class Setteing : Form
     {
-        public Setteing()
+        Main main;
+        public Setteing(Main main)
         {
             InitializeComponent();
+            this.main = main;
         }
         Model model = new Model();
         Modules.ImageList Images = new Modules.ImageList();
@@ -30,26 +32,24 @@ namespace SC_M2
         {
 
             dataGridViewModel.DataSource = null;
-
+            this.main.loadComboBoxModel();
             List<Model> ml = Model.GetAll();
             int num = 1;
-
             var ml2 = (from x in ml
                        select new
                        {
                            ID = x.id,
                            No = num++,
                            Model = x.name,
-                           Full_Name = x.fullname,
-                           Accept = x.percent,
+                           //Full_Name = x.fullname,
+                           Accept = x.percent +"%",
                            Date = x.created_at,
-                           Update = x.updated_at
+                   
                        }).ToList();
 
             dataGridViewModel.DataSource = ml2;
             dataGridViewModel.Columns[0].Visible = false;
             dataGridViewModel.Columns[1].Width = (int)(dataGridViewModel.Width * 0.1);
-            dataGridViewModel.Columns[dataGridViewModel.ColumnCount - 1].Visible = false;
             dataGridViewModel.Columns[dataGridViewModel.ColumnCount - 2].Width = (int)(dataGridViewModel.Width * 0.3);
             dataGridViewModel.Update();
         }
@@ -78,6 +78,7 @@ namespace SC_M2
             }
         }
 
+        Edit edit;
         private void btnEdit_Click(object sender, EventArgs e)
         {
             try
@@ -86,7 +87,11 @@ namespace SC_M2
                 {
                     throw new Exception("Model is empty!");
                 }
-                Edit edit = new Edit(this.model.id,this);
+
+                if(edit != null)
+                    edit.Dispose();
+
+                edit = new Edit(this.model.id,this);
                 edit.ShowDialog();
             }catch(Exception ex)
             {

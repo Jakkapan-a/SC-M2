@@ -16,6 +16,7 @@ using System.Text.RegularExpressions;
 using Emgu.CV;
 using Emgu.CV.Structure;
 using Microsoft.VisualBasic.FileIO;
+using Microsoft.VisualBasic;
 
 namespace SC_M2
 {
@@ -31,11 +32,13 @@ namespace SC_M2
         //private bool isConnection = false;
 
         private string _path = @"./system";
-
+        int model_id = -1;
         int Count = 0;
         private OpenCvSharp.VideoCapture capture;
         private bool IsCapture;
-        
+
+        Dictionary<string, int> modelsList = new Dictionary<string, int>();
+        List<Model> ml;
         private void Main_Load(object sender, EventArgs e)
         {
             reloadTable();
@@ -80,7 +83,7 @@ namespace SC_M2
                 {
                     if (File.Exists(item.path))
                     {
-                        FileSystem.DeleteFile(item.path, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                        Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(item.path, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
                         item.Delete();
                     }
                 }
@@ -88,12 +91,32 @@ namespace SC_M2
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Exclamation", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
-            }   
-        }
+            }
 
-      
+            loadComboBoxModel();
+        }
+        
+        public void loadComboBoxModel() 
+        {
+            if(ml != null)
+                ml.Clear();
+
+            modelsList.Clear();
+
+            ml = Model.GetAll();
+            foreach (var m in ml)
+            {
+                comboBoxModels.Items.Add(m.name);               
+                modelsList.Add(m.name, m.id);
+                Console.WriteLine(modelsList[m.name]);
+            }
+
+            if (comboBoxModels.Items.Count > 0)
+                comboBoxModels.SelectedIndex = 0;
+        }
         private void deleteFile()
         {
+
             string log = "/temp";
             DirectoryInfo yourRootDir = new DirectoryInfo(_path + log);
             if (!Directory.Exists(_path + log))
@@ -103,10 +126,12 @@ namespace SC_M2
 
             try
             {
-                foreach (FileInfo file in yourRootDir.GetFiles())
-                    if (file.LastWriteTime < DateTime.Now.AddDays(-1))
-                        file.Delete();
-
+                foreach (FileInfo file in yourRootDir.GetFiles()){
+                    if (file.LastWriteTime < DateTime.Now.AddDays(-1)){
+                        // Send the file to the recycle bin
+                        Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(file.FullName,UIOption.AllDialogs,RecycleOption.SendToRecycleBin);
+                    }
+                }            
             }
             catch (Exception ex)
             {
@@ -167,7 +192,7 @@ namespace SC_M2
             {
                 history.name = tbName.Text;
                 history.qrcode = tbQrcode.Text;
-                string name = tbQrcode.Text.Trim().Substring(0, tbQrcode.Text.Trim().Length - 10);
+                string name = comboBoxModels.SelectedItem.ToString();
                 var list = Model.GetByName(name);
                 history.model = name;
                 if (list.Count > 0)
@@ -251,9 +276,12 @@ namespace SC_M2
                         {
                             sw.WriteLine("<--------------------------------------------->");
                             sw.WriteLine("Time : " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                            sw.WriteLine("S/N : " + tbQrcode.Text.Trim());
+                            sw.WriteLine("ID : " + tbName.Text.Trim());
                             sw.WriteLine("Image 1 : " + image1);
                             sw.WriteLine("Image 2 : " + image2);
-                            sw.WriteLine("Result : " + compare +"%");
+                            sw.WriteLine("Rate : " + compare +"%");
+                           
                         }
                         toolStripStatusLabelData.Text = "RATE : "+compare.ToString() + "%";
                         if (compare < model.percent)
@@ -266,11 +294,11 @@ namespace SC_M2
                         {
                             // Delete file image 1
                             if (File.Exists(path_bm1))
-                                FileSystem.DeleteFile(path_bm1, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                                Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(path_bm1, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
 
                             // Delete file image 2
                             if (File.Exists(path_bm2))
-                                FileSystem.DeleteFile(path_bm2, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                                Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(path_bm2, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
                         }
                         catch(Exception ex)
                         {
@@ -354,6 +382,13 @@ namespace SC_M2
 
         private void btConnect_Click(object sender, EventArgs e)
         {
+
+            if(capture != null)
+            {
+                capture.Dispose();
+                capture = null;
+                pictureBoxC.Image= null;
+            }
             int deviceIndex = comboBoxCameraDevice.SelectedIndex;
             capture = new OpenCvSharp.VideoCapture(deviceIndex);
             capture.Open(deviceIndex);
@@ -440,7 +475,7 @@ namespace SC_M2
         private void settingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DisposeCaptureResources();
-            Setteing st = new Setteing();
+            Setteing st = new Setteing(this);
             st.ShowDialog(this);
         }
 
@@ -490,9 +525,9 @@ namespace SC_M2
                            {
                                ID = x.id,
                                No = num++,
-                               Name = x.name,
+                               Id = x.name,
                                Model = x.model,
-                               Qr_Code = x.qrcode,
+                               SN = x.qrcode,
                                Juggement = x.judgement,
                                Date = x.created_at
                            }).ToList();
@@ -586,5 +621,14 @@ namespace SC_M2
         {
             btConnect.PerformClick();
         }
+
+        private void comboBoxModels_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(comboBoxModels.SelectedIndex != -1)
+            {
+                Console.WriteLine(comboBoxModels.SelectedItem.ToString());
+            }
+        }
+
     }
 }

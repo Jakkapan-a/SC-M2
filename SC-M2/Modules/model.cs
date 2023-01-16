@@ -23,7 +23,7 @@ namespace SC_M2.Modules
         public string updated_at { get; set; }
         public Model()
         {
-            
+            updated_at = GetDateTimeNow();
         }
         public Model(int id)
         {
@@ -36,26 +36,27 @@ namespace SC_M2.Modules
             this.updated_at = data[0].updated_at;
 
         }
+
         public static List<Model> GetAll() => SQliteDataAccess.GetAllNolimit<Model>("model");
-        
 
         public static List<Model> GetRow(string sql) => SQliteDataAccess.GetRow<Model>(sql);
+
+        public static List<Model> GetRow(int id) => SQliteDataAccess.GetRow<Model>("select * from model where id = " + id);
         
+        public static List<Model> GetByName(string model_name) => SQliteDataAccess.GetRow<Model>("select * from model where name = '" + model_name+"'");
+
         public void GetRow()
         {
             var data = SQliteDataAccess.GetRow<Model>("select * from model where id = " + id);
-            if(data.Count > 0)
+            if (data.Count > 0)
             {
                 this.name = data[0].name;
                 this.fullname = data[0].fullname;
                 this.percent = data[0].percent;
-                this.created_at= data[0].created_at;
-                this.updated_at= data[0].updated_at;
+                this.created_at = data[0].created_at;
+                this.updated_at = data[0].updated_at;
             }
         }
-        public static List<Model> GetRow(int id) => SQliteDataAccess.GetRow<Model>("select * from model where id = " + id);
-        
-        public static List<Model> GetByName(string model_name) => SQliteDataAccess.GetRow<Model>("select * from model where name = '" + model_name+"'");
 
         public bool isName() => (SQliteDataAccess.GetRow<Model>("select * from model where name = '" + name + "'").Count > 0) ? true : false;
 
@@ -92,6 +93,7 @@ namespace SC_M2.Modules
             parameters.Add("@id", id);
             SQliteDataAccess.Update(sql, parameters);
         }
+
         private string GetDateTimeNow()
         {
             return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");

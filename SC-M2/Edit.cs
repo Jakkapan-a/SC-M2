@@ -19,6 +19,7 @@ namespace SC_M2
 {
     public partial class Edit : Form 
     {
+
         Modules.Model model;
         Modules.ImageList Images = new Modules.ImageList();
 
@@ -31,6 +32,7 @@ namespace SC_M2
         bool IsMouseDown = false;
 
         private string _path = @"./system";
+
         public Edit(int id,Setteing setteing)
         {
             InitializeComponent();
@@ -57,7 +59,7 @@ namespace SC_M2
             }
         }
 
-            private void btnUpdate_Click(object sender, EventArgs e)
+        private void btnUpdate_Click(object sender, EventArgs e)
         {
             try
             {
@@ -108,6 +110,7 @@ namespace SC_M2
             capture.Set(VideoCaptureProperties.FrameHeight, _height);
             capture.Set(VideoCaptureProperties.FrameWidth, _width);
         }
+
         private void Edit_FormClosing(object sender, FormClosingEventArgs e)
         {
             DisposeCaptureResources();
@@ -219,6 +222,7 @@ namespace SC_M2
                         // Save to database
                         Modules.ImageList image = new Modules.ImageList(filename, path, model.id);
                         image.Save();
+                        this.setteing.loadTable();
                         MessageBox.Show("Saved", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }

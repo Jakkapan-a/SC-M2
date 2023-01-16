@@ -58,6 +58,8 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.timerCouter = new System.Windows.Forms.Timer(this.components);
             this.pictureBoxC = new System.Windows.Forms.PictureBox();
+            this.comboBoxModels = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -137,13 +139,15 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.comboBoxModels);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.tbQrcode);
             this.groupBox1.Controls.Add(this.tbName);
             this.groupBox1.Location = new System.Drawing.Point(593, 170);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(308, 126);
+            this.groupBox1.Size = new System.Drawing.Size(308, 163);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "INPUT";
@@ -152,28 +156,28 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(38, 84);
+            this.label2.Location = new System.Drawing.Point(68, 126);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 16);
+            this.label2.Size = new System.Drawing.Size(36, 16);
             this.label2.TabIndex = 1;
-            this.label2.Text = "QR Code :";
+            this.label2.Text = "S/N :";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(62, 43);
+            this.label1.Location = new System.Drawing.Point(54, 43);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 16);
+            this.label1.Size = new System.Drawing.Size(26, 16);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Name :";
+            this.label1.Text = "ID :";
             // 
             // tbQrcode
             // 
             this.tbQrcode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbQrcode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbQrcode.Location = new System.Drawing.Point(118, 81);
+            this.tbQrcode.Location = new System.Drawing.Point(115, 123);
             this.tbQrcode.Name = "tbQrcode";
             this.tbQrcode.Size = new System.Drawing.Size(184, 22);
             this.tbQrcode.TabIndex = 1;
@@ -184,9 +188,9 @@
             this.tbName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbName.Location = new System.Drawing.Point(118, 40);
+            this.tbName.Location = new System.Drawing.Point(115, 40);
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(184, 22);
+            this.tbName.Size = new System.Drawing.Size(183, 22);
             this.tbName.TabIndex = 0;
             this.tbName.KeyDown += new System.Windows.Forms.KeyEventHandler(this._KeyDown);
             // 
@@ -335,6 +339,25 @@
             this.pictureBoxC.TabIndex = 1;
             this.pictureBoxC.TabStop = false;
             // 
+            // comboBoxModels
+            // 
+            this.comboBoxModels.FormattingEnabled = true;
+            this.comboBoxModels.Location = new System.Drawing.Point(115, 81);
+            this.comboBoxModels.Name = "comboBoxModels";
+            this.comboBoxModels.Size = new System.Drawing.Size(184, 21);
+            this.comboBoxModels.TabIndex = 2;
+            this.comboBoxModels.SelectedIndexChanged += new System.EventHandler(this.comboBoxModels_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(50, 86);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(54, 16);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Model  :";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -350,6 +373,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(929, 632);
             this.Name = "Main";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "731TMC ECU INSPECTION SOFTWARE";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
@@ -398,6 +422,8 @@
         private System.Windows.Forms.ToolStripMenuItem connectControllerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem connectCameraToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelData;
+        private System.Windows.Forms.ComboBox comboBoxModels;
+        private System.Windows.Forms.Label label3;
     }
 }
 

@@ -94,7 +94,7 @@
             this.tbAccept.Size = new System.Drawing.Size(241, 26);
             this.tbAccept.TabIndex = 3;
             this.tbAccept.Value = new decimal(new int[] {
-            100,
+            90,
             0,
             0,
             0});

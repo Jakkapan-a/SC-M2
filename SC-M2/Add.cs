@@ -30,7 +30,7 @@ namespace SC_M2
                 }
                 Model m = new Model();
                 m.fullname = tbName.Text.Trim();
-                m.name = tbName.Text.Trim().Substring(0, tbName.Text.Trim().Length - 10);
+                m.name = tbName.Text.Trim();
                 m.percent = Convert.ToInt32(tbAccept.Value);
 
                 if (m.isName())
@@ -48,5 +48,6 @@ namespace SC_M2
                 MessageBox.Show(ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
+
     }
 }
