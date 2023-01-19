@@ -37,6 +37,8 @@ namespace SC_M2
         private OpenCvSharp.VideoCapture capture;
         private bool IsCapture;
 
+        private double rate = -1;
+        
         Dictionary<string, int> modelsList = new Dictionary<string, int>();
         List<Model> ml;
         private void Main_Load(object sender, EventArgs e)
@@ -102,6 +104,7 @@ namespace SC_M2
                 ml.Clear();
 
             modelsList.Clear();
+            comboBoxModels.Items.Clear();
 
             ml = Model.GetAll();
             foreach (var m in ml)
@@ -114,6 +117,7 @@ namespace SC_M2
             if (comboBoxModels.Items.Count > 0)
                 comboBoxModels.SelectedIndex = 0;
         }
+
         private void deleteFile()
         {
 
@@ -138,6 +142,7 @@ namespace SC_M2
                 Console.WriteLine(ex.Message);
             }
         }
+
         private void _KeyDown(object sender, KeyEventArgs e)
         {
             try
@@ -182,7 +187,9 @@ namespace SC_M2
             }
             
         }
+
         Modules.Model model = new Modules.Model();
+
         private async void Processing()
         {
             SetOutput("L");
@@ -212,12 +219,12 @@ namespace SC_M2
                     history.judgement = "NG";
                     SetOutput("NG");
                 }
+                history.rate = rate.ToString();
                 history.Save();
                 reloadTable();
                 tbQrcode.Text = "";
             }
         }
-
 
         private bool ImageProcessing(int model_id)
         {
@@ -260,7 +267,8 @@ namespace SC_M2
 
                         
                         double compare = Compare(bmm, bmll);
-                        Console.WriteLine(compare.ToString()+"%");
+                        //Console.WriteLine(compare.ToString()+"%");
+                        rate = compare;
 
 
                         string logpath = _path+"/log/"+ DateTime.Now.ToString("yyyy-MM-dd_HH")+"-Log.txt";
@@ -525,7 +533,7 @@ namespace SC_M2
                            {
                                ID = x.id,
                                No = num++,
-                               Id = x.name,
+                               Id_Per = x.name,
                                Model = x.model,
                                SN = x.qrcode,
                                Juggement = x.judgement,

@@ -44,7 +44,7 @@ namespace SC_M2
 
         private void Edit_Load(object sender, EventArgs e)
         {
-            tbName.Text = model.fullname;
+            tbName.Text = model.name;
             tbAccept.Value = model.percent;
             
             var videoDevices = new List<DsDevice>(DsDevice.GetDevicesOfCat(FilterCategory.VideoInputDevice));
@@ -68,7 +68,7 @@ namespace SC_M2
                     throw new Exception("Please enter name");
                 }
                 this.model.fullname = tbName.Text.Trim();
-                this.model.name = tbName.Text.Trim().Substring(0, tbName.Text.Trim().Length - 10);
+                this.model.name = tbName.Text.Trim();
                 this.model.percent = Convert.ToInt32(tbAccept.Value);
 
                 // Update

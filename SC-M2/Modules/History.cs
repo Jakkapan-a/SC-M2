@@ -17,6 +17,8 @@ namespace SC_M2.Modules
         public string model { get; set; }
         [DisplayName("Qr Code")]
         public string qrcode { get; set; }
+        [DisplayName("Rate")]
+        public string rate { get; set; }
         [DisplayName("Judgement")]
         public string judgement { get; set; }
         [DisplayName("DateTime")]
@@ -41,6 +43,7 @@ namespace SC_M2.Modules
                 this.name = data[0].name;
                 this.model = data[0].model;
                 this.qrcode = data[0].qrcode;
+                this.rate = data[0].rate;
                 this.judgement = data[0].judgement;
                 this.created_at = data[0].created_at;
                 this.updated_at = data[0].updated_at;
@@ -49,11 +52,12 @@ namespace SC_M2.Modules
 
         public void Save()
         {
-            string sql = "insert into history (name, model, qrcode, judgement, created_at, updated_at) values (@name, @model, @qrcode, @judgement, @created_at, @updated_at)";
+            string sql = "insert into history (name, model, qrcode, rate,judgement, created_at, updated_at) values (@name, @model, @qrcode ,@rate , @judgement, @created_at, @updated_at)";
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("@name", this.name);
             param.Add("@model", this.model);
             param.Add("@qrcode", this.qrcode);
+            param.Add("@rate", this.rate);
             param.Add("@judgement", this.judgement);
             param.Add("@created_at", GetDateTimeNow());
             param.Add("@updated_at", GetDateTimeNow());

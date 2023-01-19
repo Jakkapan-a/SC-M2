@@ -39,6 +39,8 @@
             this.connectControllerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectCameraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBoxModels = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tbQrcode = new System.Windows.Forms.TextBox();
@@ -58,8 +60,6 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.timerCouter = new System.Windows.Forms.Timer(this.components);
             this.pictureBoxC = new System.Windows.Forms.PictureBox();
-            this.comboBoxModels = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -151,6 +151,25 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "INPUT";
+            // 
+            // comboBoxModels
+            // 
+            this.comboBoxModels.FormattingEnabled = true;
+            this.comboBoxModels.Location = new System.Drawing.Point(115, 81);
+            this.comboBoxModels.Name = "comboBoxModels";
+            this.comboBoxModels.Size = new System.Drawing.Size(184, 21);
+            this.comboBoxModels.TabIndex = 2;
+            this.comboBoxModels.SelectedIndexChanged += new System.EventHandler(this.comboBoxModels_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(50, 86);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(54, 16);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Model  :";
             // 
             // label2
             // 
@@ -339,25 +358,6 @@
             this.pictureBoxC.TabIndex = 1;
             this.pictureBoxC.TabStop = false;
             // 
-            // comboBoxModels
-            // 
-            this.comboBoxModels.FormattingEnabled = true;
-            this.comboBoxModels.Location = new System.Drawing.Point(115, 81);
-            this.comboBoxModels.Name = "comboBoxModels";
-            this.comboBoxModels.Size = new System.Drawing.Size(184, 21);
-            this.comboBoxModels.TabIndex = 2;
-            this.comboBoxModels.SelectedIndexChanged += new System.EventHandler(this.comboBoxModels_SelectedIndexChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(50, 86);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 16);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Model  :";
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -374,7 +374,7 @@
             this.MinimumSize = new System.Drawing.Size(929, 632);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "731TMC ECU INSPECTION SOFTWARE";
+            this.Text = "731TMC ECU INSPECTION SOFTWARE V2.00";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
             this.statusStrip1.ResumeLayout(false);

@@ -98,9 +98,7 @@
             // 
             // tbLoadTable
             // 
-            this.tbLoadTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbLoadTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.tbLoadTable.BackgroundImage = global::SC_M2.Properties.Resources.refresh_32;
             this.tbLoadTable.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tbLoadTable.Location = new System.Drawing.Point(466, 439);

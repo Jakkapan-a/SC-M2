@@ -1,0 +1,492 @@
+﻿namespace SC_M2_V2_00
+{
+    partial class Home
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Home));
+            this.statusStripStatus = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusDrive = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusConnectionCamera = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusConnectSerialPort = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.conectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.masterModelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.splitContainerHome = new System.Windows.Forms.SplitContainer();
+            this.pictureBoxCamera1 = new System.Windows.Forms.PictureBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.pictureBoxCamDetect1 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBoxCamera2 = new System.Windows.Forms.PictureBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.pictureBoxCamDetect2 = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panelTable = new System.Windows.Forms.Panel();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.panelMain = new System.Windows.Forms.Panel();
+            this.lbTitle = new System.Windows.Forms.Label();
+            this.timerMain = new System.Windows.Forms.Timer(this.components);
+            this.timerVideo1 = new System.Windows.Forms.Timer(this.components);
+            this.timerVideo2 = new System.Windows.Forms.Timer(this.components);
+            this.serialPort = new System.IO.Ports.SerialPort(this.components);
+            this.timerStartStop = new System.Windows.Forms.Timer(this.components);
+            this.backgroundWorkerOcr = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorkerOpenCamera = new System.ComponentModel.BackgroundWorker();
+            this.statusStripStatus.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerHome)).BeginInit();
+            this.splitContainerHome.Panel1.SuspendLayout();
+            this.splitContainerHome.Panel2.SuspendLayout();
+            this.splitContainerHome.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera1)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera2)).BeginInit();
+            this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect2)).BeginInit();
+            this.panelTable.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
+            this.panelMain.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // statusStripStatus
+            // 
+            this.statusStripStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusDrive,
+            this.toolStripStatusConnectionCamera,
+            this.toolStripStatusConnectSerialPort,
+            this.toolStripStatusLabel4});
+            this.statusStripStatus.Location = new System.Drawing.Point(0, 569);
+            this.statusStripStatus.Name = "statusStripStatus";
+            this.statusStripStatus.Size = new System.Drawing.Size(913, 24);
+            this.statusStripStatus.TabIndex = 2;
+            this.statusStripStatus.Text = "statusStrip1";
+            // 
+            // toolStripStatusDrive
+            // 
+            this.toolStripStatusDrive.Name = "toolStripStatusDrive";
+            this.toolStripStatusDrive.Size = new System.Drawing.Size(118, 19);
+            this.toolStripStatusDrive.Text = "toolStripStatusLabel1";
+            // 
+            // toolStripStatusConnectionCamera
+            // 
+            this.toolStripStatusConnectionCamera.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.toolStripStatusConnectionCamera.Name = "toolStripStatusConnectionCamera";
+            this.toolStripStatusConnectionCamera.Size = new System.Drawing.Size(122, 19);
+            this.toolStripStatusConnectionCamera.Text = "toolStripStatusLabel2";
+            // 
+            // toolStripStatusConnectSerialPort
+            // 
+            this.toolStripStatusConnectSerialPort.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.toolStripStatusConnectSerialPort.Name = "toolStripStatusConnectSerialPort";
+            this.toolStripStatusConnectSerialPort.Size = new System.Drawing.Size(122, 19);
+            this.toolStripStatusConnectSerialPort.Text = "toolStripStatusLabel3";
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(122, 19);
+            this.toolStripStatusLabel4.Text = "toolStripStatusLabel4";
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.aToolStripMenuItem,
+            this.settingToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(913, 24);
+            this.menuStrip1.TabIndex = 3;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // aToolStripMenuItem
+            // 
+            this.aToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.startToolStripMenuItem,
+            this.stopToolStripMenuItem});
+            this.aToolStripMenuItem.Name = "aToolStripMenuItem";
+            this.aToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
+            this.aToolStripMenuItem.Text = "Command";
+            // 
+            // startToolStripMenuItem
+            // 
+            this.startToolStripMenuItem.Name = "startToolStripMenuItem";
+            this.startToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.startToolStripMenuItem.Text = "Start";
+            this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
+            // 
+            // stopToolStripMenuItem
+            // 
+            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
+            this.stopToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.stopToolStripMenuItem.Text = "Stop";
+            this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
+            // 
+            // settingToolStripMenuItem
+            // 
+            this.settingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.conectionsToolStripMenuItem,
+            this.optionsToolStripMenuItem,
+            this.masterModelsToolStripMenuItem});
+            this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
+            this.settingToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.settingToolStripMenuItem.Text = "Setting";
+            // 
+            // conectionsToolStripMenuItem
+            // 
+            this.conectionsToolStripMenuItem.Name = "conectionsToolStripMenuItem";
+            this.conectionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.conectionsToolStripMenuItem.Text = "Connections.";
+            this.conectionsToolStripMenuItem.Click += new System.EventHandler(this.conectionsToolStripMenuItem_Click);
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.optionsToolStripMenuItem.Text = "Options.";
+            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
+            // 
+            // masterModelsToolStripMenuItem
+            // 
+            this.masterModelsToolStripMenuItem.Name = "masterModelsToolStripMenuItem";
+            this.masterModelsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.masterModelsToolStripMenuItem.Text = "Master Models";
+            // 
+            // splitContainerHome
+            // 
+            this.splitContainerHome.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainerHome.Location = new System.Drawing.Point(13, 67);
+            this.splitContainerHome.Name = "splitContainerHome";
+            // 
+            // splitContainerHome.Panel1
+            // 
+            this.splitContainerHome.Panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.splitContainerHome.Panel1.Controls.Add(this.pictureBoxCamera1);
+            this.splitContainerHome.Panel1.Controls.Add(this.tableLayoutPanel1);
+            this.splitContainerHome.Panel1.Controls.Add(this.label1);
+            // 
+            // splitContainerHome.Panel2
+            // 
+            this.splitContainerHome.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.splitContainerHome.Panel2.Controls.Add(this.pictureBoxCamera2);
+            this.splitContainerHome.Panel2.Controls.Add(this.tableLayoutPanel2);
+            this.splitContainerHome.Panel2.Controls.Add(this.label2);
+            this.splitContainerHome.Size = new System.Drawing.Size(887, 347);
+            this.splitContainerHome.SplitterDistance = 439;
+            this.splitContainerHome.TabIndex = 5;
+            // 
+            // pictureBoxCamera1
+            // 
+            this.pictureBoxCamera1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxCamera1.Location = new System.Drawing.Point(0, 35);
+            this.pictureBoxCamera1.Name = "pictureBoxCamera1";
+            this.pictureBoxCamera1.Size = new System.Drawing.Size(439, 196);
+            this.pictureBoxCamera1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxCamera1.TabIndex = 2;
+            this.pictureBoxCamera1.TabStop = false;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.richTextBox1, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBoxCamDetect1, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 231);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(439, 116);
+            this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBox1.Location = new System.Drawing.Point(222, 3);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(214, 110);
+            this.richTextBox1.TabIndex = 0;
+            this.richTextBox1.Text = "";
+            // 
+            // pictureBoxCamDetect1
+            // 
+            this.pictureBoxCamDetect1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBoxCamDetect1.Name = "pictureBoxCamDetect1";
+            this.pictureBoxCamDetect1.Size = new System.Drawing.Size(213, 110);
+            this.pictureBoxCamDetect1.TabIndex = 1;
+            this.pictureBoxCamDetect1.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(439, 35);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "CAMERA 1";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pictureBoxCamera2
+            // 
+            this.pictureBoxCamera2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxCamera2.Location = new System.Drawing.Point(0, 35);
+            this.pictureBoxCamera2.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.pictureBoxCamera2.Name = "pictureBoxCamera2";
+            this.pictureBoxCamera2.Size = new System.Drawing.Size(444, 196);
+            this.pictureBoxCamera2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxCamera2.TabIndex = 2;
+            this.pictureBoxCamera2.TabStop = false;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.richTextBox2, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.pictureBoxCamDetect2, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 231);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(444, 116);
+            this.tableLayoutPanel2.TabIndex = 1;
+            // 
+            // richTextBox2
+            // 
+            this.richTextBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBox2.Location = new System.Drawing.Point(225, 3);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.Size = new System.Drawing.Size(216, 110);
+            this.richTextBox2.TabIndex = 0;
+            this.richTextBox2.Text = "";
+            // 
+            // pictureBoxCamDetect2
+            // 
+            this.pictureBoxCamDetect2.Location = new System.Drawing.Point(3, 3);
+            this.pictureBoxCamDetect2.Name = "pictureBoxCamDetect2";
+            this.pictureBoxCamDetect2.Size = new System.Drawing.Size(216, 110);
+            this.pictureBoxCamDetect2.TabIndex = 1;
+            this.pictureBoxCamDetect2.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label2.Location = new System.Drawing.Point(0, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(444, 35);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "CAMERA 2";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelTable
+            // 
+            this.panelTable.Controls.Add(this.dataGridView);
+            this.panelTable.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelTable.Location = new System.Drawing.Point(0, 454);
+            this.panelTable.Name = "panelTable";
+            this.panelTable.Size = new System.Drawing.Size(913, 115);
+            this.panelTable.TabIndex = 6;
+            // 
+            // dataGridView
+            // 
+            this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Location = new System.Drawing.Point(13, 3);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.Size = new System.Drawing.Size(888, 109);
+            this.dataGridView.TabIndex = 0;
+            // 
+            // panelMain
+            // 
+            this.panelMain.Controls.Add(this.lbTitle);
+            this.panelMain.Controls.Add(this.splitContainerHome);
+            this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMain.Location = new System.Drawing.Point(0, 24);
+            this.panelMain.Name = "panelMain";
+            this.panelMain.Padding = new System.Windows.Forms.Padding(10);
+            this.panelMain.Size = new System.Drawing.Size(913, 430);
+            this.panelMain.TabIndex = 7;
+            // 
+            // lbTitle
+            // 
+            this.lbTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTitle.Location = new System.Drawing.Point(13, 10);
+            this.lbTitle.Name = "lbTitle";
+            this.lbTitle.Size = new System.Drawing.Size(887, 47);
+            this.lbTitle.TabIndex = 6;
+            this.lbTitle.Text = "-------------------------";
+            this.lbTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // timerMain
+            // 
+            this.timerMain.Interval = 1000;
+            this.timerMain.Tick += new System.EventHandler(this.timerMain_Tick);
+            // 
+            // timerVideo1
+            // 
+            this.timerVideo1.Tick += new System.EventHandler(this.timerVideo1_Tick);
+            // 
+            // timerVideo2
+            // 
+            this.timerVideo2.Tick += new System.EventHandler(this.timerVideo2_Tick);
+            // 
+            // serialPort
+            // 
+            this.serialPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort_DataReceived);
+            // 
+            // timerStartStop
+            // 
+            this.timerStartStop.Interval = 10;
+            // 
+            // backgroundWorkerOcr
+            // 
+            this.backgroundWorkerOcr.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerOcr_DoWork);
+            this.backgroundWorkerOcr.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerOcr_ProgressChanged);
+            this.backgroundWorkerOcr.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerOcr_RunWorkerCompleted);
+            // 
+            // backgroundWorkerOpenCamera
+            // 
+            this.backgroundWorkerOpenCamera.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerOpenCamera_DoWork);
+            this.backgroundWorkerOpenCamera.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerOpenCamera_ProgressChanged);
+            this.backgroundWorkerOpenCamera.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerOpenCamera_RunWorkerCompleted);
+            // 
+            // Home
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(913, 593);
+            this.Controls.Add(this.panelMain);
+            this.Controls.Add(this.panelTable);
+            this.Controls.Add(this.statusStripStatus);
+            this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(929, 632);
+            this.Name = "Home";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "731TMC ECU INSPECTION SOFTWARE V2.10";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Home_FormClosing);
+            this.Load += new System.EventHandler(this.Home_Load);
+            this.statusStripStatus.ResumeLayout(false);
+            this.statusStripStatus.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.splitContainerHome.Panel1.ResumeLayout(false);
+            this.splitContainerHome.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerHome)).EndInit();
+            this.splitContainerHome.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera1)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera2)).EndInit();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect2)).EndInit();
+            this.panelTable.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
+            this.panelMain.ResumeLayout(false);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+        private System.Windows.Forms.StatusStrip statusStripStatus;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingToolStripMenuItem;
+        private System.Windows.Forms.SplitContainer splitContainerHome;
+        private System.Windows.Forms.Panel panelTable;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pictureBoxCamera1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.PictureBox pictureBoxCamera2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.Panel panelMain;
+        private System.Windows.Forms.Label lbTitle;
+        private System.Windows.Forms.PictureBox pictureBoxCamDetect1;
+        private System.Windows.Forms.PictureBox pictureBoxCamDetect2;
+        private System.Windows.Forms.Timer timerMain;
+        private System.Windows.Forms.Timer timerVideo1;
+        private System.Windows.Forms.Timer timerVideo2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusConnectionCamera;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusConnectSerialPort;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem conectionsToolStripMenuItem;
+        private System.IO.Ports.SerialPort serialPort;
+        private System.Windows.Forms.ToolStripMenuItem masterModelsToolStripMenuItem;
+        private System.Windows.Forms.Timer timerStartStop;
+        internal System.Windows.Forms.ToolStripStatusLabel toolStripStatusDrive;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerOcr;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerOpenCamera;
+    }
+}
+
