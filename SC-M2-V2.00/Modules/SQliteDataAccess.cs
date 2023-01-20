@@ -62,5 +62,20 @@ namespace SC_M2_V2._00.Modules
         {
             return "Data Source=" + System.IO.Directory.GetCurrentDirectory() + "\\" + ConfigurationManager.ConnectionStrings[id];
         }
+
+        public static string GetDateTimeNow()
+        {
+            return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+
+        internal static object LoadData<T>(string sql, Dictionary<string, object> parameters)
+        {
+            
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<T>(sql, parameters);
+                return output.ToList();
+            }
+        }
     }
 }

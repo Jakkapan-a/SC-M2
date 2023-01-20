@@ -107,6 +107,15 @@ namespace SC_M2_V2._00.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ./System/Images.
+        /// </summary>
+        internal static string Path_Image {
+            get {
+                return ResourceManager.GetString("Path_Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ./System.
         /// </summary>
         internal static string Path_System {

@@ -31,5 +31,32 @@ namespace SC_M2_V2._00.Properties {
                 return ((int)(this["DetectionCamera1"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("A")]
+        public string MasterImage1 {
+            get {
+                return ((string)(this["MasterImage1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("B")]
+        public string MasterImage2 {
+            get {
+                return ((string)(this["MasterImage2"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C")]
+        public string QrCode {
+            get {
+                return ((string)(this["QrCode"]));
+            }
+        }
     }
 }

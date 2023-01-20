@@ -42,13 +42,12 @@
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.conectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.masterModelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainerHome = new System.Windows.Forms.SplitContainer();
             this.pictureBoxCamera1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.pictureBoxCamDetect1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBoxCamera2 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -58,6 +57,7 @@
             this.panelTable = new System.Windows.Forms.Panel();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.panelMain = new System.Windows.Forms.Panel();
+            this.btnOCR = new System.Windows.Forms.Button();
             this.lbTitle = new System.Windows.Forms.Label();
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.timerVideo1 = new System.Windows.Forms.Timer(this.components);
@@ -65,7 +65,10 @@
             this.serialPort = new System.IO.Ports.SerialPort(this.components);
             this.timerStartStop = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerOcr = new System.ComponentModel.BackgroundWorker();
-            this.backgroundWorkerOpenCamera = new System.ComponentModel.BackgroundWorker();
+            this.timerRunOCR = new System.Windows.Forms.Timer(this.components);
+            this.captureImage1 = new SC_M2_V2._00.Controls.Capture();
+            this.pictureBoxCamDetect1 = new OCR1.Controls.ScrollablePictureBox();
+            this.captureImage2 = new SC_M2_V2._00.Controls.Capture();
             this.statusStripStatus.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerHome)).BeginInit();
@@ -74,13 +77,15 @@
             this.splitContainerHome.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera2)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect2)).BeginInit();
             this.panelTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.panelMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.captureImage1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.captureImage2)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStripStatus
@@ -171,8 +176,8 @@
             // 
             this.settingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.conectionsToolStripMenuItem,
-            this.optionsToolStripMenuItem,
-            this.masterModelsToolStripMenuItem});
+            this.masterModelsToolStripMenuItem,
+            this.optionsToolStripMenuItem});
             this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
             this.settingToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.settingToolStripMenuItem.Text = "Setting";
@@ -180,22 +185,22 @@
             // conectionsToolStripMenuItem
             // 
             this.conectionsToolStripMenuItem.Name = "conectionsToolStripMenuItem";
-            this.conectionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.conectionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.conectionsToolStripMenuItem.Text = "Connections.";
             this.conectionsToolStripMenuItem.Click += new System.EventHandler(this.conectionsToolStripMenuItem_Click);
-            // 
-            // optionsToolStripMenuItem
-            // 
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.optionsToolStripMenuItem.Text = "Options.";
-            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
             // masterModelsToolStripMenuItem
             // 
             this.masterModelsToolStripMenuItem.Name = "masterModelsToolStripMenuItem";
-            this.masterModelsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.masterModelsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.masterModelsToolStripMenuItem.Text = "Master Models";
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.optionsToolStripMenuItem.Text = "Options.";
+            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
             // splitContainerHome
             // 
@@ -208,6 +213,7 @@
             // splitContainerHome.Panel1
             // 
             this.splitContainerHome.Panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.splitContainerHome.Panel1.Controls.Add(this.captureImage1);
             this.splitContainerHome.Panel1.Controls.Add(this.pictureBoxCamera1);
             this.splitContainerHome.Panel1.Controls.Add(this.tableLayoutPanel1);
             this.splitContainerHome.Panel1.Controls.Add(this.label1);
@@ -215,6 +221,7 @@
             // splitContainerHome.Panel2
             // 
             this.splitContainerHome.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.splitContainerHome.Panel2.Controls.Add(this.captureImage2);
             this.splitContainerHome.Panel2.Controls.Add(this.pictureBoxCamera2);
             this.splitContainerHome.Panel2.Controls.Add(this.tableLayoutPanel2);
             this.splitContainerHome.Panel2.Controls.Add(this.label2);
@@ -224,10 +231,11 @@
             // 
             // pictureBoxCamera1
             // 
-            this.pictureBoxCamera1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxCamera1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBoxCamera1.Location = new System.Drawing.Point(0, 35);
             this.pictureBoxCamera1.Name = "pictureBoxCamera1";
-            this.pictureBoxCamera1.Size = new System.Drawing.Size(439, 196);
+            this.pictureBoxCamera1.Size = new System.Drawing.Size(178, 196);
             this.pictureBoxCamera1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxCamera1.TabIndex = 2;
             this.pictureBoxCamera1.TabStop = false;
@@ -258,14 +266,6 @@
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
-            // pictureBoxCamDetect1
-            // 
-            this.pictureBoxCamDetect1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBoxCamDetect1.Name = "pictureBoxCamDetect1";
-            this.pictureBoxCamDetect1.Size = new System.Drawing.Size(213, 110);
-            this.pictureBoxCamDetect1.TabIndex = 1;
-            this.pictureBoxCamDetect1.TabStop = false;
-            // 
             // label1
             // 
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -280,11 +280,13 @@
             // 
             // pictureBoxCamera2
             // 
-            this.pictureBoxCamera2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxCamera2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxCamera2.Location = new System.Drawing.Point(0, 35);
             this.pictureBoxCamera2.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.pictureBoxCamera2.Name = "pictureBoxCamera2";
-            this.pictureBoxCamera2.Size = new System.Drawing.Size(444, 196);
+            this.pictureBoxCamera2.Size = new System.Drawing.Size(171, 196);
             this.pictureBoxCamera2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxCamera2.TabIndex = 2;
             this.pictureBoxCamera2.TabStop = false;
@@ -320,6 +322,7 @@
             this.pictureBoxCamDetect2.Location = new System.Drawing.Point(3, 3);
             this.pictureBoxCamDetect2.Name = "pictureBoxCamDetect2";
             this.pictureBoxCamDetect2.Size = new System.Drawing.Size(216, 110);
+            this.pictureBoxCamDetect2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxCamDetect2.TabIndex = 1;
             this.pictureBoxCamDetect2.TabStop = false;
             // 
@@ -357,6 +360,7 @@
             // 
             // panelMain
             // 
+            this.panelMain.Controls.Add(this.btnOCR);
             this.panelMain.Controls.Add(this.lbTitle);
             this.panelMain.Controls.Add(this.splitContainerHome);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -365,6 +369,17 @@
             this.panelMain.Padding = new System.Windows.Forms.Padding(10);
             this.panelMain.Size = new System.Drawing.Size(913, 430);
             this.panelMain.TabIndex = 7;
+            // 
+            // btnOCR
+            // 
+            this.btnOCR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOCR.Location = new System.Drawing.Point(822, 13);
+            this.btnOCR.Name = "btnOCR";
+            this.btnOCR.Size = new System.Drawing.Size(75, 23);
+            this.btnOCR.TabIndex = 7;
+            this.btnOCR.Text = "OCR";
+            this.btnOCR.UseVisualStyleBackColor = true;
+            this.btnOCR.Click += new System.EventHandler(this.btnOCR_Click);
             // 
             // lbTitle
             // 
@@ -405,11 +420,42 @@
             this.backgroundWorkerOcr.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerOcr_ProgressChanged);
             this.backgroundWorkerOcr.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerOcr_RunWorkerCompleted);
             // 
-            // backgroundWorkerOpenCamera
+            // timerRunOCR
             // 
-            this.backgroundWorkerOpenCamera.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerOpenCamera_DoWork);
-            this.backgroundWorkerOpenCamera.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerOpenCamera_ProgressChanged);
-            this.backgroundWorkerOpenCamera.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerOpenCamera_RunWorkerCompleted);
+            this.timerRunOCR.Tick += new System.EventHandler(this.timerRunOCR_Tick);
+            // 
+            // captureImage1
+            // 
+            this.captureImage1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.captureImage1.drive = -1;
+            this.captureImage1.Location = new System.Drawing.Point(184, 35);
+            this.captureImage1.Name = "captureImage1";
+            this.captureImage1.Size = new System.Drawing.Size(246, 190);
+            this.captureImage1.TabIndex = 3;
+            this.captureImage1.TabStop = false;
+            // 
+            // pictureBoxCamDetect1
+            // 
+            this.pictureBoxCamDetect1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxCamDetect1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBoxCamDetect1.Name = "pictureBoxCamDetect1";
+            this.pictureBoxCamDetect1.SegmentedRegions = null;
+            this.pictureBoxCamDetect1.Size = new System.Drawing.Size(213, 110);
+            this.pictureBoxCamDetect1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxCamDetect1.TabIndex = 1;
+            this.pictureBoxCamDetect1.TabStop = false;
+            // 
+            // captureImage2
+            // 
+            this.captureImage2.drive = -1;
+            this.captureImage2.Location = new System.Drawing.Point(184, 38);
+            this.captureImage2.Name = "captureImage2";
+            this.captureImage2.Size = new System.Drawing.Size(257, 190);
+            this.captureImage2.TabIndex = 3;
+            this.captureImage2.TabStop = false;
             // 
             // Home
             // 
@@ -438,13 +484,15 @@
             this.splitContainerHome.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera2)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect2)).EndInit();
             this.panelTable.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.panelMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.captureImage1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.captureImage2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -468,7 +516,6 @@
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.Label lbTitle;
-        private System.Windows.Forms.PictureBox pictureBoxCamDetect1;
         private System.Windows.Forms.PictureBox pictureBoxCamDetect2;
         private System.Windows.Forms.Timer timerMain;
         private System.Windows.Forms.Timer timerVideo1;
@@ -486,7 +533,11 @@
         private System.Windows.Forms.Timer timerStartStop;
         internal System.Windows.Forms.ToolStripStatusLabel toolStripStatusDrive;
         private System.ComponentModel.BackgroundWorker backgroundWorkerOcr;
-        private System.ComponentModel.BackgroundWorker backgroundWorkerOpenCamera;
+        private OCR1.Controls.ScrollablePictureBox pictureBoxCamDetect1;
+        private System.Windows.Forms.Timer timerRunOCR;
+        private System.Windows.Forms.Button btnOCR;
+        private SC_M2_V2._00.Controls.Capture captureImage1;
+        private SC_M2_V2._00.Controls.Capture captureImage2;
     }
 }
 
