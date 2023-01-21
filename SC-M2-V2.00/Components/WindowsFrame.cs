@@ -6,16 +6,23 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WindowsFrame
 {
-    class VideoCapture : IDisposable
+    class WindowsCapture : IDisposable
     {
+         // original code by MoreChilli
+    // class WindowsCapture : IDisposable
+    // {
         private delegate IntPtr WindowProc(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
         // Delegate to filter which windows to include 
         private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
 
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        [StructLayout(
+            LayoutKind.Sequential,
+           CharSet = CharSet.Unicode
+        )]
         private struct WNDCLASS
         {
             public uint style;
@@ -33,10 +40,12 @@ namespace WindowsFrame
         }
 
         [DllImport("user32.dll", SetLastError = true)]
-        static extern ushort RegisterClassW([In] ref WNDCLASS lpWndClass);
-
+        static extern ushort RegisterClassW(
+            [In] ref WNDCLASS lpWndClass
+        );
         [DllImport("user32.dll", SetLastError = true)]
         static extern int GetClassNameW(IntPtr hWnd, [MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpClassName, int nMaxCount);
+        [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr CreateWindowExW(
            UInt32 dwExStyle,
            [MarshalAs(UnmanagedType.LPWStr)]
@@ -53,198 +62,214 @@ namespace WindowsFrame
            IntPtr hInstance,
            IntPtr lpParam
         );
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern IntPtr DefWindowProcW(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll", SetLastError = true)]
-        static extern bool DestroyWindow(IntPtr hWnd);
+        static extern IntPtr DefWindowProcW(
+            IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam
+        );
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool DestroyWindow(
+            IntPtr hWnd
+        );
         [DllImport("user32.dll")]
         static extern bool PostMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll")]
+        static extern bool FrameTick(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32.dll")]
         static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
 
-        const int WM_CLOSE = 0x0010;
-        const int WM_DESTROY = 0x0002;
-        const int WM_QUIT = 0x0012;
         const int WM_USER = 0x0400;
-        const int WM_APP = 0x8000;
-        const int WM_NCLBUTTONDOWN = 0x00A1;
-        const int WM_NCRBUTTONDOWN = 0x00A4;
+
+        const int ERROR_CLASS_ALREADY_EXISTS = 1410;
 
         bool _disposed;
-        const int ERROR_CLASS_ALREADY_EXISTS = 1410;
         IntPtr _handle;
-        WindowProc _windowProc;
-        private OpenCvSharp.VideoCapture capture;
+        WindowProc _wndProc;
 
-        ~VideoCapture()
+        ~WindowsCapture()
         {
-            Dispose(false);
+            Dispose();
         }
-
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
-        protected virtual void Dispose(bool disposing)
+        void Dispose(bool disposing)
         {
             if (!_disposed)
             {
-                if (disposing)
+                // Dispose unmanaged resources
+                if (_handle != IntPtr.Zero)
                 {
-                    // Dispose managed resources.
+                    DestroyWindow(_handle);
+                    _handle = IntPtr.Zero;
                 }
-                // Dispose unmanaged resources.
-                capture.Release();
-                PostMessage(_handle, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
-                PostMessage(_handle, WM_DESTROY, IntPtr.Zero, IntPtr.Zero);
-                PostMessage(_handle, WM_QUIT, IntPtr.Zero, IntPtr.Zero);
-                DestroyWindow(_handle);
                 _disposed = true;
             }
         }
-
-        public VideoCapture(int device)
+        
+        private OpenCvSharp.VideoCapture capture = null;
+        public WindowsCapture(string className)
         {
-            capture = new OpenCvSharp.VideoCapture(device);
-            _windowProc = WndProc;
-            WNDCLASS wc = new WNDCLASS();
-            wc.lpszClassName = "OpenCvSharp.VideoCapture";
-            wc.lpfnWndProc = _windowProc;
-            wc.hInstance = IntPtr.Zero;
-            wc.hbrBackground = IntPtr.Zero;
-            wc.hCursor = IntPtr.Zero;
-            wc.hIcon = IntPtr.Zero;
-            wc.lpszMenuName = null;
-            wc.cbClsExtra = 0;
-            wc.cbWndExtra = 0;
-            ushort atom = RegisterClassW(ref wc);
-            if (atom == 0)
+            if (string.IsNullOrEmpty(className))
+                className = "MessageWindow";
+            _wndProc = WndProc;
+            capture = new OpenCvSharp.VideoCapture();
+            // Create WNDCLASS
+            var wndclass = new WNDCLASS();
+            wndclass.lpszClassName = className;
+            wndclass.lpfnWndProc = _wndProc;
+
+            var classAtom = RegisterClassW(ref wndclass);
+
+            int lastError = Marshal.GetLastWin32Error();
+
+            if (classAtom == 0 && lastError != ERROR_CLASS_ALREADY_EXISTS)
             {
-                int error = Marshal.GetLastWin32Error();
-                if (error != ERROR_CLASS_ALREADY_EXISTS)
-                {
-                    throw new Exception("RegisterClassW failed with error code " + error);
-                }
-            }
-            _handle = CreateWindowExW(0, wc.lpszClassName, null, 0, 0, 0, 0, 0, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
-            if (_handle == IntPtr.Zero)
-            {
-                throw new Exception("CreateWindowExW failed with error code " + Marshal.GetLastWin32Error());
+                throw new Exception("Could not register window class");
             }
 
             // Create window
-            _handle = CreateWindowExW(0, wc.lpszClassName, null, 0, 0, 0, 0, 0, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
+            _handle = CreateWindowExW(
+                0,
+                wndclass.lpszClassName,
+                String.Empty,
+                0,
+                0,
+                0,
+                0,
+                0,
+                IntPtr.Zero,
+                IntPtr.Zero,
+                IntPtr.Zero,
+                IntPtr.Zero
+            );
         }
+        public event MessageReceivedEventHandler MessageReceived;
+        public event FrameEventArgsEventHandler FrameEventArgs;
+        // IntPtr WndProc(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam)
+        // {
+        //     if (msg >= WM_USER && msg < WM_USER + 0x8000)
+        //     {
+        //         var args = new MessageReceivedEventArgs(msg - WM_USER, wParam, lParam);
+        //         MessageReceived?.Invoke(this, args);
+        //         if (!args.Handled)
+        //             return DefWindowProcW(hWnd, msg, wParam, lParam);
+        //         return IntPtr.Zero;
+                
+        //         // if (msg == WM_USER + 1)
+        //         // {
+        //         //     var args = new FrameEventArgs(GetFrame());
+        //         //     FrameEventArgs?.Invoke(this, args);
+        //         //     if (!args.Handled)
+        //         //         return DefWindowProcW(hWnd, msg, wParam, lParam);
+        //         //     return IntPtr.Zero;
+        //         // }
+        //         Console.WriteLine("MessageReceived");
+        //     }
+        //     return DefWindowProcW(hWnd, msg, wParam, lParam);
+        // }
 
-        private IntPtr WndProc(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam)
+        IntPtr WndProc(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam)
         {
+            if (msg >= WM_USER && msg < WM_USER + 0x8000)
+            {               
+                if (msg == WM_USER + 1)
+                {
+                    var args = new FrameEventArgs(GetFrame());
+                    FrameEventArgs?.Invoke(this, args);
+                    if (!args.Handled)
+                        return DefWindowProcW(hWnd, msg, wParam, lParam);
+                    return IntPtr.Zero;
+                }
+            }
             return DefWindowProcW(hWnd, msg, wParam, lParam);
         }
-
-        public Mat Read()
+        public void PostMessage(int messageId, IntPtr wParam, IntPtr lParam)
         {
-            return capture.RetrieveMat();
+            PostMessage(_handle, messageId + WM_USER, wParam, lParam);
         }
 
-        public bool IsOpened()
+        public void FrameTick()
         {
-            return capture.IsOpened();
+            PostMessage(_handle, 1 + WM_USER, new IntPtr(1), new IntPtr(1));
         }
-
-        public void Release()
-        {
+        
+        
+        public void Start(int index){
+            capture.Open(index);
+        }
+        public void Stop(){
             capture.Release();
         }
 
-        public double Get(int propId)
-        {
-            return capture.Get(propId);
-        }
+        public Mat GetFrame(){
+            if(!capture.IsOpened())
+                return null;
 
-        public bool Set(int propId, double value)
-        {
-            return capture.Set(propId, value);
+            return capture.RetrieveMat();
         }
-
-        public int FrameWidth
+        public static void PostRemoteMessage(IntPtr hWnd, int messageId, IntPtr parameter1, IntPtr parameter2)
         {
-            get
-            {
-                return capture.FrameWidth;
-            }
-            set { capture.FrameWidth = value; }
+            PostMessage(hWnd, messageId + WM_USER, parameter1, parameter2);
         }
-
-        public int FrameHeight
-        {
-            get
-            {
-                return capture.FrameHeight;
-            }
-            set { capture.FrameHeight = value; }
-        }
-
-        public double Fps
-        {
-            get
-            {
-                return capture.Fps;
+        public string ClassName {
+            get {
+                var sb = new StringBuilder(256);
+                GetClassNameW(_handle, sb, sb.Capacity);
+                return sb.ToString();
             }
         }
-
-        public string FourCC
+        public static IReadOnlyList<IntPtr> GetMessageWindowHandlesByClassName(string className)
         {
-            get
+            if (string.IsNullOrEmpty(className))
+                className = "MessageWindow";
+            var result = new List<IntPtr>();
+            var sb = new StringBuilder(256);
+            EnumWindows(new EnumWindowsProc((IntPtr hWnd, IntPtr lParam) =>
             {
-                return capture.FourCC;
-            }
-        }
-
-        public event FrameVideoEventHandler FrameArrived;
-        public void Start()
-        {
-            if (capture.IsOpened())
-            {
-                Task.Run(() =>
+                GetClassNameW(hWnd, sb, sb.Capacity);
+                if (className == sb.ToString())
                 {
-                    while (true)
-                    {
-                        using (Mat frame = capture.RetrieveMat())
-                        {
-                            if (frame != null)
-                            {
-                                FrameArrived?.Invoke(this, new FrameVideoEventArgs(frame));
-                            }
-                        }
-
-                        Thread.Sleep(50);
-                    }
-                });
-            }
-        }
-
-        public void Stop()
-        {
-            PostMessage(_handle, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
-            PostMessage(_handle, WM_DESTROY, IntPtr.Zero, IntPtr.Zero);
-            PostMessage(_handle, WM_QUIT, IntPtr.Zero, IntPtr.Zero);
-            DestroyWindow(_handle);
-            _handle = IntPtr.Zero;
-        }
+                    result.Add(hWnd);
+                }
+                return true;
+            }), IntPtr.Zero);
+            //Thread.Sleep(100);
+            
+            return result;
+        } 
+        public IntPtr Handle { get { return _handle; } }   
     }
-
-    class FrameVideoEventArgs : EventArgs
+    class MessageReceivedEventArgs : EventArgs
     {
-        public Mat Frame { get; private set; }
-        public FrameVideoEventArgs(Mat frame)
+        public MessageReceivedEventArgs(int messageId, IntPtr parameter1, IntPtr parameter2)
+        {
+            MessageId = messageId;
+            Parameter1 = parameter1;
+            Parameter2 = parameter2;
+        }
+        public int MessageId { get; }
+        public IntPtr Parameter1 { get; }
+        public IntPtr Parameter2 { get; }
+        public bool Handled { get; set; }
+    }
+    delegate void MessageReceivedEventHandler(object sender, MessageReceivedEventArgs args);
+
+        class FrameEventArgs : EventArgs
+    {
+        public FrameEventArgs(Mat frame)
         {
             Frame = frame;
         }
+        public Mat Frame { get; }
+        public bool Handled { get; set; }
     }
-    delegate void FrameVideoEventHandler(object sender, FrameVideoEventArgs e);
-    delegate IntPtr WindowProc(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+    delegate void FrameEventArgsEventHandler(object sender, FrameEventArgs args);
+
 }

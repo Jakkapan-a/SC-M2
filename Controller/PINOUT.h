@@ -7,7 +7,6 @@
 #else
 	#include "WProgram.h"
 #endif
-#include <cstdint>
 
 class PINOUT
 {

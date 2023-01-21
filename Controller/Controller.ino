@@ -33,6 +33,7 @@ void serialEvent() {
     }
 }
 // the setup function runs once when you press reset or power the board
+
 void setup() {
     Serial.begin(115200);
 
@@ -40,8 +41,11 @@ void setup() {
     mesLED.off();
     imagePrepare.on();
     alarm.off();
+    serialCommand("rst");
 }
-
+void serialCommand(String command){
+    Serial.println(">"+command+"<#");
+}
 void loop() {
 	// check the status of the button press.
 	if (button_1.isPressed() && state_1) { // RST
@@ -50,7 +54,8 @@ void loop() {
         imagePrepare.on();
         alarm.off();
         state_1 = false;
-        Serial.println("RST - PIN");
+        // Serial.println("RST - PIN");
+        serialCommand("rst");
     }
 	// check to see if the string is complete:
 	if (stringComplete) { // If state complete is true

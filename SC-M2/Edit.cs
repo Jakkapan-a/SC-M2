@@ -192,6 +192,7 @@ namespace SC_M2
                 e.Graphics.DrawRectangle(Pens.Red, GetRect());
             }
         }
+
         private Rectangle GetRect()
         {
             Rect = new Rectangle();

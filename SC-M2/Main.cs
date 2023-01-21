@@ -32,7 +32,7 @@ namespace SC_M2
         //private bool isConnection = false;
 
         private string _path = @"./system";
-        int model_id = -1;
+        //int model_id = -1;
         int Count = 0;
         private OpenCvSharp.VideoCapture capture;
         private bool IsCapture;

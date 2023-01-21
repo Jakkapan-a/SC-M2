@@ -24,6 +24,7 @@ using Emgu.CV.Structure;
 using SC_M2_V2._00.Modules;
 using System.Windows.Markup;
 using System.Text.RegularExpressions;
+using WindowsFrame;
 
 namespace SC_M2_V2_00
 {
@@ -72,6 +73,8 @@ namespace SC_M2_V2_00
             InitializeComponent();
         }
         SC_M2_V2_00.FormComponent.Connections connections;
+
+        // WindowsFrame.WindowsCapture Test1;
         private void Home_Load(object sender, EventArgs e)
         {
             statusCamConnect.Clear();
@@ -83,8 +86,21 @@ namespace SC_M2_V2_00
             {
                 Directory.CreateDirectory(SC_M2_V2._00.Properties.Resources.Path_System_Temp);
             }
+            // Test1 = new WindowsFrame.WindowsCapture(1);
+            // Console.WriteLine("Runing");
+            // Test1.FrameArrived += VideoCapture1_FrameArrived;
 
         }
+
+        // private void VideoCapture1_FrameArrived(object sender, FrameVideoEventArgs e)
+        // {
+        //     if (e.Frame != null)
+        //     {
+        //         pictureBoxCamera1.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(e.Frame);
+        //     }
+
+        //     Console.WriteLine("Video...");
+        // }
 
         private void conectionsToolStripMenuItem_Click(object sender, EventArgs e)
         { 
@@ -519,7 +535,7 @@ namespace SC_M2_V2_00
 
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.cameraConnect();
+            //this.cameraConnect();
             //statusCamConnect["connect"] = true;
             //this.timerStartStop.Start();
             this.lbTitle.Text = "Camera are opening.";
