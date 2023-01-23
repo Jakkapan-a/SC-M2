@@ -5,12 +5,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Collections.Generic;
-namespace __731TMC
+namespace ImageClassification
 {
-    public partial class _731TMC
+    public partial class _731TMC_SW
     {
         /// <summary>
-        /// model input class for _731TMC.
+        /// model input class for _731TMC_SW.
         /// </summary>
         #region model input class
         public class ModelInput
@@ -26,7 +26,7 @@ namespace __731TMC
         #endregion
 
         /// <summary>
-        /// model output class for _731TMC.
+        /// model output class for _731TMC_SW.
         /// </summary>
         #region model output class
         public class ModelOutput
@@ -47,7 +47,7 @@ namespace __731TMC
 
         #endregion
 
-        private static string MLNetModelPath = Path.GetFullPath("./datatest/731TMC.zip");
+        private static string MLNetModelPath = Path.GetFullPath("731TMC-SW.zip");
 
         public static readonly Lazy<PredictionEngine<ModelInput, ModelOutput>> PredictEngine = new Lazy<PredictionEngine<ModelInput, ModelOutput>>(() => CreatePredictEngine(), true);
 

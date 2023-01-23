@@ -8,9 +8,9 @@ using Microsoft.ML.Data;
 using Microsoft.ML.Vision;
 using Microsoft.ML;
 
-namespace __731TMC
+namespace ImageClassification
 {
-    public partial class _731TMC
+    public partial class _731TMC_SW
     {
         /// <summary>
         /// Retrains model using the pipeline generated as part of the training process. For more information on how to load data, see aka.ms/loaddata.
