@@ -200,15 +200,22 @@ namespace WindowsFrame
             PostMessage(_handle, 1 + WM_USER, new IntPtr(1), new IntPtr(1));
         }
         
-        
+        bool stateCapture = false;
         public void Start(int index){
             capture.Open(index);
-        }
+            capture.FrameHeight = 720;
+            capture.FrameWidth = 1280;
+            }
         public void Stop(){
-            capture.Release();
+            if(!capture.IsOpened())
+            {
+                capture.Release();  
+            }
+            stateCapture = false;
         }
 
         public Mat GetFrame(){
+
             if(!capture.IsOpened())
                 return null;
 

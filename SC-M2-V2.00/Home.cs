@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SC_M2_V2._00.Ocr;
 using System.IO;
-using SC_M2_V2._00.ImageClassification;
 using System.Drawing.Imaging;
 using SC_M2_V2._00.Properties;
 using SC_M2_V2._00;
@@ -25,6 +24,7 @@ using SC_M2_V2._00.Modules;
 using System.Windows.Markup;
 using System.Text.RegularExpressions;
 using WindowsFrame;
+using __731TMC;
 
 namespace SC_M2_V2_00
 {
@@ -50,12 +50,11 @@ namespace SC_M2_V2_00
         public string dataSerialReceived = string.Empty;
         public string readDataSerial = string.Empty;
 
-        private OpenCvSharp.VideoCapture videoCapture1;
+        private OpenCvSharp.VideoCapture videoCapture1;        
         private OpenCvSharp.VideoCapture videoCapture2;
-        private bool isVideoCapture1 = false, isVideoCapture2 = false;
-        public Dictionary<string,bool> statusCamConnect = new Dictionary<string,bool>();
-        _731TMC.ModelInput _731TMC_Detect_Ver = new _731TMC.ModelInput();
 
+        private bool isVideoCapture1 = false, isVideoCapture2 = false;
+        public Dictionary<string, bool> statusCamConnect = new Dictionary<string, bool>();
 
         List<Image> ListImage = new List<Image>();
 
@@ -86,25 +85,12 @@ namespace SC_M2_V2_00
             {
                 Directory.CreateDirectory(SC_M2_V2._00.Properties.Resources.Path_System_Temp);
             }
-            // Test1 = new WindowsFrame.WindowsCapture(1);
-            // Console.WriteLine("Runing");
-            // Test1.FrameArrived += VideoCapture1_FrameArrived;
-
         }
 
-        // private void VideoCapture1_FrameArrived(object sender, FrameVideoEventArgs e)
-        // {
-        //     if (e.Frame != null)
-        //     {
-        //         pictureBoxCamera1.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(e.Frame);
-        //     }
-
-        //     Console.WriteLine("Video...");
-        // }
 
         private void conectionsToolStripMenuItem_Click(object sender, EventArgs e)
-        { 
-            if(connections != null)
+        {
+            if (connections != null)
             {
                 connections.Close();
                 connections.Dispose();
@@ -113,7 +99,7 @@ namespace SC_M2_V2_00
             connections = new SC_M2_V2_00.FormComponent.Connections(this);
             connections.Show();
         }
-       
+
         #region Serial Port 
         public void setSerialPort(string portName, string baud)
         {
@@ -138,19 +124,21 @@ namespace SC_M2_V2_00
                 this.toolStripStatusConnectSerialPort.Text = "Serial Port: Connected";
                 this.toolStripStatusConnectSerialPort.ForeColor = Color.Green;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 this.toolStripStatusConnectSerialPort.Text = "Serial Port: Disconnect";
                 this.toolStripStatusConnectSerialPort.ForeColor = Color.Red;
-                MessageBox.Show(ex.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-          
+
         }
 
-        public void serialConnect(){
-            
-            if(this.serialportName == string.Empty || this.baudrate == string.Empty){
-                MessageBox.Show("Please select serial port and baud rate", "Exclamation", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+        public void serialConnect()
+        {
+
+            if (this.serialportName == string.Empty || this.baudrate == string.Empty)
+            {
+                MessageBox.Show("Please select serial port and baud rate", "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             this.serialConnect(this.serialportName, int.Parse(this.baudrate));
@@ -158,9 +146,9 @@ namespace SC_M2_V2_00
 
         public void serialCommand(string command)
         {
-            if(this.serialPort.IsOpen)
+            if (this.serialPort.IsOpen)
             {
-                this.serialPort.Write(">"+command+"<#");
+                this.serialPort.Write(">" + command + "<#");
             }
         }
 
@@ -170,7 +158,8 @@ namespace SC_M2_V2_00
             {
                 readDataSerial = this.serialPort.ReadExisting();
                 this.Invoke(new EventHandler(dataReceived));
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -181,20 +170,21 @@ namespace SC_M2_V2_00
             this.dataSerialReceived += readDataSerial;
             //Console.WriteLine("Read : " + dataSerialReceived);
             if (dataSerialReceived.Contains(">") && dataSerialReceived.Contains("<"))
-            {   
-                string data = this.dataSerialReceived.Replace("\r",string.Empty).Replace("\n",string.Empty);
+            {
+                string data = this.dataSerialReceived.Replace("\r", string.Empty).Replace("\n", string.Empty);
                 data = data.Substring(data.IndexOf(">") + 1, data.IndexOf("<") - 1);
                 this.dataSerialReceived = string.Empty;
 
-                Console.WriteLine("Received ->: "+data);
-                if(data == "rst")
+                Console.WriteLine("Received ->: " + data);
+                if (data == "rst")
                 {
                     isStaetReset = true;
+                    //toggleVideo();
                 }
 
                 //serialCommand("OK#");
             }
-            else if(!dataSerialReceived.Contains(">"))
+            else if (!dataSerialReceived.Contains(">"))
             {
                 this.dataSerialReceived = string.Empty;
             }
@@ -204,17 +194,47 @@ namespace SC_M2_V2_00
 
         private void setCameraDevice(int device1, int device2)
         {
-            if(device1 == -1 || device2 == -1)
+            if (device1 == -1 || device2 == -1)
             {
                 MessageBox.Show("Please select camera device", "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             this.deviceCamera1 = device1;
             this.deviceCamera2 = device2;
-            //this.cameraConnect();
         }
 
+        bool toggleCAM = false;
+        private void toggleVideo()
+        {
 
+            toggleCAM = !toggleCAM;
+            if (this.videoCapture1 != null)
+            {
+                this.videoCapture1.Dispose();
+                this.videoCapture1 = null;
+            }
+
+            int drive;
+            if (toggleCAM)
+            {
+                drive = this.deviceCamera1;
+            }
+            else
+            {
+                drive = this.deviceCamera2;
+            }
+            if (this.videoCapture1 != null)
+            {
+                this.videoCapture1.Dispose();
+                this.videoCapture1 = null;
+            }
+            this.videoCapture1 = new OpenCvSharp.VideoCapture(drive);
+            this.videoCapture1.Open(drive);
+            this.videoCapture1.FrameHeight = 720;
+            this.videoCapture1.FrameWidth = 1280;
+
+            this.timerVideo1.Start();
+        }
         private void cameraConnect()
         {
             try
@@ -232,6 +252,7 @@ namespace SC_M2_V2_00
                     this.videoCapture2.Dispose();
                     this.videoCapture2 = null;
                 }
+
                 if (this.deviceCamera1 == -1 || this.deviceCamera2 == -1)
                 {
                     MessageBox.Show("Please select driver of camera!", "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -239,20 +260,23 @@ namespace SC_M2_V2_00
                 }
                 this.timerVideo1.Stop();
                 this.timerVideo2.Stop();
+                //toggleCAM = false;
+                //toggleVideo();
 
-                captureImage1.Stop();
+                this.videoCapture1 = new OpenCvSharp.VideoCapture(deviceCamera1);
+                this.videoCapture1.Open(deviceCamera1);
+                this.videoCapture1.FrameHeight = 720;
+                this.videoCapture1.FrameWidth = 1280;
 
-                captureImage1.drive = this.deviceCamera1;
-
-                captureImage1.Start();
-
-                captureImage2.Stop();
-
-                captureImage2.drive = this.deviceCamera2;
-
-                captureImage2.Start();
+                this.videoCapture2 = new OpenCvSharp.VideoCapture(deviceCamera2);
+                this.videoCapture2.Open(deviceCamera2);
+                this.videoCapture2.FrameHeight = 720;
+                this.videoCapture2.FrameWidth = 1280;
 
 
+                this.timerVideo1.Start();
+                this.timerVideo2.Start();
+                Console.WriteLine("Dir : " + videoCapture2.IsOpened());
                 #region Code old
                 //this.videoCapture1 = new OpenCvSharp.VideoCapture(this.deviceCamera1);
                 //this.videoCapture2 = new OpenCvSharp.VideoCapture(this.deviceCamera2);
@@ -369,41 +393,44 @@ namespace SC_M2_V2_00
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }         
+            }
         }
-       
-        
-        private static void setVideoCapture(OpenCvSharp.VideoCapture capture,int FrameWidth , int FrameHeight)
+
+
+        private static void setVideoCapture(OpenCvSharp.VideoCapture capture, int FrameWidth, int FrameHeight)
         {
             capture.Set(OpenCvSharp.VideoCaptureProperties.FrameWidth, FrameWidth);
             capture.Set(OpenCvSharp.VideoCaptureProperties.FrameHeight, FrameHeight);
         }
 
-        private void disposeCamera(){
-            try{
-                if(this.videoCapture1 != null)
+        private void disposeCamera()
+        {
+            try
+            {
+                if (this.videoCapture1 != null)
                 {
-                    if(this.videoCapture1.IsOpened())
+                    if (this.videoCapture1.IsOpened())
                     {
                         this.videoCapture1.Release();
                     }
-                    //this.timerVideo1.Stop();
-                    //this.videoCapture1.Dispose();
-                    //this.videoCapture1 = null;
+                    this.timerVideo1.Stop();
+                    this.videoCapture1.Dispose();
+                    this.videoCapture1 = null;
                 }
-                if(this.videoCapture2 != null)
+                if (this.videoCapture2 != null)
                 {
-                    if(this.videoCapture2.IsOpened())
+                    if (this.videoCapture2.IsOpened())
                     {
                         this.videoCapture2.Release();
                     }
-                    //this.timerVideo2.Stop();
+                    this.timerVideo2.Stop();
                     this.videoCapture2.Dispose();
                     this.videoCapture2 = null;
                 }
                 this.toolStripStatusConnectionCamera.Text = $"Camera 1 : Disconnected | Camera 2 : Disconnected";
                 this.toolStripStatusConnectionCamera.ForeColor = Color.Red;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -414,88 +441,43 @@ namespace SC_M2_V2_00
         private void timerMain_Tick(object sender, EventArgs e)
         {
             countDetect++;
-            if(countDetect>10000)
-            { countDetect=0; }
-
-            if(this.videoCapture1 != null && this.videoCapture1.IsOpened() && statevideoCapture1 == true)
-            {
-                this.timerVideo1.Start();
-                //Console.WriteLine("V...1");
-                statevideoCapture1 = false;
-                this.lbTitle.Text = "------------";
-
-                this.toolStripStatusConnectionCamera.Text = SC_M2_V2._00.Properties.Resources.CamConnected;
-                this.toolStripStatusConnectionCamera.ForeColor = Color.Green;
-                this.statusCamConnect["connect"] = true;
-            }
-            
-            if (this.videoCapture2 != null && this.videoCapture2.IsOpened() && statevideoCapture2 == true)
-            {
-                this.timerVideo2.Start();
-                //Console.WriteLine("V...2");
-                statevideoCapture2 = false;
-                this.lbTitle.Text = "------";
-                this.toolStripStatusConnectionCamera.Text = SC_M2_V2._00.Properties.Resources.CamConnected;
-                this.toolStripStatusConnectionCamera.ForeColor = Color.Green;
-                this.statusCamConnect["connect"] = true;
-            }          
+            if (countDetect > 10000)
+            { countDetect = 0; }
         }
 
         private void timerVideo1_Tick(object sender, EventArgs e)
         {
             try
             {
-                if(videoCapture1!= null && videoCapture1.IsOpened())
+                if (videoCapture1 != null && videoCapture1.IsOpened())
                 {
-                    using(OpenCvSharp.Mat frame = videoCapture1.RetrieveMat())
+                    using (OpenCvSharp.Mat frame = videoCapture1.RetrieveMat())
                     {
                         //frame = videoCapture1.RetrieveMat();
-                        if(frame != null)
+                        if (frame != null)
                         {
-                            pictureBoxCamera1.SuspendLayout();
-                            pictureBoxCamera1.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(frame);
-                            pictureBoxCamera1.ResumeLayout();
-                            if(countDetect > 3)
-                            {
-                                
-                                if(_731TMC_Detect_Ver != null && isStaetReset)
+                                pictureBoxCamera1.SuspendLayout();
+                                pictureBoxCamera1.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(frame);
+                                pictureBoxCamera1.ResumeLayout();
+                                if (countDetect > 3)
                                 {
-                                    string nameTemp = SC_M2_V2._00.Properties.Resources.Path_System_Temp + "/" + Guid.NewGuid().ToString() + ".jpg";
-                                    pictureBoxCamera1.Image.Save(nameTemp, ImageFormat.Jpeg);
-                                    var imageBytes = File.ReadAllBytes(nameTemp);
-                                    _731TMC_Detect_Ver.ImageSource = imageBytes;
+                                        string nameTemp = SC_M2_V2._00.Properties.Resources.Path_System_Temp + "/" + Guid.NewGuid().ToString() + ".jpg";
+                                        pictureBoxCamera1.Image.Save(nameTemp, ImageFormat.Jpeg);
 
-                                    var predictionResult = _731TMC.Predict(_731TMC_Detect_Ver);
-                                    //Console.WriteLine($"\nPredicted Label value: {predictionResult.PredictedLabel} \nPredicted Label scores: [{String.Join(",", predictionResult.Score)}]\n");
-                                    //Console.WriteLine("Stop Time" + DateTime.Now.ToString("HH:mm:ss"));
-                                    //Console.WriteLine("------------------------------------");
-                                    if(predictionResult.PredictedLabel == "VER" && predictionResult.Score[0] > 0.7)
-                                    {
-                                        isStaetReset = false;
-                                        inputfilenameimage = nameTemp;
-                                        //timerRunOCR.Start();
-                                        //MessageBox.Show("OK......Image : "+ inputfilenameimage);
-                                        btnOCR.PerformClick();
-                                    }
-                                    else
-                                    {
-                                        //Console.WriteLine("Not Found : " + predictionResult.Score[0]);
                                         if (File.Exists(nameTemp))
                                         {
                                             File.Delete(nameTemp);
                                         }
-                                    }
-                                    imageBytes = null;
-                                   
+                                     countDetect = 0;
                                 }
-                                countDetect=0;
-                            }
+                           
                         }
                     }
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                //this.timerVideo1.Stop();
+                this.timerVideo1.Stop();
                 MessageBox.Show(ex.Message, "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
@@ -535,7 +517,7 @@ namespace SC_M2_V2_00
 
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //this.cameraConnect();
+            this.cameraConnect();
             //statusCamConnect["connect"] = true;
             //this.timerStartStop.Start();
             this.lbTitle.Text = "Camera are opening.";
@@ -552,31 +534,18 @@ namespace SC_M2_V2_00
             }
         }
 
-      
+
         private Options options = new Options();
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           if(options!= null)
+            if (options != null)
             {
                 options.Dispose();
-                options= null;
+                options = null;
             }
-
-            if (videoCapture1 != null &&videoCapture1.IsOpened())
-            {
-                videoCapture1.Release();
-                videoCapture1.Dispose();
-                videoCapture1 = null;
-            }
-
-            if (videoCapture2 != null && videoCapture2.IsOpened())
-            {
-                videoCapture2.Release();
-                videoCapture2.Dispose();
-                videoCapture2 = null;
-            }
-           options = new Options();
-           options.Show(this);
+           
+            options = new Options();
+            options.Show(this);
         }
 
         private void performOCR(IList<Image> imageList, string inputfilename, int index, Rectangle rect)
@@ -609,7 +578,7 @@ namespace SC_M2_V2_00
                 //        break;
                 //    }
 
-               string result = ocrEngine.RecognizeText(((List<Image>)images).GetRange(0, 1), entity.Inputfilename);
+                string result = ocrEngine.RecognizeText(((List<Image>)images).GetRange(0, 1), entity.Inputfilename);
                 //Console.WriteLine(result);
                 this.richTextBox1.AppendText(result);
 
@@ -631,7 +600,7 @@ namespace SC_M2_V2_00
         {
             cameraConnect();
             toolStripStatusConnectionCamera.Text = SC_M2_V2._00.Properties.Resources.CamConnecting;
-            toolStripStatusConnectionCamera.ForeColor = Color.Orange;     
+            toolStripStatusConnectionCamera.ForeColor = Color.Orange;
         }
 
         private void backgroundWorkerOpenCamera_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -807,7 +776,7 @@ namespace SC_M2_V2_00
             }
         }
 
- 
+
     }
 
 

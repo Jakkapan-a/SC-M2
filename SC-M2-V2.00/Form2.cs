@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace SC_M2_V2._00
 {
     public partial class Form2 : Form
@@ -17,28 +17,12 @@ namespace SC_M2_V2._00
             InitializeComponent();
         }
 
-        private WindowsFrame.WindowsCapture capture;
-        private WindowsFrame.WindowsCapture capture2;
+        //private WindowsFrame.WindowsCapture capture;
+        //private WindowsFrame.WindowsCapture capture2;
         bool state = false;
         private void Form2_Load(object sender, EventArgs e)
         {
-            // capture = new WindowsFrame.WindowsCapture(0);
-            // capture.FrameArrived += Capture_FrameArrived;
-            capture = new WindowsFrame.WindowsCapture("SC-M2-V2.00");
-            capture.MessageReceived += Capture_MessageReceived;
-            capture.FrameEventArgs += Capture_FrameEventArgs;
-            //capture.Start(0);
-
-            capture2 = new WindowsFrame.WindowsCapture("CAM2");
-            capture2.FrameEventArgs += Capture2_FrameEventArgs;
-            //capture2.Start(1);
-
-            Task.Run(async () =>
-            {
-                capture.Start(0);
-                await Task.Delay(100);
-                capture2.Start(2);
-            });
+          
         }
 
         private void Capture_FrameEventArgs(object sender, WindowsFrame.FrameEventArgs args)
@@ -67,16 +51,16 @@ namespace SC_M2_V2._00
 
         private void button1_Click(object sender, EventArgs e)
         {
-           Task.Run(async () =>  
-           {
-               while(true)
-               {
-                   capture.FrameTick();
-                   capture2.FrameTick();
-                   await Task.Delay(100);
-               }
-               //capture.PostMessage(1, new IntPtr(0), new IntPtr(1));
-            });
+           //Task.Run(async () =>  
+           //{
+           //    while(true)
+           //    {
+           //        capture.FrameTick();
+           //        capture2.FrameTick();
+           //        await Task.Delay(100);
+           //    }
+           //    //capture.PostMessage(1, new IntPtr(0), new IntPtr(1));
+           // });
         }
 
         // private void Capture_FrameArrived(object sender, WindowsFrame.FrameVideoEventArgs e)
