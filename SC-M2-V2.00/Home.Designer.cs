@@ -414,10 +414,7 @@
             this.backgroundWorkerOcr.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerOcr_DoWork);
             this.backgroundWorkerOcr.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerOcr_ProgressChanged);
             this.backgroundWorkerOcr.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerOcr_RunWorkerCompleted);
-            // 
-            // timerRunOCR
-            // 
-            this.timerRunOCR.Tick += new System.EventHandler(this.timerRunOCR_Tick);
+            
             // 
             // Home
             // 

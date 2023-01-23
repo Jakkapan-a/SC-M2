@@ -1,4 +1,6 @@
-﻿namespace ImageClassification
+﻿using System.Diagnostics;
+
+namespace ImageClassification
 {
     internal class Program
     {
@@ -15,9 +17,11 @@
             //var result = _731TMC_SW.Predict(sampleData);
 
             _731TMC_SW.ModelInput input = new _731TMC_SW.ModelInput();
+
             bool isRunning = false;
             if(args.Count() > 0 && args[0] == "-file")
             {
+                Console.WriteLine("start");
                 do
                 {
                     string? data = Console.ReadLine();
@@ -29,14 +33,21 @@
                         }
                         else if (File.Exists(data))
                         {
+                            Stopwatch stopwatch = new Stopwatch();
+                            stopwatch.Start();
+
                             var imageBytes = File.ReadAllBytes(data);
                             input.ImageSource = imageBytes;
                             var result = _731TMC_SW.Predict(input);
-                            Console.WriteLine($"ImageSource:{result.ImageSource},Score:{result.ImageSource},PredictedLabel:{result.PredictedLabel},lable:{result.Label}");
+                            Console.WriteLine($"Label:{result.PredictedLabel}-scores:[{String.Join(",", result.Score)}]");
+                            stopwatch.Stop();
+                            Console.WriteLine("Time is {0} ms", stopwatch.ElapsedMilliseconds);
+                            imageBytes = null;
+                            result = null;
                         }
                         else
                         {
-                            Console.WriteLine("Not found!");
+                            Console.WriteLine("NotFound");
                         }                   
                     }
                 } while (!isRunning);

@@ -136,6 +136,12 @@
   <data name="Path_Image" xml:space="preserve">
     <value>./System/Images</value>
   </data>
+  <data name="Path_ImageClassification" xml:space="preserve">
+    <value>./System/Image_classification</value>
+  </data>
+  <data name="Path_ImageClassificationTemp" xml:space="preserve">
+    <value>D:\CPush\SC-M2\ImageClassification\bin\Debug\net7.0</value>
+  </data>
   <data name="Path_System" xml:space="preserve">
     <value>./System</value>
   </data>

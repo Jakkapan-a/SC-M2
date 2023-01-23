@@ -116,6 +116,24 @@ namespace SC_M2_V2._00.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ./System/Image_classification.
+        /// </summary>
+        internal static string Path_ImageClassification {
+            get {
+                return ResourceManager.GetString("Path_ImageClassification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D:\CPush\SC-M2\ImageClassification\bin\Debug\net7.0.
+        /// </summary>
+        internal static string Path_ImageClassificationTemp {
+            get {
+                return ResourceManager.GetString("Path_ImageClassificationTemp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ./System.
         /// </summary>
         internal static string Path_System {

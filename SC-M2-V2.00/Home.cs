@@ -24,6 +24,7 @@ using SC_M2_V2._00.Modules;
 using System.Windows.Markup;
 using System.Text.RegularExpressions;
 using WindowsFrame;
+using System.Diagnostics;
 
 namespace SC_M2_V2_00
 {
@@ -65,7 +66,12 @@ namespace SC_M2_V2_00
 
         private int countDetect = 0;
 
+        private Process _processCMD;
+        private StreamWriter _streamWriterCMD;
 
+        public string _path_defult;
+        private int _stepImageClassification = 0;
+        private string LabelSW;
         public Home()
         {
             InitializeComponent();
@@ -80,12 +86,58 @@ namespace SC_M2_V2_00
             statusCamConnect["connect"] = false;
             timerMain.Start();
 
+            _path_defult = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            Console.WriteLine(_path_defult);
             if (!Directory.Exists(SC_M2_V2._00.Properties.Resources.Path_System_Temp))
             {
                 Directory.CreateDirectory(SC_M2_V2._00.Properties.Resources.Path_System_Temp);
             }
+
+            if (!Directory.Exists(SC_M2_V2._00.Properties.Resources.Path_ImageClassification))
+            {
+                Directory.CreateDirectory(SC_M2_V2._00.Properties.Resources.Path_ImageClassification);
+            }
+
+            Process _processCMD = new Process();
+            _processCMD.StartInfo.WorkingDirectory = SC_M2_V2._00.Properties.Resources.Path_ImageClassificationTemp;
+            _processCMD.StartInfo.FileName = "cmd.exe";
+            _processCMD.StartInfo.UseShellExecute = false;
+            _processCMD.StartInfo.RedirectStandardOutput = true;
+            _processCMD.StartInfo.StandardOutputEncoding = System.Text.Encoding.UTF8;
+            _processCMD.StartInfo.RedirectStandardError = true;
+            _processCMD.StartInfo.StandardErrorEncoding= System.Text.Encoding.UTF8;
+            _processCMD.StartInfo.RedirectStandardInput = true;
+            _processCMD.StartInfo.CreateNoWindow= false;
+            _processCMD.EnableRaisingEvents= true;
+            _processCMD.StartInfo.WindowStyle= ProcessWindowStyle.Hidden;
+            _processCMD.Start();
+            _processCMD.BeginOutputReadLine();
+            _streamWriterCMD = _processCMD.StandardInput;
+            _streamWriterCMD.AutoFlush= true;
+            _streamWriterCMD.WriteLine("ImageClassification.exe -file");
+            _processCMD.OutputDataReceived += new DataReceivedEventHandler(this.process_OutputReceived);
+
         }
 
+        private void process_OutputReceived(object sender, DataReceivedEventArgs e)
+        {
+            if(e.Data == null) 
+                return;
+
+            if(_stepImageClassification == 1)
+            {
+                string data = e.Data.ToString();                
+                if(data != "NotFound")
+                {
+                    var array = data.Split('-');
+                    //Console.WriteLine(data);
+                    
+                    var label = array[0];
+                    this.LabelSW = label.Split(':')[1];
+                }
+                _stepImageClassification = 2;
+            }
+        }
 
         private void conectionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -178,10 +230,7 @@ namespace SC_M2_V2_00
                 if (data == "rst")
                 {
                     isStaetReset = true;
-                    //toggleVideo();
                 }
-
-                //serialCommand("OK#");
             }
             else if (!dataSerialReceived.Contains(">"))
             {
@@ -200,41 +249,11 @@ namespace SC_M2_V2_00
             }
             this.deviceCamera1 = device1;
             this.deviceCamera2 = device2;
+
         }
 
-        bool toggleCAM = false;
-        private void toggleVideo()
-        {
-
-            toggleCAM = !toggleCAM;
-            if (this.videoCapture1 != null)
-            {
-                this.videoCapture1.Dispose();
-                this.videoCapture1 = null;
-            }
-
-            int drive;
-            if (toggleCAM)
-            {
-                drive = this.deviceCamera1;
-            }
-            else
-            {
-                drive = this.deviceCamera2;
-            }
-            if (this.videoCapture1 != null)
-            {
-                this.videoCapture1.Dispose();
-                this.videoCapture1 = null;
-            }
-            this.videoCapture1 = new OpenCvSharp.VideoCapture(drive);
-            this.videoCapture1.Open(drive);
-            this.videoCapture1.FrameHeight = 720;
-            this.videoCapture1.FrameWidth = 1280;
-
-            this.timerVideo1.Start();
-        }
-        private void cameraConnect()
+       
+        private async void cameraConnect()
         {
             try
             {
@@ -259,135 +278,25 @@ namespace SC_M2_V2_00
                 }
                 this.timerVideo1.Stop();
                 this.timerVideo2.Stop();
-                //toggleCAM = false;
-                //toggleVideo();
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
 
                 this.videoCapture1 = new OpenCvSharp.VideoCapture(deviceCamera1);
                 this.videoCapture1.Open(deviceCamera1);
                 this.videoCapture1.FrameHeight = 720;
                 this.videoCapture1.FrameWidth = 1280;
-
+                await Task.Delay(1000);
                 this.videoCapture2 = new OpenCvSharp.VideoCapture(deviceCamera2);
                 this.videoCapture2.Open(deviceCamera2);
                 this.videoCapture2.FrameHeight = 720;
                 this.videoCapture2.FrameWidth = 1280;
-
+                _stepImageClassification = 0;
 
                 this.timerVideo1.Start();
                 this.timerVideo2.Start();
-                Console.WriteLine("Dir : " + videoCapture2.IsOpened());
-                #region Code old
-                //this.videoCapture1 = new OpenCvSharp.VideoCapture(this.deviceCamera1);
-                //this.videoCapture2 = new OpenCvSharp.VideoCapture(this.deviceCamera2);
-
-                //this.videoCapture1.Open(this.deviceCamera1);
-                //Thread.Sleep(50);
-                //this.videoCapture2.Open(this.deviceCamera2);
-                //  
-
-                //setVideoCapture(this.videoCapture1, int.Parse(SC_M2_V2._00.Properties.Resources.FrameWidth), int.Parse(SC_M2_V2._00.Properties.Resources.FrameHeight));
-                // setVideoCapture(this.videoCapture2, int.Parse(SC_M2_V2._00.Properties.Resources.FrameWidth), int.Parse(SC_M2_V2._00.Properties.Resources.FrameHeight));
-
-
-                //this.videoCapture2.FrameWidth = int.Parse(SC_M2_V2._00.Properties.Resources.FrameWidth);
-                //this.videoCapture2.FrameHeight = int.Parse(SC_M2_V2._00.Properties.Resources.FrameHeight);
-
-                //isVideoCapture1 = false;
-                //Thread.Sleep(1000);
-                //Task.Run(async ()=>
-                //{
-
-                //    this.videoCapture1 = new OpenCvSharp.VideoCapture(this.deviceCamera1);
-                //    this.videoCapture1.Open(this.deviceCamera1);
-                //    setVideoCapture(this.videoCapture1, int.Parse(SC_M2_V2._00.Properties.Resources.FrameWidth), int.Parse(SC_M2_V2._00.Properties.Resources.FrameHeight));
-                //    isVideoCapture1 = true;
-                //    while (true)
-                //    {
-                //        try
-                //        {
-                //            //Console.WriteLine("Run..");
-                //            if (videoCapture1 != null && videoCapture1.IsOpened())
-                //            {
-                //                using (OpenCvSharp.Mat frame = videoCapture1.RetrieveMat())
-                //                {
-
-                //                    if (frame != null)
-                //                    {
-                //                        pictureBoxCamera1.SuspendLayout();
-                //                        pictureBoxCamera1.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(frame);
-                //                        pictureBoxCamera1.ResumeLayout();
-                //                    }
-                //                }
-                //            }
-
-                //        }
-                //        catch (Exception ex)
-                //        {
-                //            MessageBox.Show(ex.Message, "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                //            break;
-                //        }
-                //        await Task.Delay(100);
-                //        if(isVideoCapture1==false)
-                //        {
-                //            break;
-                //        }
-                //    }
-
-                //});
-
-                //isVideoCapture2 = false;
-                //Thread.Sleep(1000);
-                //Task.Run(async () =>
-                //{
-
-                //    this.videoCapture2 = new OpenCvSharp.VideoCapture(this.deviceCamera2);
-                //    this.videoCapture2.Open(this.deviceCamera1);
-                //    setVideoCapture(this.videoCapture2, int.Parse(SC_M2_V2._00.Properties.Resources.FrameWidth), int.Parse(SC_M2_V2._00.Properties.Resources.FrameHeight));
-                //    isVideoCapture2 = true;
-                //    while (true)
-                //    {
-                //        try
-                //        {
-                //            //Console.WriteLine("Run..");
-                //            if (videoCapture2 != null && videoCapture2.IsOpened())
-                //            {
-                //                using (OpenCvSharp.Mat frame = videoCapture2.RetrieveMat())
-                //                {
-
-                //                    if (frame != null)
-                //                    {
-                //                        pictureBoxCamera2.SuspendLayout();
-                //                        pictureBoxCamera2.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(frame);
-                //                        pictureBoxCamera2.ResumeLayout();
-                //                    }
-                //                }
-                //            }
-
-                //        }
-                //        catch (Exception ex)
-                //        {
-                //            MessageBox.Show(ex.Message, "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                //            break;
-                //        }
-                //        await Task.Delay(100);
-                //        if (isVideoCapture2 == false)
-                //        {
-                //            break;
-                //        }
-                //    }
-
-                //});
-
-                //this.timerVideo1.Interval = 1000 / 10;
-                //this.timerVideo2.Interval = 1000 / 10;
-
-                //statevideoCapture1 = true;
-                //statevideoCapture2 = true;
-                //Console.WriteLine("End "+DateTime.Now.ToString("HH:mm:ss"));
-                //this.timerVideo1.Start();
-                //this.timerVideo2.Start();
-                #endregion
-                Console.WriteLine("End " + DateTime.Now.ToString("HH:mm:ss"));
+                stopwatch.Stop();
+                countDetect = 0;
+                Console.WriteLine("Elapsed Time is {0} ms", stopwatch.ElapsedMilliseconds);
             }
             catch (Exception ex)
             {
@@ -442,8 +351,9 @@ namespace SC_M2_V2_00
             countDetect++;
             if (countDetect > 10000)
             { countDetect = 0; }
+            Console.WriteLine("Count : "+countDetect.ToString());
         }
-
+        string _pathFile, _nameTemp;
         private void timerVideo1_Tick(object sender, EventArgs e)
         {
             try
@@ -455,21 +365,50 @@ namespace SC_M2_V2_00
                         //frame = videoCapture1.RetrieveMat();
                         if (frame != null)
                         {
-                                pictureBoxCamera1.SuspendLayout();
-                                pictureBoxCamera1.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(frame);
-                                pictureBoxCamera1.ResumeLayout();
-                                if (countDetect > 3)
-                                {
-                                        string nameTemp = SC_M2_V2._00.Properties.Resources.Path_System_Temp + "/" + Guid.NewGuid().ToString() + ".jpg";
-                                        pictureBoxCamera1.Image.Save(nameTemp, ImageFormat.Jpeg);
+                            pictureBoxCamera1.SuspendLayout();
+                            pictureBoxCamera1.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(frame);
+                            pictureBoxCamera1.ResumeLayout();
+                            if (countDetect > 10)
+                            {
 
-                                        if (File.Exists(nameTemp))
-                                        {
-                                            File.Delete(nameTemp);
-                                        }
-                                     countDetect = 0;
+                                if (_stepImageClassification == 0)
+                                {
+                                    string fileName = Guid.NewGuid().ToString() + ".jpg";
+                                    _nameTemp = SC_M2_V2._00.Properties.Resources.Path_System_Temp + "/" + fileName;
+                                    pictureBoxCamera1.Image.Save(_nameTemp, ImageFormat.Jpeg);
+                                    _pathFile = System.IO.Path.Combine(_path_defult, "System", "temp", fileName);
+
+                                    _streamWriterCMD.WriteLine(_pathFile);                                      
+
+                                    _stepImageClassification = 1;
                                 }
-                           
+                                else if(_stepImageClassification == 1)
+                                {
+                                // Wait received
+                                    LabelSW = string.Empty;
+                                }
+                                else if (_stepImageClassification == 2 && LabelSW != string.Empty)
+                                {
+                                // Check Label SW Page
+                                    if (LabelSW == "VER")
+                                    {
+                                        // OCR 
+                                        inputfilenameimage = _nameTemp;
+                                        btnOCR.PerformClick();
+
+                                    }
+                                    else
+                                    {
+                                            
+                                    }
+                                    countDetect = 0;
+                                    _stepImageClassification = 0;
+                                    if (File.Exists(_pathFile))
+                                    {
+                                        
+                                    }
+                                }
+                            }                           
                         }
                     }
                 }
@@ -512,6 +451,7 @@ namespace SC_M2_V2_00
         {
             this.disposeCamera();
             statusCamConnect["connect"] = false;
+            _streamWriterCMD.WriteLine("exit");
         }
 
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
@@ -680,12 +620,6 @@ namespace SC_M2_V2_00
                 MessageBox.Show("E007 " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
-        }
-
-        private void timerRunOCR_Tick(object sender, EventArgs e)
-        {
-            //timerRunOCR.Stop();
-            //Process(inputfilenameimage);
         }
 
         private void btnOCR_Click(object sender, EventArgs e)
