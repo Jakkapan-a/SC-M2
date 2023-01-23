@@ -351,7 +351,7 @@ namespace SC_M2_V2_00
             countDetect++;
             if (countDetect > 10000)
             { countDetect = 0; }
-            Console.WriteLine("Count : "+countDetect.ToString());
+            Console.WriteLine("Count : "+countDetect.ToString() +", Step : "+ _stepImageClassification.ToString());
         }
         string _pathFile, _nameTemp;
         private void timerVideo1_Tick(object sender, EventArgs e)
@@ -368,7 +368,7 @@ namespace SC_M2_V2_00
                             pictureBoxCamera1.SuspendLayout();
                             pictureBoxCamera1.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(frame);
                             pictureBoxCamera1.ResumeLayout();
-                            if (countDetect > 10)
+                            if (countDetect > 3 && isStaetReset)
                             {
 
                                 if (_stepImageClassification == 0)
@@ -389,13 +389,14 @@ namespace SC_M2_V2_00
                                 }
                                 else if (_stepImageClassification == 2 && LabelSW != string.Empty)
                                 {
-                                // Check Label SW Page
+                                    // Check Label SW Page
+                                    Console.WriteLine("Label : "+LabelSW);
                                     if (LabelSW == "VER")
                                     {
                                         // OCR 
                                         inputfilenameimage = _nameTemp;
                                         btnOCR.PerformClick();
-
+                                        isStaetReset = false; // Wait Reset
                                     }
                                     else
                                     {
@@ -405,7 +406,7 @@ namespace SC_M2_V2_00
                                     _stepImageClassification = 0;
                                     if (File.Exists(_pathFile))
                                     {
-                                        
+                                       //File.Delete 
                                     }
                                 }
                             }                           
@@ -499,8 +500,6 @@ namespace SC_M2_V2_00
                 OCRImageEntity entity = new OCRImageEntity(imageList, inputfilename, index, rect, curLangCode);
                 //entity.ScreenshotMode = this.screenshotModeToolStripMenuItem.Checked;
                 entity.ScreenshotMode = false;
-                //backgroundWorkerOcr.RunWorkerAsync(entity);
-
                 entity.Language = "eng";
                 OCR<Image> ocrEngine = new OCRImages();
                 ocrEngine.PageSegMode = selectedPSM;
@@ -509,16 +508,7 @@ namespace SC_M2_V2_00
 
                 IList<Image> images = entity.ClonedImages;
 
-                //for (int i = 0; i < images.Count; i++)
-                //{
-                //    if (worker.CancellationPending)
-                //    {
-                //        e.Cancel = true;
-                //        break;
-                //    }
-
                 string result = ocrEngine.RecognizeText(((List<Image>)images).GetRange(0, 1), entity.Inputfilename);
-                //Console.WriteLine(result);
                 this.richTextBox1.AppendText(result);
 
             }
@@ -527,8 +517,8 @@ namespace SC_M2_V2_00
                 MessageBox.Show(ex.Message);
             }
         }
-        List<Setting> settings1 = new List<Setting>();
-        List<Setting> settings2 = new List<Setting>();
+        List<SC_M2_V2._00.Modules.Setting> settings1 = new List<SC_M2_V2._00.Modules.Setting>();
+        List<SC_M2_V2._00.Modules.Setting> settings2 = new List<SC_M2_V2._00.Modules.Setting>();
 
         private void Process(string filename)
         {
@@ -627,7 +617,7 @@ namespace SC_M2_V2_00
 
             // Matching
             this.richTextBox1.Text = string.Empty;
-            settings1 = Setting.GetSetting(0);
+            settings1 = SC_M2_V2._00.Modules.Setting.GetSetting(0);
             if (inputfilenameimage == string.Empty)
                 return;
 
@@ -708,9 +698,5 @@ namespace SC_M2_V2_00
                 MessageBox.Show(e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
     }
-
-
 }

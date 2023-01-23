@@ -198,6 +198,12 @@
     <Compile Include="Form2.Designer.cs">
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormComponents\Add_Item.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormComponents\Add_Item.Designer.cs">
+      <DependentUpon>Add_Item.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormComponents\Connections.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -210,11 +216,23 @@
     <Compile Include="FormComponents\Crop_Image.Designer.cs">
       <DependentUpon>Crop_Image.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormComponents\Edit_Item.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormComponents\Edit_Item.Designer.cs">
+      <DependentUpon>Edit_Item.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormComponents\Options.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormComponents\Options.Designer.cs">
       <DependentUpon>Options.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormComponents\Setting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormComponents\Setting.Designer.cs">
+      <DependentUpon>Setting.cs</DependentUpon>
     </Compile>
     <Compile Include="Frame1.cs">
       <SubType>Form</SubType>
@@ -228,6 +246,8 @@
     <Compile Include="Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modules\MasterLB.cs" />
+    <Compile Include="Modules\MasterSW.cs" />
     <Compile Include="Modules\Setting.cs" />
     <Compile Include="Modules\SQliteDataAccess.cs" />
     <Compile Include="Ocr\OCR.cs" />
@@ -244,14 +264,23 @@
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormComponents\Add_Item.resx">
+      <DependentUpon>Add_Item.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormComponents\Connections.resx">
       <DependentUpon>Connections.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormComponents\Crop_Image.resx">
       <DependentUpon>Crop_Image.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormComponents\Edit_Item.resx">
+      <DependentUpon>Edit_Item.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormComponents\Options.resx">
       <DependentUpon>Options.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormComponents\Setting.resx">
+      <DependentUpon>Setting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frame1.resx">
       <DependentUpon>Frame1.cs</DependentUpon>

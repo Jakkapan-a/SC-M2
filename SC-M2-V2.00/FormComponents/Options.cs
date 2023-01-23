@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Set = SC_M2_V2._00.Modules.Setting;
+
 
 namespace SC_M2_V2._00.FormComponents
 {
@@ -19,10 +21,10 @@ namespace SC_M2_V2._00.FormComponents
             InitializeComponent();
         }
 
-        List<Setting> settings1 = new List<Setting>();
-        List<Setting> settings2 = new List<Setting>();
+        List<Set> settings1 = new List<Set>();
+        List<Set> settings2 = new List<Set>();
 
-        List<Setting> settings3 = new List<Setting>();
+        List<Set> settings3 = new List<Set>();
         private void Options_Load(object sender, EventArgs e)
         {
             var videoDevices = new List<DsDevice>(DsDevice.GetDevicesOfCat(FilterCategory.VideoInputDevice));
@@ -46,7 +48,7 @@ namespace SC_M2_V2._00.FormComponents
         {  
             if(listBoxItem.SelectedIndex == 0)
             {
-                settings1 = Setting.GetSetting(0);
+                settings1 = SC_M2_V2._00.Modules.Setting.GetSetting(0);
                 btnSelectQR.Visible= false;
                 if (settings1[0].path_image != "")
                 {
@@ -62,8 +64,8 @@ namespace SC_M2_V2._00.FormComponents
             }
             else { 
 
-                    settings2 = Setting.GetSetting(1); // Cam 2
-                    settings3 = Setting.GetSetting(2); // QR 
+                    settings2 = Set.GetSetting(1);
+                    settings3 = Set.GetSetting(2);
                     btnSelectQR.Visible= true;
 
                     if (settings2[0].path_image != "")

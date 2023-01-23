@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Set = SC_M2_V2._00.Modules.Setting;
 namespace SC_M2_V2._00.Modules
 {
     internal class Setting

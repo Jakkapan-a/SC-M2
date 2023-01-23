@@ -11,8 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Tensorflow.Keras.Engine;
-
+using Set = SC_M2_V2._00.Modules.Setting;
 namespace SC_M2_V2._00.FormComponents
 {
     public partial class Crop_Image : Form
@@ -80,7 +79,7 @@ namespace SC_M2_V2._00.FormComponents
             }
             else
             {
-                var setting = Setting.GetSetting(1); // Cam 2
+                var setting = Set.GetSetting(1); // Cam 2
                 if(setting[0].path_image != "")
                 {
                     pictureCrop.Image = Image.FromFile(setting[0].path_image);
@@ -125,11 +124,11 @@ namespace SC_M2_V2._00.FormComponents
                         }
 
 
-                        var setting = Setting.GetSetting(_type);
+                        var setting = Set.GetSetting(_type);
                         setting[0].state = 0;
                         setting[0].Update();
 
-                        var set = new Setting();
+                        var set = new Set();
                         set.state = 1;
                         set.path_image= path;
                         set._type = _type;
