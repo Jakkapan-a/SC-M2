@@ -77,5 +77,14 @@ namespace SC_M2_V2._00.Modules
                 return output.ToList();
             }
         }
+
+        internal static bool IsExist(string sql)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query(sql, new DynamicParameters());
+                return output.ToList().Count > 0;
+            }
+        }
     }
 }

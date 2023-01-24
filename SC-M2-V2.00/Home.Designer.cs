@@ -180,20 +180,21 @@
             // conectionsToolStripMenuItem
             // 
             this.conectionsToolStripMenuItem.Name = "conectionsToolStripMenuItem";
-            this.conectionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.conectionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.conectionsToolStripMenuItem.Text = "Connections.";
             this.conectionsToolStripMenuItem.Click += new System.EventHandler(this.conectionsToolStripMenuItem_Click);
             // 
             // masterModelsToolStripMenuItem
             // 
             this.masterModelsToolStripMenuItem.Name = "masterModelsToolStripMenuItem";
-            this.masterModelsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.masterModelsToolStripMenuItem.Text = "Master Models";
+            this.masterModelsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.masterModelsToolStripMenuItem.Text = "Master List";
+            this.masterModelsToolStripMenuItem.Click += new System.EventHandler(this.masterModelsToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.optionsToolStripMenuItem.Text = "Options.";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
@@ -414,7 +415,6 @@
             this.backgroundWorkerOcr.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerOcr_DoWork);
             this.backgroundWorkerOcr.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerOcr_ProgressChanged);
             this.backgroundWorkerOcr.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerOcr_RunWorkerCompleted);
-            
             // 
             // Home
             // 

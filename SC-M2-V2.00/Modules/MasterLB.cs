@@ -14,7 +14,7 @@ namespace SC_M2_V2._00.Modules
         public string created_at { get; set;}
         public string updated_at { get; set;}
 
-        private void Save()
+        public void Save()
         {
             string sql = "insert into master_lb (master_sw_id,name,created_at,updated_at) values (@master_sw_id,@name,@created_at,@updated_at)";
             Dictionary<string, object> parameters = new Dictionary<string, object>();
@@ -25,7 +25,7 @@ namespace SC_M2_V2._00.Modules
             SQliteDataAccess.InserInputDB(sql, parameters);
         }
 
-        private void Update()
+        public void Update()
         {
             string sql = "update master_lb set master_sw_id = @master_sw_id, name = @name, updated_at = @updated_at where id = @id";
             Dictionary<string, object> parameters = new Dictionary<string, object>();
@@ -57,5 +57,8 @@ namespace SC_M2_V2._00.Modules
 
         public static List<MasterLB> GetMasterLBBySW(int master_sw_id) => SQliteDataAccess.GetRow<MasterLB>("select * from master_lb where master_sw_id = " + master_sw_id + " ");
 
+        public static bool IsExist(string name) => GetMasterLB(name).Count > 0;
+
+        public static void Delete(int id_lb) => SQliteDataAccess.InserInputDB("delete from master_lb where id = " + id_lb, null);
     }
 }

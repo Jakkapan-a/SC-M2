@@ -41,14 +41,17 @@ namespace SC_M2_V2._00.Modules
         }
         public static List<MasterSW> GetMasterSW() => SQliteDataAccess.GetRow<MasterSW>("select * from master_sw order by id desc");
 
-        public static List<MasterSW> GetMasterSW(int id) => SQliteDataAccess.GetRow<MasterSW>("select * frommaster_sw where id = " + id);
+        public static List<MasterSW> GetMasterSW(int id) => SQliteDataAccess.GetRow<MasterSW>("select * from master_sw where id = " + id);
 
-        public static List<MasterSW> GetMasterSW(string name) => SQliteDataAccess.GetRow<MasterSW>("select * frommaster_sw where name = '" + name + "'");
+        public static List<MasterSW> GetMasterSW(string name) => SQliteDataAccess.GetRow<MasterSW>("select * from master_sw where name = '" + name + "'");
 
-        public static List<MasterSW> GetMasterSW(string name, int id) => SQliteDataAccess.GetRow<MasterSW>("select * frommaster_sw where name = '" + name + "' and id <> " + id);
+        public static List<MasterSW> GetMasterSW(string name, int id) => SQliteDataAccess.GetRow<MasterSW>("select * from master_sw where name = '" + name + "' and id <> " + id);
 
-        public static List<MasterSW> GetMasterSW(int id, string name) => SQliteDataAccess.GetRow<MasterSW>("select * frommaster_sw where id = " + id + " and name = '" + name + "'");
+        public static List<MasterSW> GetMasterSW(int id, string name) => SQliteDataAccess.GetRow<MasterSW>("select * from master_sw where id = " + id + " and name = '" + name + "'");
 
+        public static bool IsExist(string name) => GetMasterSW(name).Count > 0;
+
+        public static void Delete(int id) => SQliteDataAccess.InserInputDB("delete from master_sw where id = " + id, null);
 
     }
 }

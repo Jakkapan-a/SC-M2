@@ -122,8 +122,6 @@ namespace SC_M2_V2._00.FormComponents
                         {
                             _type = 2;
                         }
-
-
                         var setting = Set.GetSetting(_type);
                         setting[0].state = 0;
                         setting[0].Update();

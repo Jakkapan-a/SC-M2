@@ -351,7 +351,7 @@ namespace SC_M2_V2_00
             countDetect++;
             if (countDetect > 10000)
             { countDetect = 0; }
-            Console.WriteLine("Count : "+countDetect.ToString() +", Step : "+ _stepImageClassification.ToString());
+            //Console.WriteLine("Count : "+countDetect.ToString() +", Step : "+ _stepImageClassification.ToString());
         }
         string _pathFile, _nameTemp;
         private void timerVideo1_Tick(object sender, EventArgs e)
@@ -680,6 +680,18 @@ namespace SC_M2_V2_00
                 //worker.ReportProgress(i, result); // i is not really percentage
                 //Console.WriteLine(result);
             }
+        }
+        SettingModel settingModel;
+        private void masterModelsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(settingModel != null)
+            {
+                settingModel.Close();
+                settingModel.Dispose();
+                settingModel = null;
+            }
+            settingModel = new SettingModel();
+            settingModel.Show();
         }
 
         private void backgroundWorkerOcr_ProgressChanged(object sender, ProgressChangedEventArgs e)
