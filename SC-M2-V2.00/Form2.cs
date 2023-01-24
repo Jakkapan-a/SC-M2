@@ -25,30 +25,6 @@ namespace SC_M2_V2._00
           
         }
 
-        private void Capture_FrameEventArgs(object sender, WindowsFrame.FrameEventArgs args)
-        {
-            //Console.WriteLine("Frame TICK");
-            if(args.Frame != null){
-                pictureBox1.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(args.Frame);
-            }
-            //if (!state)
-            //{
-            //    capture2.Start(2);
-            //    state = true;
-            //}
-        }
-        private void Capture2_FrameEventArgs(object sender, WindowsFrame.FrameEventArgs args)
-        {
-            //Console.WriteLine("Frame 2 TICK");
-            if(args.Frame != null){
-                pictureBox2.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(args.Frame);
-            }
-        }
-        private void Capture_MessageReceived(object sender, WindowsFrame.MessageReceivedEventArgs args)
-        {
-            Console.WriteLine(args.MessageId.ToString());
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
            //Task.Run(async () =>  

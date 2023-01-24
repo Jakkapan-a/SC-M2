@@ -28,6 +28,7 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -170,7 +171,6 @@
     <Compile Include="Components\PictureCrop.Designer.cs">
       <DependentUpon>PictureCrop.cs</DependentUpon>
     </Compile>
-    <Compile Include="Components\WindowsFrame.cs" />
     <Compile Include="Controls\Capture.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -246,6 +246,7 @@
     <Compile Include="Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modules\History.cs" />
     <Compile Include="Modules\MasterAll.cs" />
     <Compile Include="Modules\MasterLB.cs" />
     <Compile Include="Modules\MasterSW.cs" />

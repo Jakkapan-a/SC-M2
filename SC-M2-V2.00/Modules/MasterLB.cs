@@ -35,8 +35,6 @@ namespace SC_M2_V2._00.Modules
             parameters.Add("@updated_at", SQliteDataAccess.GetDateTimeNow());
             SQliteDataAccess.InserInputDB(sql, parameters);
         }
-
-
         public void Delete()
         {
             string sql = "delete from master_lb where id = @id";

@@ -41,6 +41,8 @@ void setup() {
     mesLED.off();
     imagePrepare.on();
     alarm.off();
+    // serialCommand("rst");
+    delay(500);
     serialCommand("rst");
 }
 void serialCommand(String command){

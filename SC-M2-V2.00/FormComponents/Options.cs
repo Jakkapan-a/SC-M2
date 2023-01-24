@@ -42,6 +42,8 @@ namespace SC_M2_V2._00.FormComponents
 
             if (listBoxItem.Items.Count > 0)
                 listBoxItem.SelectedIndex = 0;
+
+            btnSelectQR.Visible = false;
         }
 
         private void listBoxItem_SelectedIndexChanged(object sender, EventArgs e)
@@ -85,8 +87,10 @@ namespace SC_M2_V2._00.FormComponents
                         pictureBox2.Image = null;
                     }
                     lbCamera.Text = "CAMERA 2";
-                tableLayoutPanel1.ColumnStyles[1].SizeType = SizeType.Percent;
-                tableLayoutPanel1.ColumnStyles[1].Width = 50;
+                //tableLayoutPanel1.ColumnStyles[1].SizeType = SizeType.Percent;
+                //tableLayoutPanel1.ColumnStyles[1].Width = 50;
+                tableLayoutPanel1.ColumnStyles[1].SizeType = SizeType.Absolute;
+                tableLayoutPanel1.ColumnStyles[1].Width = 0;
             }
         }
         Crop_Image crop;

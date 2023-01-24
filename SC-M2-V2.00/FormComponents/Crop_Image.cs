@@ -91,7 +91,6 @@ namespace SC_M2_V2._00.FormComponents
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-
             try
             {
                 Rect = pictureCrop.GetRect();
@@ -143,6 +142,12 @@ namespace SC_M2_V2._00.FormComponents
 
                         MessageBox.Show("Saved", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                        if (capture != null && capture.IsOpened())
+                        {
+                            capture.Release();
+                            capture.Dispose();
+                            capture = null;
+                        }
                         this.Close();
                     }
                 }
@@ -155,7 +160,7 @@ namespace SC_M2_V2._00.FormComponents
 
         private void Crop_Image_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (capture.IsOpened())
+            if (capture != null && capture.IsOpened())
             {
                 capture.Release();
                 capture.Dispose();

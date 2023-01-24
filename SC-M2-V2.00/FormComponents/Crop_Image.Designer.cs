@@ -45,7 +45,7 @@
             this.panel1.Controls.Add(this.pictureCrop);
             this.panel1.Location = new System.Drawing.Point(13, 13);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(324, 310);
+            this.panel1.Size = new System.Drawing.Size(727, 347);
             this.panel1.TabIndex = 0;
             // 
             // pictureCrop
@@ -55,7 +55,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureCrop.Location = new System.Drawing.Point(3, 3);
             this.pictureCrop.Name = "pictureCrop";
-            this.pictureCrop.Size = new System.Drawing.Size(318, 304);
+            this.pictureCrop.Size = new System.Drawing.Size(721, 341);
             this.pictureCrop.TabIndex = 0;
             this.pictureCrop.TabStop = false;
             // 
@@ -66,7 +66,7 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(262, 333);
+            this.btnSave.Location = new System.Drawing.Point(665, 370);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 1;
@@ -78,7 +78,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(349, 368);
+            this.ClientSize = new System.Drawing.Size(752, 405);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.panel1);
             this.Name = "Crop_Image";
