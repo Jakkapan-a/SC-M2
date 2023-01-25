@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Options));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.panelOptions = new System.Windows.Forms.Panel();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
@@ -145,6 +146,7 @@
             this.btnSelectQR.TabIndex = 2;
             this.btnSelectQR.Text = "Select QR";
             this.btnSelectQR.UseVisualStyleBackColor = true;
+            this.btnSelectQR.Visible = false;
             this.btnSelectQR.Click += new System.EventHandler(this.btnSelectQR_Click);
             // 
             // btnImage
@@ -265,6 +267,7 @@
             this.ClientSize = new System.Drawing.Size(616, 401);
             this.Controls.Add(this.panelOptions);
             this.Controls.Add(this.statusStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(602, 354);
             this.Name = "Options";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

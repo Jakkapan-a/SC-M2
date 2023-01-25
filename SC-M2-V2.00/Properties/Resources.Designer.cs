@@ -159,5 +159,176 @@ namespace SC_M2_V2._00.Properties {
                 return ResourceManager.GetString("ProgramName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please input employee ID.
+        /// </summary>
+        internal static string STATUS_PROCES_10 {
+            get {
+                return ResourceManager.GetString("STATUS_PROCES_10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select driver of camera!.
+        /// </summary>
+        internal static string STATUS_PROCES_11 {
+            get {
+                return ResourceManager.GetString("STATUS_PROCES_11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Camera disconnected..
+        /// </summary>
+        internal static string STATUS_PROCES_12 {
+            get {
+                return ResourceManager.GetString("STATUS_PROCES_12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System is processing.
+        /// </summary>
+        internal static string STATUS_PROCES_13 {
+            get {
+                return ResourceManager.GetString("STATUS_PROCES_13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Camera connected..
+        /// </summary>
+        internal static string STATUS_PROCES_CAMERA_CON {
+            get {
+                return ResourceManager.GetString("STATUS_PROCES_CAMERA_CON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connecting....
+        /// </summary>
+        internal static string STATUS_PROCES_CONNECTING {
+            get {
+                return ResourceManager.GetString("STATUS_PROCES_CONNECTING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Camera not connected.
+        /// </summary>
+        internal static string STATUS_PROCES_DIS {
+            get {
+                return ResourceManager.GetString("STATUS_PROCES_DIS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NG.
+        /// </summary>
+        internal static string STATUS_PROCES_NG {
+            get {
+                return ResourceManager.GetString("STATUS_PROCES_NG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image not match.
+        /// </summary>
+        internal static string STATUS_PROCES_NOT_MATCH {
+            get {
+                return ResourceManager.GetString("STATUS_PROCES_NOT_MATCH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string STATUS_PROCES_OK {
+            get {
+                return ResourceManager.GetString("STATUS_PROCES_OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please insert data employee.
+        /// </summary>
+        internal static string STATUS_PROCESS_1 {
+            get {
+                return ResourceManager.GetString("STATUS_PROCESS_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select driver camera.
+        /// </summary>
+        internal static string STATUS_PROCESS_2 {
+            get {
+                return ResourceManager.GetString("STATUS_PROCESS_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select COM port or baud.
+        /// </summary>
+        internal static string STATUS_PROCESS_3 {
+            get {
+                return ResourceManager.GetString("STATUS_PROCESS_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please open the camera.
+        /// </summary>
+        internal static string STATUS_PROCESS_4 {
+            get {
+                return ResourceManager.GetString("STATUS_PROCESS_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waiting for detection.
+        /// </summary>
+        internal static string STATUS_PROCESS_5 {
+            get {
+                return ResourceManager.GetString("STATUS_PROCESS_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OCR Read Data....
+        /// </summary>
+        internal static string STATUS_PROCESS_6 {
+            get {
+                return ResourceManager.GetString("STATUS_PROCESS_6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Camera are opening..
+        /// </summary>
+        internal static string STATUS_PROCESS_7 {
+            get {
+                return ResourceManager.GetString("STATUS_PROCESS_7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serial Connected.
+        /// </summary>
+        internal static string STATUS_PROCESS_8 {
+            get {
+                return ResourceManager.GetString("STATUS_PROCESS_8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serial Disconnect.
+        /// </summary>
+        internal static string STATUS_PROCESS_9 {
+            get {
+                return ResourceManager.GetString("STATUS_PROCESS_9", resourceCulture);
+            }
+        }
     }
 }

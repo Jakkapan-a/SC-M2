@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Crop_Image));
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureCrop = new SC_M2_V2._00.Components.PictureCrop();
             this.timerVideo = new System.Windows.Forms.Timer(this.components);
@@ -81,6 +82,7 @@
             this.ClientSize = new System.Drawing.Size(752, 405);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Crop_Image";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Crop_Image";

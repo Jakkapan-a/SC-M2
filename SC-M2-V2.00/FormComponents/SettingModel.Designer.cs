@@ -31,6 +31,7 @@ namespace SC_M2_V2._00.FormComponents
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingModel));
             this.label1 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusID_SW = new System.Windows.Forms.ToolStripStatusLabel();
@@ -124,40 +125,40 @@ namespace SC_M2_V2._00.FormComponents
             this.renameModelToolStripMenuItem,
             this.deleteModelToolStripMenuItem});
             this.contextMenuStripSetting.Name = "contextMenuStripSetting";
-            this.contextMenuStripSetting.Size = new System.Drawing.Size(181, 136);
+            this.contextMenuStripSetting.Size = new System.Drawing.Size(155, 114);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // renameSWToolStripMenuItem
             // 
             this.renameSWToolStripMenuItem.Name = "renameSWToolStripMenuItem";
-            this.renameSWToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.renameSWToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.renameSWToolStripMenuItem.Text = "Rename SW";
             this.renameSWToolStripMenuItem.Click += new System.EventHandler(this.renameSWToolStripMenuItem_Click);
             // 
             // deleteSWToolStripMenuItem
             // 
             this.deleteSWToolStripMenuItem.Name = "deleteSWToolStripMenuItem";
-            this.deleteSWToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteSWToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.deleteSWToolStripMenuItem.Text = "Delete SW";
             this.deleteSWToolStripMenuItem.Click += new System.EventHandler(this.deleteSWToolStripMenuItem_Click);
             // 
             // renameModelToolStripMenuItem
             // 
             this.renameModelToolStripMenuItem.Name = "renameModelToolStripMenuItem";
-            this.renameModelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.renameModelToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.renameModelToolStripMenuItem.Text = "Rename Model";
             this.renameModelToolStripMenuItem.Click += new System.EventHandler(this.renameModelToolStripMenuItem_Click);
             // 
             // deleteModelToolStripMenuItem
             // 
             this.deleteModelToolStripMenuItem.Name = "deleteModelToolStripMenuItem";
-            this.deleteModelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteModelToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.deleteModelToolStripMenuItem.Text = "Delete Model";
             this.deleteModelToolStripMenuItem.Click += new System.EventHandler(this.deleteModelToolStripMenuItem_Click);
             // 
@@ -170,6 +171,7 @@ namespace SC_M2_V2._00.FormComponents
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingModel";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Setting";

@@ -160,7 +160,7 @@
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
             this.startToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
@@ -169,14 +169,14 @@
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
             this.stopToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
             // textTestToolStripMenuItem
             // 
             this.textTestToolStripMenuItem.Name = "textTestToolStripMenuItem";
-            this.textTestToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.textTestToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.textTestToolStripMenuItem.Text = "Text test";
             this.textTestToolStripMenuItem.Visible = false;
             this.textTestToolStripMenuItem.Click += new System.EventHandler(this.textTestToolStripMenuItem_Click);
@@ -462,6 +462,7 @@
             // 
             // timerVideo1
             // 
+            this.timerVideo1.Interval = 500;
             this.timerVideo1.Tick += new System.EventHandler(this.timerVideo1_Tick);
             // 
             // timerVideo2

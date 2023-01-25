@@ -151,4 +151,61 @@
   <data name="ProgramName" xml:space="preserve">
     <value>731TMC ECU INSPECTION SOFTWARE V2.10</value>
   </data>
+  <data name="STATUS_PROCESS_1" xml:space="preserve">
+    <value>Please insert data employee</value>
+  </data>
+  <data name="STATUS_PROCESS_2" xml:space="preserve">
+    <value>Please select driver camera</value>
+  </data>
+  <data name="STATUS_PROCESS_3" xml:space="preserve">
+    <value>Please select COM port or baud</value>
+  </data>
+  <data name="STATUS_PROCESS_4" xml:space="preserve">
+    <value>Please open the camera</value>
+  </data>
+  <data name="STATUS_PROCESS_5" xml:space="preserve">
+    <value>Waiting for detection</value>
+  </data>
+  <data name="STATUS_PROCESS_6" xml:space="preserve">
+    <value>OCR Read Data...</value>
+  </data>
+  <data name="STATUS_PROCESS_7" xml:space="preserve">
+    <value>Camera are opening.</value>
+  </data>
+  <data name="STATUS_PROCESS_8" xml:space="preserve">
+    <value>Serial Connected</value>
+  </data>
+  <data name="STATUS_PROCESS_9" xml:space="preserve">
+    <value>Serial Disconnect</value>
+  </data>
+  <data name="STATUS_PROCES_10" xml:space="preserve">
+    <value>Please input employee ID</value>
+  </data>
+  <data name="STATUS_PROCES_11" xml:space="preserve">
+    <value>Please select driver of camera!</value>
+  </data>
+  <data name="STATUS_PROCES_12" xml:space="preserve">
+    <value>Camera disconnected.</value>
+  </data>
+  <data name="STATUS_PROCES_13" xml:space="preserve">
+    <value>System is processing</value>
+  </data>
+  <data name="STATUS_PROCES_CAMERA_CON" xml:space="preserve">
+    <value>Camera connected.</value>
+  </data>
+  <data name="STATUS_PROCES_CONNECTING" xml:space="preserve">
+    <value>Connecting...</value>
+  </data>
+  <data name="STATUS_PROCES_DIS" xml:space="preserve">
+    <value>Camera not connected</value>
+  </data>
+  <data name="STATUS_PROCES_NG" xml:space="preserve">
+    <value>NG</value>
+  </data>
+  <data name="STATUS_PROCES_NOT_MATCH" xml:space="preserve">
+    <value>Image not match</value>
+  </data>
+  <data name="STATUS_PROCES_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
 </root>

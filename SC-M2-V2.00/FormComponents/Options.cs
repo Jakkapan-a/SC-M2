@@ -51,7 +51,7 @@ namespace SC_M2_V2._00.FormComponents
             if(listBoxItem.SelectedIndex == 0)
             {
                 settings1 = SC_M2_V2._00.Modules.Setting.GetSetting(0);
-                btnSelectQR.Visible= false;
+                //btnSelectQR.Visible= false;
                 if (settings1[0].path_image != "")
                 {
                     pictureBox1.Image = Image.FromFile(settings1[0].path_image);
@@ -68,7 +68,7 @@ namespace SC_M2_V2._00.FormComponents
 
                     settings2 = Set.GetSetting(1);
                     settings3 = Set.GetSetting(2);
-                    btnSelectQR.Visible= true;
+                    //btnSelectQR.Visible= true;
 
                     if (settings2[0].path_image != "")
                     {
