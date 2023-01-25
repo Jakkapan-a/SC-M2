@@ -42,5 +42,21 @@ namespace SC_M3.Modules
             parameters.Add("@id", id);
             SQliteDataAccess.InserInputDB(sql, parameters);
         }
+
+        public void Delete()
+        {
+            string sql = "delete from history where id = @id";
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("@id", id);
+            SQliteDataAccess.InserInputDB(sql, parameters);
+        }
+
+        public static List<History> LoadHistory()=> SQliteDataAccess.LoadData<History>("select * from history order by id desc limit 100");
+
+        public static List<History> LoadHistory(string serial_no)=> SQliteDataAccess.LoadData<History>("select * from history where serial_no = @serial_no order by id desc limit 100", new Dictionary<string, object> { { "@serial_no", serial_no } });
+
+        public static List<History> LoadHistory(string serial_no, string sw_ver)=> SQliteDataAccess.LoadData<History>("select * from history where serial_no = @serial_no and sw_ver = @sw_ver order by id desc limit 100", new Dictionary<string, object> { { "@serial_no", serial_no }, { "@sw_ver", sw_ver } });
+
+        public static List<History> LoadHistory(int start, int end)=> SQliteDataAccess.LoadData<History>("select * from history order by id desc limit @start, @end", new Dictionary<string, object> { { "@start", start }, { "@end", end } });
     }
 }

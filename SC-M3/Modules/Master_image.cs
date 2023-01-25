@@ -33,5 +33,19 @@ namespace SC_M3.Modules
             parameters.Add("@id", id);
             SQliteDataAccess.InserInputDB(sql, parameters);
         }
+
+        public void Delete()
+        {
+            string sql = "delete from master_image where id = @id";
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("@id", id);
+            SQliteDataAccess.InserInputDB(sql, parameters);
+        }
+
+        public static List<Master_image> LoadAll()=> SQliteDataAccess.LoadData<Master_image>("select * from master_image");
+        public static List<Master_image> LoadAllByState(int state)=> SQliteDataAccess.LoadData<Master_image>("select * from master_image where state = @state order id desc", new Dictionary<string, object> { { "@state", state } });
+        public static Master_image LoadLastByState(int state)=> SQliteDataAccess.LoadData<Master_image>("select * from master_image where state = @state order by id desc limit 1 ", new Dictionary<string, object> { { "@state", state } }).FirstOrDefault();
+        public static Master_image LoadById(int id)=> SQliteDataAccess.LoadData<Master_image>("select * from master_image where id = @id", new Dictionary<string, object> { { "@id", id } }).FirstOrDefault();
+        public static Master_image LoadByPath(string path)=> SQliteDataAccess.LoadData<Master_image>("select * from master_image where path = @path", new Dictionary<string, object> { { "@path", path } }).FirstOrDefault();
     }
 }

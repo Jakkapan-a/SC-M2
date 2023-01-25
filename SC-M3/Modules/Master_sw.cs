@@ -37,5 +37,33 @@ namespace SC_M3.Modules
             parameters.Add("@id", id);
             SQliteDataAccess.InserInputDB(sql, parameters);
         }
+
+        public void Delete()
+        {
+            string sql = "delete from master_sw where id = @id";
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("@id", id);
+            SQliteDataAccess.InserInputDB(sql, parameters);
+        }
+
+        public static List<Master_sw> LoadAll()=> SQliteDataAccess.LoadData<Master_sw>("select * from master_sw");
+        public static Master_sw LoadLast()=> SQliteDataAccess.LoadData<Master_sw>("select * from master_sw order by id desc limit 1 ").FirstOrDefault();
+
+        public static Master_sw LoadById(int id)=> SQliteDataAccess.LoadData<Master_sw>("select * from master_sw where id = @id", new Dictionary<string, object> { { "@id", id } }).FirstOrDefault();
+
+        public static Master_sw LoadBySerial(string serial)=> SQliteDataAccess.LoadData<Master_sw>("select * from master_sw where serial_no = @serial_no", new Dictionary<string, object> { { "@serial_no", serial } }).FirstOrDefault();
+
+        public static Master_sw LoadBySerialFull(string serial)=> SQliteDataAccess.LoadData<Master_sw>("select * from master_sw where serial_full = @serial_full", new Dictionary<string, object> { { "@serial_full", serial } }).FirstOrDefault();
+
+        public static Master_sw LoadBySwVer(string sw_ver)=> SQliteDataAccess.LoadData<Master_sw>("select * from master_sw where sw_ver = @sw_ver", new Dictionary<string, object> { { "@sw_ver", sw_ver } }).FirstOrDefault();
+
+        public static Master_sw LoadBySwVerAndSerial(string sw_ver, string serial)=> SQliteDataAccess.LoadData<Master_sw>("select * from master_sw where sw_ver = @sw_ver and serial_no = @serial_no", new Dictionary<string, object> { { "@sw_ver", sw_ver }, { "@serial_no", serial } }).FirstOrDefault();
+
+        public static Master_sw LoadBySwVerAndSerialFull(string sw_ver, string serial)=> SQliteDataAccess.LoadData<Master_sw>("select * from master_sw where sw_ver = @sw_ver and serial_full = @serial_full", new Dictionary<string, object> { { "@sw_ver", sw_ver }, { "@serial_full", serial } }).FirstOrDefault();
+
+        public static Master_sw LoadBySwVerAndSerialAndSerialFull(string sw_ver, string serial, string serial_full)=> SQliteDataAccess.LoadData<Master_sw>("select * from master_sw where sw_ver = @sw_ver and serial_no = @serial_no and serial_full = @serial_full", new Dictionary<string, object> { { "@sw_ver", sw_ver }, { "@serial_no", serial }, { "@serial_full", serial_full } }).FirstOrDefault();
+
+        public static Master_sw LoadBySwVerAndSerialAndSerialFullAndId(string sw_ver, string serial, string serial_full, int id)=> SQliteDataAccess.LoadData<Master_sw>("select * from master_sw where sw_ver = @sw_ver and serial_no = @serial_no and serial_full = @serial_full and id = @id", new Dictionary<string, object> { { "@sw_ver", sw_ver }, { "@serial_no", serial }, { "@serial_full", serial_full }, { "@id", id } }).FirstOrDefault();
+
     }
 }
