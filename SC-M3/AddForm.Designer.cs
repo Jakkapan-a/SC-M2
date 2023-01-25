@@ -114,6 +114,7 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(519, 213);
             this.Name = "AddForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddForm";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -65,7 +65,17 @@ namespace SC_M3
         }
         private void _KeyDown(object sender, KeyEventArgs e)
         {
- 
+            
+        }
+        private Image_Detect _detect;
+        private void imageMasterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(_detect != null)
+            {
+                _detect.Close();
+            }
+            _detect = new Image_Detect();
+            _detect.Show();
         }
     }
 }

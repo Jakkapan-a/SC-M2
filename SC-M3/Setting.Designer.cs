@@ -101,6 +101,7 @@
             this.Controls.Add(this.btDelete);
             this.Controls.Add(this.dataGridView1);
             this.Name = "Setting";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Setting";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
