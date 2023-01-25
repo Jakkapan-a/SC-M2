@@ -252,6 +252,7 @@
     <Compile Include="Modules\MasterSW.cs" />
     <Compile Include="Modules\Setting.cs" />
     <Compile Include="Modules\SQliteDataAccess.cs" />
+    <Compile Include="Modules\VideoCAM.cs" />
     <Compile Include="Ocr\OCR.cs" />
     <Compile Include="Ocr\OCRImageEntity.cs" />
     <Compile Include="Ocr\OCRImages.cs" />

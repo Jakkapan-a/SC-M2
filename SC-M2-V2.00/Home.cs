@@ -53,7 +53,6 @@ namespace SC_M2_V2_00
         private OpenCvSharp.VideoCapture videoCapture2;
 
         private bool isVideoCapture1 = false, isVideoCapture2 = false;
-        //public Dictionary<string, bool> statusCamConnect = new Dictionary<string, bool>();
 
         List<Image> ListImage = new List<Image>();
 
@@ -70,6 +69,9 @@ namespace SC_M2_V2_00
         private string LabelSW;
 
         private bool is_Blink_NG = false;
+
+        private VideoCAM videoCAM_1;
+        private VideoCAM videoCAM_2;
         public Home()
         {
             InitializeComponent();
@@ -78,11 +80,11 @@ namespace SC_M2_V2_00
 
         private void Home_Load(object sender, EventArgs e)
         {
-            //statusCamConnect.Clear();
-            //statusCamConnect.Add("connect", true);
-            //statusCamConnect["connect"] = false;
             timerMain.Start();
-
+            videoCAM_1= new VideoCAM();
+            videoCAM_1.OnVideoFrameHandler += videoCAM_1_OnVideoFrame;
+            videoCAM_2= new VideoCAM();
+            videoCAM_2.OnVideoFrameHandler += videoCAM_2_OnVideoFrame;
             _path_defult = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             Console.WriteLine(_path_defult);
             if (!Directory.Exists(SC_M2_V2._00.Properties.Resources.Path_System_Temp))
@@ -127,8 +129,46 @@ namespace SC_M2_V2_00
             this.ActiveControl = txtEmployee;
             txtEmployee.Focus();
             loadTableHistory();
+
+            //videoCAM_1.Start(0);
+            //videoCAM_2.Start(1);
+            // Console thread id for debugging
+            Console.WriteLine("Thread ID: {0}", Thread.CurrentThread.ManagedThreadId);
         }
 
+
+        private delegate void FrameVideo(Bitmap sender);
+
+        private void videoCAM_1_OnVideoFrame(Bitmap bitmap)
+        {
+            //Console.WriteLine("Thread 2 ID: {0}", Thread.CurrentThread.ManagedThreadId);
+            // If invoke is required, invoke it
+            if (pictureBoxCamera1.InvokeRequired)
+            {
+                pictureBoxCamera1.Invoke(new FrameVideo(videoCAM_1_OnVideoFrame), bitmap );
+                return;
+            }else{
+                pictureBoxCamera1.Image = new Bitmap(bitmap);
+            }
+             
+        }
+
+        private void videoCAM_2_OnVideoFrame(Bitmap bitmap)
+        {
+            //pictureBoxCamera2.Image = bitmap;
+            //Console.WriteLine("Thread 3 ID: {0}", Thread.CurrentThread.ManagedThreadId);
+            //Console.WriteLine("videoCAM_2 :  {0}", bitmap);
+            // If invoke is required, invoke it
+            if (pictureBoxCamera2.InvokeRequired)
+            {
+                pictureBoxCamera2.Invoke(new FrameVideo(videoCAM_2_OnVideoFrame), bitmap);
+                return;
+            }
+            else
+            {
+                pictureBoxCamera2.Image = new Bitmap(bitmap);
+            }
+        }
         private void process_OutputReceived(object sender, DataReceivedEventArgs e)
         {
             if (e.Data == null)
@@ -282,7 +322,7 @@ namespace SC_M2_V2_00
                     MessageBox.Show("Please input employee ID", "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
-                Console.WriteLine("Start " + DateTime.Now.ToString("HH:mm:ss"));
+               
                 if (this.videoCapture1 != null)
                 {
                     this.videoCapture1.Dispose();
@@ -303,21 +343,27 @@ namespace SC_M2_V2_00
                 lbTitle.Text = "Connecting...";
                 this.timerVideo1.Stop();
                 this.timerVideo2.Stop();
+                Console.WriteLine("Start OPEN" + DateTime.Now.ToString("HH:mm:ss"));
                 Stopwatch stopwatch = new Stopwatch();
                 stopwatch.Start();
+                Task.Run(() =>
+                {
+                    this.videoCAM_1.Start(deviceCamera1);
+                    this.videoCAM_2.Start(deviceCamera2);
+                });
+             
+                //this.videoCapture1 = new OpenCvSharp.VideoCapture(deviceCamera1);
+                //this.videoCapture1.Open(deviceCamera1);
+                //this.videoCapture1.FrameHeight = 720;
+                //this.videoCapture1.FrameWidth = 1280;
+                //await Task.Delay(1000);
+                //this.videoCapture2 = new OpenCvSharp.VideoCapture(deviceCamera2);
+                //this.videoCapture2.Open(deviceCamera2);
+                //this.videoCapture2.FrameHeight = 720;
+                //this.videoCapture2.FrameWidth = 1280;
+                //_stepImageClassification = 0;
 
-                this.videoCapture1 = new OpenCvSharp.VideoCapture(deviceCamera1);
-                this.videoCapture1.Open(deviceCamera1);
-                this.videoCapture1.FrameHeight = 720;
-                this.videoCapture1.FrameWidth = 1280;
-                await Task.Delay(1000);
-                this.videoCapture2 = new OpenCvSharp.VideoCapture(deviceCamera2);
-                this.videoCapture2.Open(deviceCamera2);
-                this.videoCapture2.FrameHeight = 720;
-                this.videoCapture2.FrameWidth = 1280;
-                _stepImageClassification = 0;
-
-                this.timerVideo1.Start();
+                //this.timerVideo1.Start();
                 //this.timerVideo2.Start();
                 stopwatch.Stop();
                 countDetect = 0;
@@ -525,12 +571,22 @@ namespace SC_M2_V2_00
             {
                 serialPort.Close();
             }
+            if(videoCAM_1 != null)
+            {
+               videoCAM_1.Dispose();
+            }
+
+            if (videoCAM_2 != null)
+            {
+                videoCAM_2.Dispose();
+            }
         }
 
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.lbTitle.Text = "Camera are opening.";
             this.cameraConnect();
+
         }
 
         private void stopToolStripMenuItem_Click(object sender, EventArgs e)
