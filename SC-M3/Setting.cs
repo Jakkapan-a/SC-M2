@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SC_M3.Control
+namespace SC_M3
 {
-    public partial class VideoCapture : UserControl
+    public partial class Setting : Form
     {
-        public VideoCapture()
+        public Setting()
         {
             InitializeComponent();
         }

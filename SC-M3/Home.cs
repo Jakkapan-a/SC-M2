@@ -1,9 +1,11 @@
-﻿using OpenCvSharp;
+﻿using DirectShowLib;
+using SC_M3.Modules;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,54 +19,53 @@ namespace SC_M3
         {
             InitializeComponent();
         }
-        private VideoCapture _camera1;
-        private VideoCapture _camera2;
-        private Timer _timer;
+        private string[] baudList = { "9600", "19200", "38400", "57600", "115200" };
+
+        private VideoCAM videoCAM;
         private void Home_Load(object sender, EventArgs e)
         {
-            // Open the first camera
-            _camera1 = new VideoCapture(2);
-            // Open the second camera
-            _camera2 = new VideoCapture(1);
-            _camera1.Open(0);
-            _camera2.Open(1);
+            var videoDevices = new List<DsDevice>(DsDevice.GetDevicesOfCat(FilterCategory.VideoInputDevice));
+            foreach (var device in videoDevices)
+            {
+                comboBoxCameraDevice.Items.Add(device.Name);
+            }
+            if (comboBoxCameraDevice.Items.Count > 0)
+                comboBoxCameraDevice.SelectedIndex = 0;
 
-            _timer = new Timer();
-            // Set the interval of the timer
-            _timer.Interval = 50; // 15
-                                  // Attach the event handler to the timer
-            _timer.Tick += new EventHandler(Timer_Tick);
-            // Start the timer
-            _timer.Start();
+            comboBoxBaudRate.Items.AddRange(baudList);
+            if (comboBoxBaudRate.Items.Count > 0)
+                comboBoxBaudRate.SelectedIndex = baudList.Length - 1;
+            loadSerialPort();
+
+            videoCAM = new VideoCAM();
+            videoCAM.OnVideoFrameHandler += VideoCAM_OnVideoFrameHandler;
+        }
+        private delegate void FrameVideo(Bitmap bitmap);
+        private void VideoCAM_OnVideoFrameHandler(Bitmap bitmap)
+        {
+            if (pictureBoxCamera.InvokeRequired)
+            {
+                pictureBoxCamera.Invoke(new FrameVideo(VideoCAM_OnVideoFrameHandler), bitmap);
+            }else{
+                pictureBoxCamera.Image = new Bitmap(bitmap);
+            }
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void loadSerialPort()
         {
-            if (_camera1 != null && _camera1.IsOpened())
-            {
-                using(Mat frame= _camera1.RetrieveMat()) 
-                { 
-                    if(frame != null)
-                    {
-                        pictureBox1.SuspendLayout();
-                        pictureBox1.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(frame);
-                        pictureBox1.ResumeLayout();
-                    }
-    
-                }
-            }
-            if (_camera2 != null && _camera2.IsOpened())
-            {
-                using (Mat frame = _camera2.RetrieveMat())
-                {
-                    if (frame != null)
-                    {
-                        pictureBox2.SuspendLayout();
-                        pictureBox2.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(frame);
-                        pictureBox2.ResumeLayout();
-                    }
-                }
-            }
+            comboBoxComPort.Items.Clear();
+            comboBoxComPort.Items.AddRange(SerialPort.GetPortNames());
+            if (comboBoxComPort.Items.Count > 0)
+                comboBoxComPort.SelectedIndex = 0;
+        }
+
+        private void btConnect_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void _KeyDown(object sender, KeyEventArgs e)
+        {
+ 
         }
     }
 }
