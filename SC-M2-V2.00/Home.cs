@@ -279,9 +279,9 @@ namespace SC_M2_V2_00
                   
                     isStaetReset = true;
                     is_Blink_NG = false;
-                    lbTitle.Text = Resources.STATUS_PROCESS_5; // Wiat for detect....
+                    //lbTitle.Text = Resources.STATUS_PROCESS_5; // Wiat for detect....
                     lbTitle.ForeColor = Color.Black;
-                    lbTitle.BackColor = Color.Orange;
+                    lbTitle.BackColor = Color.Yellow;
                     countDetect = 0;
 
                     richTextBox1.Text = "";
@@ -333,7 +333,7 @@ namespace SC_M2_V2_00
                 countDetect = 0;
                 Console.WriteLine("Elapsed Time is {0} ms", stopwatch.ElapsedMilliseconds);
 
-                lbTitle.Text = Resources.STATUS_PROCESS_5;
+                //lbTitle.Text = Resources.STATUS_PROCESS_5;
                 lbTitle.ForeColor = Color.Black;
                 lbTitle.BackColor = Color.Yellow;
                 toolStripStatusConnectionCamera.Text = Resources.STATUS_PROCES_CAMERA_CON; //"Camera: Connected";
@@ -358,7 +358,7 @@ namespace SC_M2_V2_00
                 {
                     videoCAM_2.Stop();
                 }
-
+                is_Blink_NG = false;
                 lbTitle.Text = Resources.STATUS_PROCES_DIS;
                 this.toolStripStatusConnectionCamera.Text = Resources.STATUS_PROCES_DIS; //$"Camera: Disconnected";
                 this.toolStripStatusConnectionCamera.ForeColor = Color.Red;
@@ -402,7 +402,7 @@ namespace SC_M2_V2_00
         {
             try
             {
-                if (countDetect > 3 && isStaetReset && videoCAM_1.IsRunning && videoCAM_2.IsRunning)
+                if (countDetect > 0 && isStaetReset && videoCAM_1.IsRunning && videoCAM_2.IsRunning)
                 {
                     lbTitle.Text = Resoure.STATUS_PROCESS_5; //Waiting for detection
                     lbTitle.Refresh();
@@ -770,8 +770,7 @@ namespace SC_M2_V2_00
             Bitmap bitmap = Matching(imagemaster, imageCam);
             bitmap.Save(file_name);
             double conpare = Compare(imagemaster, bitmap);
-                
-            if(conpare < 50)
+            if(conpare < 30)
             {
                 lbTitle.Text = Resoure.STATUS_PROCES_NOT_MATCH; //"Image not match";
                 serialCommand("NG#");
@@ -802,7 +801,7 @@ namespace SC_M2_V2_00
             {
                 result = performOCR(imageList, file_name, imageIndex, Rectangle.Empty);
             }
-
+            result = Regex.Replace(result, "[^a-zA-Z,0-9,(),:,-]", "");
             richTextBox1.Text = result.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", "");
             FuncOCR2_();
         }
@@ -913,7 +912,7 @@ namespace SC_M2_V2_00
 
             double conpare = Compare(imagemaster, bitmap);
 
-            if (conpare < 50)
+            if (conpare < 30)
             {
                 lbTitle.Text = Resoure.STATUS_PROCES_NOT_MATCH; //"Image not match";
                 serialCommand("NG#");
@@ -945,7 +944,9 @@ namespace SC_M2_V2_00
                 result = performOCR(imageList, file_name, imageIndex, Rectangle.Empty);
             }
 
-            richTextBox2.Text = result.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", "");
+            result = Regex.Replace(result, "[^a-zA-Z,0-9,(),:,-]", "");
+
+            richTextBox2.Text = result.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", "").Replace("'", "");
 
             Compare_Master(richTextBox1.Text.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", ""), richTextBox2.Text.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", ""));
         }
@@ -953,21 +954,34 @@ namespace SC_M2_V2_00
         private void Compare_Master(string txt_sw, string txt_lb)
         {
             lbTitle.Text = Resoure.STATUS_PROCES_12; // System is processing
-
+            history = new History();
+            txt_lb = txt_lb.Replace("O", "0");
             var lb = txt_lb.IndexOf("731TMC");
             var txt = txt_lb.Substring(0, lb);
             var master_lb = MasterAll.GetMasterALLByLBName(txt);
-
+            
+          
             bool check = false;
-            foreach (var item in master_lb)
+            if (master_lb.Count > 0)
             {
-                if (item.nameSW == txt_sw)
+                foreach (var item in master_lb)
                 {
-                    check = true;
-                    serialCommand("OK#");
-                    break;
+                    history.master_sw = item.nameSW;
+                    history.master_lb = item.nameModel;
+                    if (item.nameSW == txt_sw)
+                    {
+                        check = true;
+                        serialCommand("OK#");
+                        break;
+                    }
                 }
             }
+            else
+            {
+                history.master_sw = "null";
+                history.master_lb = "null";
+            }
+           
 
             if (!check)
             {
@@ -984,7 +998,7 @@ namespace SC_M2_V2_00
                 lbTitle.BackColor = Color.Green;
             }
             
-            history = new History();
+          
             history.name = txtEmployee.Text.Trim();
             history.name_lb = txt_lb;
             history.name_sw = txt_sw;
@@ -995,10 +1009,12 @@ namespace SC_M2_V2_00
 
         private void textTestToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string txt_sw = "9U7310TM075-01731TMC30823030147PVM(HD)ECU86792-YY031";
+            string txt_sw = "!~'~  9U7310TM075-01731TMC30823030147PVM(HD)ECU86792-YY031";
             var lb = txt_sw.IndexOf("731TMC");
             var txt = txt_sw.Substring(0, lb);
-            Console.WriteLine(txt);
+            txt = "^7`31'TM~+C6A:\r\n \t \a\a 21-11-11-1MCU-(VER):20-6-2-1";
+            string cha = Regex.Replace(txt, "[^a-zA-Z,0-9,(),:,-]", "");
+            Console.WriteLine(cha);
         }
 
         private void backgroundWorkerOcr_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -1059,11 +1075,14 @@ namespace SC_M2_V2_00
                             ID = p.id, 
                             No = ++i,
                             Employee = p.name,
+                            MasterSW = p.master_sw,
                             Software = p.name_sw,
+                            Master_Model = p.master_lb,
                             Models = p.name_lb,
                             Results = p.result,
                             Update = p.created_at
                         }).ToList();
+            data.Reverse();
             dataGridViewHistory.DataSource = data;
             dataGridViewHistory.Columns[0].Visible = false;
             // 10% of the width of the DataGridView
