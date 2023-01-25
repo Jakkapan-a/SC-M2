@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Emgu.CV.Ocl;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace SC_M2_V2._00.Modules
 {
-    public class VideoCAM : IDisposable
+    public class VideoCAM
     {
         private Thread _thread;
         private OpenCvSharp.VideoCapture _videoCapture;
@@ -30,6 +32,19 @@ namespace SC_M2_V2._00.Modules
             set { _isRunning = value; }
         }
 
+        public bool IsOpened
+        {
+            get { return IsOpen(); }
+        }
+
+        public bool IsOpen()
+        {
+            if(_videoCapture!= null && _videoCapture.IsOpened())
+            {
+                return true;
+            }
+            return false;
+        }
         public void Start(int device)
         {
             if(_videoCapture != null)
@@ -121,7 +136,7 @@ namespace SC_M2_V2._00.Modules
         {
             _videoCapture.Set(OpenCvSharp.VideoCaptureProperties.Fps, fps);
         }
-
-
     }
+
+   
 }

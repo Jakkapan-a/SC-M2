@@ -295,7 +295,10 @@ namespace SC_M2_V2_00
                   
                     isStaetReset = true;
                     is_Blink_NG = false;
-                    //lbTitle.Text = Resources.STATUS_PROCESS_5; // Wiat for detect....
+                    if(videoCAM_1.IsOpened && videoCAM_2.IsOpened)
+                    {
+                        lbTitle.Text = Resources.STATUS_PROCESS_5; // Wiat for detect....
+                    }
                     lbTitle.ForeColor = Color.Black;
                     lbTitle.BackColor = Color.Yellow;
                     countDetect = 0;
@@ -1061,6 +1064,11 @@ namespace SC_M2_V2_00
             g.DrawImage(bmp, 0, 0);
             g.Dispose();
             return bmp2;
+        }
+
+        private void resetIOToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            serialCommand("NG");
         }
 
         private Bitmap invertColor(Bitmap bmp)
