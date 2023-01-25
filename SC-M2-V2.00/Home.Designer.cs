@@ -50,13 +50,15 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.pictureBoxCamDetect1 = new OCR1.Controls.ScrollablePictureBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lbCamTitle_1 = new System.Windows.Forms.Label();
             this.pictureBoxCamera2 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.pictureBoxCamDetect2 = new OCR1.Controls.ScrollablePictureBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lbCamTitle_2 = new System.Windows.Forms.Label();
             this.panelTable = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtEmployee = new System.Windows.Forms.TextBox();
             this.dataGridViewHistory = new System.Windows.Forms.DataGridView();
             this.panelMain = new System.Windows.Forms.Panel();
             this.btnOCR2 = new System.Windows.Forms.Button();
@@ -69,8 +71,6 @@
             this.timerStartStop = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerOcr = new System.ComponentModel.BackgroundWorker();
             this.timerRunOCR = new System.Windows.Forms.Timer(this.components);
-            this.txtEmployee = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.statusStripStatus.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerHome)).BeginInit();
@@ -194,21 +194,21 @@
             // conectionsToolStripMenuItem
             // 
             this.conectionsToolStripMenuItem.Name = "conectionsToolStripMenuItem";
-            this.conectionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.conectionsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.conectionsToolStripMenuItem.Text = "Connections.";
             this.conectionsToolStripMenuItem.Click += new System.EventHandler(this.conectionsToolStripMenuItem_Click);
             // 
             // masterModelsToolStripMenuItem
             // 
             this.masterModelsToolStripMenuItem.Name = "masterModelsToolStripMenuItem";
-            this.masterModelsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.masterModelsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.masterModelsToolStripMenuItem.Text = "Master List";
             this.masterModelsToolStripMenuItem.Click += new System.EventHandler(this.masterModelsToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.optionsToolStripMenuItem.Text = "Options.";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
@@ -225,14 +225,14 @@
             this.splitContainerHome.Panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.splitContainerHome.Panel1.Controls.Add(this.pictureBoxCamera1);
             this.splitContainerHome.Panel1.Controls.Add(this.tableLayoutPanel1);
-            this.splitContainerHome.Panel1.Controls.Add(this.label1);
+            this.splitContainerHome.Panel1.Controls.Add(this.lbCamTitle_1);
             // 
             // splitContainerHome.Panel2
             // 
             this.splitContainerHome.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
             this.splitContainerHome.Panel2.Controls.Add(this.pictureBoxCamera2);
             this.splitContainerHome.Panel2.Controls.Add(this.tableLayoutPanel2);
-            this.splitContainerHome.Panel2.Controls.Add(this.label2);
+            this.splitContainerHome.Panel2.Controls.Add(this.lbCamTitle_2);
             this.splitContainerHome.Size = new System.Drawing.Size(887, 339);
             this.splitContainerHome.SplitterDistance = 439;
             this.splitContainerHome.TabIndex = 5;
@@ -288,17 +288,17 @@
             this.pictureBoxCamDetect1.TabIndex = 1;
             this.pictureBoxCamDetect1.TabStop = false;
             // 
-            // label1
+            // lbCamTitle_1
             // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(439, 35);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "CAMERA 1";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbCamTitle_1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lbCamTitle_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCamTitle_1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lbCamTitle_1.Location = new System.Drawing.Point(0, 0);
+            this.lbCamTitle_1.Name = "lbCamTitle_1";
+            this.lbCamTitle_1.Size = new System.Drawing.Size(439, 35);
+            this.lbCamTitle_1.TabIndex = 0;
+            this.lbCamTitle_1.Text = "CAMERA 1";
+            this.lbCamTitle_1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBoxCamera2
             // 
@@ -352,17 +352,17 @@
             this.pictureBoxCamDetect2.TabIndex = 3;
             this.pictureBoxCamDetect2.TabStop = false;
             // 
-            // label2
+            // lbCamTitle_2
             // 
-            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label2.Location = new System.Drawing.Point(0, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(444, 35);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "CAMERA 2";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbCamTitle_2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lbCamTitle_2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCamTitle_2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lbCamTitle_2.Location = new System.Drawing.Point(0, 0);
+            this.lbCamTitle_2.Name = "lbCamTitle_2";
+            this.lbCamTitle_2.Size = new System.Drawing.Size(444, 35);
+            this.lbCamTitle_2.TabIndex = 0;
+            this.lbCamTitle_2.Text = "CAMERA 2";
+            this.lbCamTitle_2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelTable
             // 
@@ -374,6 +374,24 @@
             this.panelTable.Name = "panelTable";
             this.panelTable.Size = new System.Drawing.Size(913, 128);
             this.panelTable.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.Location = new System.Drawing.Point(459, 3);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(215, 23);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Employee :";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtEmployee
+            // 
+            this.txtEmployee.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtEmployee.Location = new System.Drawing.Point(680, 6);
+            this.txtEmployee.Name = "txtEmployee";
+            this.txtEmployee.Size = new System.Drawing.Size(210, 20);
+            this.txtEmployee.TabIndex = 9;
             // 
             // dataGridViewHistory
             // 
@@ -464,24 +482,6 @@
             this.backgroundWorkerOcr.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerOcr_ProgressChanged);
             this.backgroundWorkerOcr.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerOcr_RunWorkerCompleted);
             // 
-            // txtEmployee
-            // 
-            this.txtEmployee.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtEmployee.Location = new System.Drawing.Point(680, 6);
-            this.txtEmployee.Name = "txtEmployee";
-            this.txtEmployee.Size = new System.Drawing.Size(210, 20);
-            this.txtEmployee.TabIndex = 9;
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.Location = new System.Drawing.Point(459, 3);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(215, 23);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Employee :";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -529,8 +529,8 @@
         private System.Windows.Forms.ToolStripMenuItem settingToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainerHome;
         private System.Windows.Forms.Panel panelTable;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbCamTitle_1;
+        private System.Windows.Forms.Label lbCamTitle_2;
         private System.Windows.Forms.PictureBox pictureBoxCamera1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.RichTextBox richTextBox1;

@@ -108,18 +108,19 @@ namespace SC_M2_V2._00.FormComponents
                 {
                     if (this.type == 0)
                     {
-                        _edit_Items.loadTable_SW();
+                        _edit_Items?.loadTable_SW();
                     }
                     else if (this.type == 1)
                     {
-                        _edit_Items.loadTable_LB();
+                        _edit_Items?.loadTable_LB();
                     }
                 }
-                else if (_settingModel != null)
-                {
-                    _settingModel.loadTable();
-                }
-                _edit_Items.reloadTableSetting();
+                //else if (_settingModel != null)
+                //{
+                //    _settingModel.loadTable();
+                //}
+                _settingModel?.loadTable();
+                _edit_Items?.reloadTableSetting();
                 this.Close();
             }
             catch (Exception ex)
