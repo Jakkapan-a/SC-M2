@@ -102,7 +102,7 @@ namespace SC_M2_V2_00
             }
 
             Process _processCMD = new Process();
-            _processCMD.StartInfo.WorkingDirectory = SC_M2_V2._00.Properties.Resources.Path_ImageClassificationTemp;
+            _processCMD.StartInfo.WorkingDirectory = SC_M2_V2._00.Properties.Resources.Path_ImageClassification;
             _processCMD.StartInfo.FileName = "cmd.exe";
             _processCMD.StartInfo.UseShellExecute = false;
             _processCMD.StartInfo.RedirectStandardOutput = true;
@@ -110,7 +110,7 @@ namespace SC_M2_V2_00
             _processCMD.StartInfo.RedirectStandardError = true;
             _processCMD.StartInfo.StandardErrorEncoding = System.Text.Encoding.UTF8;
             _processCMD.StartInfo.RedirectStandardInput = true;
-            _processCMD.StartInfo.CreateNoWindow = false;
+            _processCMD.StartInfo.CreateNoWindow = true;
             _processCMD.EnableRaisingEvents = true;
             _processCMD.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
             _processCMD.Start();
@@ -137,6 +137,22 @@ namespace SC_M2_V2_00
 
             // Console thread id for debugging
             Console.WriteLine("Thread ID: {0}", Thread.CurrentThread.ManagedThreadId);
+
+            var set = Setting.GetSettingRemove();
+            try
+            {
+                if (set.Count > 0)
+                {
+                    foreach (var item in set)
+                    { 
+                        if(File.Exists(item.path_image))
+                            File.Delete(item.path_image);
+                    }
+                }
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
 
@@ -775,6 +791,7 @@ namespace SC_M2_V2_00
                 lbTitle.Text = Resoure.STATUS_PROCES_NOT_MATCH; //"Image not match";
                 serialCommand("NG#");
                 countDetect = 0;
+                isStaetReset = true;
                 return;
             }
 
@@ -917,6 +934,7 @@ namespace SC_M2_V2_00
                 lbTitle.Text = Resoure.STATUS_PROCES_NOT_MATCH; //"Image not match";
                 serialCommand("NG#");
                 countDetect = 0;
+                isStaetReset = true;
                 return;
             }
 

@@ -39,6 +39,8 @@ namespace SC_M2_V2._00.Modules
             SQliteDataAccess.InserInputDB(sql, parameters);
         }
 
-        public static List<Setting> GetSetting(int _type) => SQliteDataAccess.GetRow<Setting>("select * from settings where _type = " + _type+" order by id desc limit 1");    
+        public static List<Setting> GetSetting(int _type) => SQliteDataAccess.GetRow<Setting>("select * from settings where _type = " + _type+" order by id desc limit 1");
+
+        public static List<Setting> GetSettingRemove() => SQliteDataAccess.GetRow<Setting>("select * from settings where state = 0 order by id desc");
     }
 }
