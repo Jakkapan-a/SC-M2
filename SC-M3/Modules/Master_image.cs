@@ -47,5 +47,6 @@ namespace SC_M3.Modules
         public static Master_image LoadLastByState(int state)=> SQliteDataAccess.LoadData<Master_image>("select * from master_image where state = @state order by id desc limit 1 ", new Dictionary<string, object> { { "@state", state } }).FirstOrDefault();
         public static Master_image LoadById(int id)=> SQliteDataAccess.LoadData<Master_image>("select * from master_image where id = @id", new Dictionary<string, object> { { "@id", id } }).FirstOrDefault();
         public static Master_image LoadByPath(string path)=> SQliteDataAccess.LoadData<Master_image>("select * from master_image where path = @path", new Dictionary<string, object> { { "@path", path } }).FirstOrDefault();
+        public static Master_image LoadLastImage() => SQliteDataAccess.LoadData<Master_image>("select * from master_image order by id desc limit 1 ",null).FirstOrDefault();
     }
 }

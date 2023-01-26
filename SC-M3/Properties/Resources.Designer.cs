@@ -69,5 +69,32 @@ namespace SC_M3.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ./system.
+        /// </summary>
+        internal static string paht_system {
+            get {
+                return ResourceManager.GetString("paht_system", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ./system/images.
+        /// </summary>
+        internal static string path_images {
+            get {
+                return ResourceManager.GetString("path_images", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ./system/temp.
+        /// </summary>
+        internal static string path_temp {
+            get {
+                return ResourceManager.GetString("path_temp", resourceCulture);
+            }
+        }
     }
 }

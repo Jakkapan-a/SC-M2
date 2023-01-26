@@ -28,9 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.listBox1 = new Netdev.Windows.Forms.ListBox();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // listBox1
+            // 
+            this.listBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(0, 0);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(120, 96);
+            this.listBox1.TabIndex = 0;
+            // 
+            // ScrollablePictureBox
+            // 
+            this.GotFocus += new System.EventHandler(this.ScrollablePictureBox_GotFocus);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ScrollablePictureBox_MouseClick);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ScrollablePictureBox_MouseDown);
+            this.MouseEnter += new System.EventHandler(this.ScrollablePictureBox_MouseEnter);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ScrollablePictureBox_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ScrollablePictureBox_MouseUp);
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
+            this.ResumeLayout(false);
         }
 
         #endregion
+        private Netdev.Windows.Forms.ListBox listBox1;
     }
 }

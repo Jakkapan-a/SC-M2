@@ -54,7 +54,10 @@ namespace SC_M3
             var result = MessageBox.Show("Are you sure you want to delete this item?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                //delete
+                var data = Master_sw.LoadById(id);
+                data.Delete();
+                MessageBox.Show("Deleted", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadTable();
             }
         }
 

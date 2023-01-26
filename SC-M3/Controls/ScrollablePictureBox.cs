@@ -70,7 +70,6 @@ namespace SC_M3.Controls
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
-
             if (this.Image == null) return;
 
             // draw segmented regions
@@ -85,12 +84,10 @@ namespace SC_M3.Controls
                 {
                     // Create pen
                     Pen pen = new Pen(color);
-
                     foreach (Rectangle region in SegmentedRegions[color])
                     {
                         g.DrawRectangle(pen, region);
                     }
-
                     pen.Dispose();
                 }
             }

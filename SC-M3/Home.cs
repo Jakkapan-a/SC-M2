@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -39,6 +40,15 @@ namespace SC_M3
 
             videoCAM = new VideoCAM();
             videoCAM.OnVideoFrameHandler += VideoCAM_OnVideoFrameHandler;
+
+            if (!Directory.Exists(SC_M3.Properties.Resources.paht_system))
+                Directory.CreateDirectory(SC_M3.Properties.Resources.paht_system);
+            if (!Directory.Exists(SC_M3.Properties.Resources.path_images))
+                Directory.CreateDirectory(SC_M3.Properties.Resources.path_images);
+            if (!Directory.Exists(SC_M3.Properties.Resources.path_temp))
+                Directory.CreateDirectory(SC_M3.Properties.Resources.path_temp);
+
+
         }
         private delegate void FrameVideo(Bitmap bitmap);
         private void VideoCAM_OnVideoFrameHandler(Bitmap bitmap)

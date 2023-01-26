@@ -55,6 +55,7 @@
             this.btSelect.TabIndex = 2;
             this.btSelect.Text = "Select";
             this.btSelect.UseVisualStyleBackColor = true;
+            this.btSelect.Click += new System.EventHandler(this.btSelect_Click);
             // 
             // richTextBox1
             // 
@@ -116,6 +117,7 @@
             this.Name = "Image_Detect";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Image_Detect";
+            this.Load += new System.EventHandler(this.Image_Detect_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
