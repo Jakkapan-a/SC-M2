@@ -40,7 +40,7 @@ namespace SC_M3.Modules
         }
 
         // Insert to Db
-        public static void InserInputDB(string sql, Dictionary<string, object> parameters)
+        public static void Command(string sql, Dictionary<string, object> parameters)
         {
             using (IDbConnection con = new SQLiteConnection(LoadConnectionString()))
             {
@@ -68,7 +68,7 @@ namespace SC_M3.Modules
             return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
-        internal static object LoadData<T>(string sql, Dictionary<string, object> parameters)
+        internal static List<T> LoadData<T>(string sql, Dictionary<string, object> parameters)
         {
             
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -84,6 +84,15 @@ namespace SC_M3.Modules
             {
                 var output = cnn.Query(sql, new DynamicParameters());
                 return output.ToList().Count > 0;
+            }
+        }
+
+        internal static List<T> LoadData<T>(string sql)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<T>(sql, new DynamicParameters());
+                return output.ToList();
             }
         }
     }

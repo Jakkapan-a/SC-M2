@@ -1,6 +1,6 @@
 ﻿namespace SC_M3
 {
-    partial class AddForm
+    partial class EditForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddForm));
-            this.btSave = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditForm));
+            this.btUpdate = new System.Windows.Forms.Button();
             this.txtSW = new System.Windows.Forms.TextBox();
             this.txtSN = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -37,17 +37,17 @@
             this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // btSave
+            // btUpdate
             // 
-            this.btSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btSave.Location = new System.Drawing.Point(416, 143);
-            this.btSave.MinimumSize = new System.Drawing.Size(0, 23);
-            this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(75, 23);
-            this.btSave.TabIndex = 0;
-            this.btSave.Text = "Save";
-            this.btSave.UseVisualStyleBackColor = true;
-            this.btSave.Click += new System.EventHandler(this.btSave_Click);
+            this.btUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btUpdate.Location = new System.Drawing.Point(416, 143);
+            this.btUpdate.MinimumSize = new System.Drawing.Size(0, 23);
+            this.btUpdate.Name = "btUpdate";
+            this.btUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btUpdate.TabIndex = 0;
+            this.btUpdate.Text = "Update";
+            this.btUpdate.UseVisualStyleBackColor = true;
+            this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
             // 
             // txtSW
             // 
@@ -97,7 +97,7 @@
             this.label3.Text = "Master Model";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // AddForm
+            // EditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -107,16 +107,16 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtSN);
             this.Controls.Add(this.txtSW);
-            this.Controls.Add(this.btSave);
+            this.Controls.Add(this.btUpdate);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(519, 213);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(519, 213);
-            this.Name = "AddForm";
+            this.Name = "EditForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Add Form";
-            this.Load += new System.EventHandler(this.AddForm_Load);
+            this.Text = "Edit Form";
+            this.Load += new System.EventHandler(this.EditForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,7 +124,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btSave;
+        private System.Windows.Forms.Button btUpdate;
         private System.Windows.Forms.TextBox txtSW;
         private System.Windows.Forms.TextBox txtSN;
         private System.Windows.Forms.Label label1;

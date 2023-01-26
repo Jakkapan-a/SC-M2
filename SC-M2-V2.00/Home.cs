@@ -1091,7 +1091,7 @@ namespace SC_M2_V2_00
         public void loadTableHistory()
         {
             var list = History.GetHistory();
-            dataGridViewHistory.DataSource = list;
+            dataGridViewHistory.DataSource = null;
             int i = 0;
             // Reverse the list to display the latest record first
             list.Reverse();

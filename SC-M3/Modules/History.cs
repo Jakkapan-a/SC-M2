@@ -27,7 +27,7 @@ namespace SC_M3.Modules
             parameters.Add("@sw_ver_full", sw_ver_full);
             parameters.Add("@created_at", SQliteDataAccess.GetDateTimeNow());
             parameters.Add("@updated_at", SQliteDataAccess.GetDateTimeNow());
-            SQliteDataAccess.InserInputDB(sql, parameters);
+            SQliteDataAccess.Command(sql, parameters);
         }
 
         public void Update(){
@@ -40,7 +40,7 @@ namespace SC_M3.Modules
             parameters.Add("@sw_ver_full", sw_ver_full);
             parameters.Add("@updated_at", SQliteDataAccess.GetDateTimeNow());
             parameters.Add("@id", id);
-            SQliteDataAccess.InserInputDB(sql, parameters);
+            SQliteDataAccess.Command(sql, parameters);
         }
 
         public void Delete()
@@ -48,7 +48,7 @@ namespace SC_M3.Modules
             string sql = "delete from history where id = @id";
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@id", id);
-            SQliteDataAccess.InserInputDB(sql, parameters);
+            SQliteDataAccess.Command(sql, parameters);
         }
 
         public static List<History> LoadHistory()=> SQliteDataAccess.LoadData<History>("select * from history order by id desc limit 100");

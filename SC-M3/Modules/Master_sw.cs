@@ -24,18 +24,19 @@ namespace SC_M3.Modules
             parameters.Add("@serial_full", serial_full);
             parameters.Add("@created_at", SQliteDataAccess.GetDateTimeNow());
             parameters.Add("@updated_at", SQliteDataAccess.GetDateTimeNow());
-            SQliteDataAccess.InserInputDB(sql, parameters);
+            SQliteDataAccess.Command(sql, parameters);
         }
 
-        public void Update(){
-            string sql = "update master_sw set sw_ver = @sw_ver, serial_no = @serial_no, serial_full = @serial_full, created_at = @created_at, updated_at = @updated_at where id = @id";
+        public void Update()
+        {
+            string sql = "update master_sw set sw_ver = @sw_ver, serial_no = @serial_no, serial_full = @serial_full, updated_at = @updated_at where id = @id";
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@sw_ver", sw_ver);
             parameters.Add("@serial_no", serial_no);
             parameters.Add("@serial_full", serial_full);
             parameters.Add("@updated_at", SQliteDataAccess.GetDateTimeNow());
             parameters.Add("@id", id);
-            SQliteDataAccess.InserInputDB(sql, parameters);
+            SQliteDataAccess.Command(sql, parameters);
         }
 
         public void Delete()
@@ -43,13 +44,14 @@ namespace SC_M3.Modules
             string sql = "delete from master_sw where id = @id";
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@id", id);
-            SQliteDataAccess.InserInputDB(sql, parameters);
+            SQliteDataAccess.Command(sql, parameters);
         }
 
         public static List<Master_sw> LoadAll()=> SQliteDataAccess.LoadData<Master_sw>("select * from master_sw");
+
         public static Master_sw LoadLast()=> SQliteDataAccess.LoadData<Master_sw>("select * from master_sw order by id desc limit 1 ").FirstOrDefault();
 
-        public static Master_sw LoadById(int id)=> SQliteDataAccess.LoadData<Master_sw>("select * from master_sw where id = @id", new Dictionary<string, object> { { "@id", id } }).FirstOrDefault();
+        public static Master_sw LoadById(int id) => SQliteDataAccess.LoadData<Master_sw>("select * from master_sw where id = @id", new Dictionary<string, object> { { "@id", id } }).FirstOrDefault();
 
         public static Master_sw LoadBySerial(string serial)=> SQliteDataAccess.LoadData<Master_sw>("select * from master_sw where serial_no = @serial_no", new Dictionary<string, object> { { "@serial_no", serial } }).FirstOrDefault();
 

@@ -73,9 +73,22 @@ namespace SC_M3
             if(_detect != null)
             {
                 _detect.Close();
+                _detect.Dispose();
             }
             _detect = new Image_Detect();
-            _detect.Show();
+            _detect.ShowDialog();
+        }
+
+        private Setting _setting;
+        private void modelsListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(_setting != null)
+            {
+                _setting.Close();
+                _setting.Dispose();
+            }
+            _setting = new Setting();
+            _setting.ShowDialog();
         }
     }
 }

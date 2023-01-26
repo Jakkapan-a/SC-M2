@@ -21,7 +21,7 @@ namespace SC_M3.Modules
             parameters.Add("@state", state);
             parameters.Add("@created_at", SQliteDataAccess.GetDateTimeNow());
             parameters.Add("@updated_at", SQliteDataAccess.GetDateTimeNow());
-            SQliteDataAccess.InserInputDB(sql, parameters);
+            SQliteDataAccess.Command(sql, parameters);
         }
 
         public void Update(){
@@ -31,7 +31,7 @@ namespace SC_M3.Modules
             parameters.Add("@state", state);
             parameters.Add("@updated_at", SQliteDataAccess.GetDateTimeNow());
             parameters.Add("@id", id);
-            SQliteDataAccess.InserInputDB(sql, parameters);
+            SQliteDataAccess.Command(sql, parameters);
         }
 
         public void Delete()
@@ -39,7 +39,7 @@ namespace SC_M3.Modules
             string sql = "delete from master_image where id = @id";
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@id", id);
-            SQliteDataAccess.InserInputDB(sql, parameters);
+            SQliteDataAccess.Command(sql, parameters);
         }
 
         public static List<Master_image> LoadAll()=> SQliteDataAccess.LoadData<Master_image>("select * from master_image");

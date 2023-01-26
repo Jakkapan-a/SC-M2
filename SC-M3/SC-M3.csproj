@@ -138,6 +138,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditForm.Designer.cs">
+      <DependentUpon>EditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +168,9 @@
     <Compile Include="Image_Detect.Designer.cs">
       <DependentUpon>Image_Detect.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modules\History.cs" />
+    <Compile Include="Modules\Master_image.cs" />
+    <Compile Include="Modules\Master_sw.cs" />
     <Compile Include="Modules\SQliteDataAccess.cs" />
     <Compile Include="Modules\VideoCAM.cs" />
     <Compile Include="Program.cs" />
@@ -178,6 +187,9 @@
     <Compile Include="Setting.Designer.cs">
       <DependentUpon>Setting.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="EditForm.resx">
+      <DependentUpon>EditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddForm.resx">
       <DependentUpon>AddForm.cs</DependentUpon>
     </EmbeddedResource>
