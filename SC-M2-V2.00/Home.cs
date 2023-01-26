@@ -25,6 +25,9 @@ using System.Windows.Markup;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 using Resoure = SC_M2_V2._00.Properties.Resources;
+using SC_M2_V2._00.Utilities;
+using System.Collections;
+
 namespace SC_M2_V2_00
 {
     public partial class Home : Form
@@ -84,59 +87,68 @@ namespace SC_M2_V2_00
 
         private void Home_Load(object sender, EventArgs e)
         {
-            timerMain.Start();
-            videoCAM_1= new VideoCAM();
-            videoCAM_1.OnVideoFrameHandler += videoCAM_1_OnVideoFrame;
-            videoCAM_2= new VideoCAM();
-            videoCAM_2.OnVideoFrameHandler += videoCAM_2_OnVideoFrame;
-            _path_defult = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            Console.WriteLine(_path_defult);
-            if (!Directory.Exists(SC_M2_V2._00.Properties.Resources.Path_System_Temp))
+            try
             {
-                Directory.CreateDirectory(SC_M2_V2._00.Properties.Resources.Path_System_Temp);
-            }
+                timerMain.Start();
+                videoCAM_1 = new VideoCAM();
+                videoCAM_1.OnVideoFrameHandler += videoCAM_1_OnVideoFrame;
+                videoCAM_2 = new VideoCAM();
+                videoCAM_2.OnVideoFrameHandler += videoCAM_2_OnVideoFrame;
+                _path_defult = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                Console.WriteLine(_path_defult);
+                if (!Directory.Exists(SC_M2_V2._00.Properties.Resources.Path_System_Temp))
+                {
+                    Directory.CreateDirectory(SC_M2_V2._00.Properties.Resources.Path_System_Temp);
+                }
 
-            if (!Directory.Exists(SC_M2_V2._00.Properties.Resources.Path_ImageClassification))
+                if (!Directory.Exists(SC_M2_V2._00.Properties.Resources.Path_ImageClassification))
+                {
+                    Directory.CreateDirectory(SC_M2_V2._00.Properties.Resources.Path_ImageClassification);
+                }
+
+                //Process _processCMD = new Process();
+                //_processCMD.StartInfo.WorkingDirectory = SC_M2_V2._00.Properties.Resources.Path_ImageClassification;
+                //_processCMD.StartInfo.FileName = "cmd.exe";
+                //_processCMD.StartInfo.UseShellExecute = false;
+                //_processCMD.StartInfo.RedirectStandardOutput = true;
+                //_processCMD.StartInfo.StandardOutputEncoding = System.Text.Encoding.UTF8;
+                //_processCMD.StartInfo.RedirectStandardError = true;
+                //_processCMD.StartInfo.StandardErrorEncoding = System.Text.Encoding.UTF8;
+                //_processCMD.StartInfo.RedirectStandardInput = true;
+                //_processCMD.StartInfo.CreateNoWindow = false;
+                //_processCMD.EnableRaisingEvents = true;
+                //_processCMD.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                ////_processCMD.Start();
+                //_processCMD.BeginOutputReadLine();
+                //_streamWriterCMD = _processCMD.StandardInput;
+                //_streamWriterCMD.AutoFlush = true;
+                //_streamWriterCMD.WriteLine("ImageClassification.exe -file");
+                //_processCMD.OutputDataReceived += new DataReceivedEventHandler(this.process_OutputReceived);
+
+                // Clear statusStripStatus text
+                foreach (ToolStripItem item in statusStripStatus.Items)
+                {
+                    item.Text = "";
+                }
+                LogWriter.SaveLog("Starting....."+Thread.CurrentThread.ManagedThreadId);
+                step_program = 1;
+                lbTitle.Text = Resources.STATUS_PROCESS_4; // Please open the camera.
+                btnOCR.Visible = false;
+                btnOCR2.Visible = false;
+
+                // Focus on the first txtEmployee
+                this.ActiveControl = txtEmployee;
+                txtEmployee.Focus();
+                loadTableHistory();
+
+                // Console thread id for debugging
+                Console.WriteLine("Thread ID: {0}", Thread.CurrentThread.ManagedThreadId);
+
+                LogWriter.RemoveFile();
+            }catch(Exception ex)
             {
-                Directory.CreateDirectory(SC_M2_V2._00.Properties.Resources.Path_ImageClassification);
+                LogWriter.SaveLog("Error :"+ex.Message);
             }
-
-            Process _processCMD = new Process();
-            _processCMD.StartInfo.WorkingDirectory = SC_M2_V2._00.Properties.Resources.Path_ImageClassification;
-            _processCMD.StartInfo.FileName = "cmd.exe";
-            _processCMD.StartInfo.UseShellExecute = false;
-            _processCMD.StartInfo.RedirectStandardOutput = true;
-            _processCMD.StartInfo.StandardOutputEncoding = System.Text.Encoding.UTF8;
-            _processCMD.StartInfo.RedirectStandardError = true;
-            _processCMD.StartInfo.StandardErrorEncoding = System.Text.Encoding.UTF8;
-            _processCMD.StartInfo.RedirectStandardInput = true;
-            _processCMD.StartInfo.CreateNoWindow = true;
-            _processCMD.EnableRaisingEvents = true;
-            _processCMD.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            _processCMD.Start();
-            _processCMD.BeginOutputReadLine();
-            _streamWriterCMD = _processCMD.StandardInput;
-            _streamWriterCMD.AutoFlush = true;
-            _streamWriterCMD.WriteLine("ImageClassification.exe -file");
-            _processCMD.OutputDataReceived += new DataReceivedEventHandler(this.process_OutputReceived);
-
-            // Clear statusStripStatus text
-            foreach (ToolStripItem item in statusStripStatus.Items)
-            {
-                item.Text = "";
-            }
-            step_program = 1;
-            lbTitle.Text = Resources.STATUS_PROCESS_4; // Please open the camera.
-            btnOCR.Visible = false;
-            btnOCR2.Visible = false;
-
-            // Focus on the first txtEmployee
-            this.ActiveControl = txtEmployee;
-            txtEmployee.Focus();
-            loadTableHistory();
-
-            // Console thread id for debugging
-            Console.WriteLine("Thread ID: {0}", Thread.CurrentThread.ManagedThreadId);
 
             var set = Setting.GetSettingRemove();
             try
@@ -191,6 +203,7 @@ namespace SC_M2_V2_00
             if (_stepImageClassification == 1)
             {
                 string data = e.Data.ToString();
+                LogWriter.SaveLog("Detect :"+data);
                 if (data != "NotFound")
                 {
                     var array = data.Split('-');
@@ -232,7 +245,7 @@ namespace SC_M2_V2_00
                 this.serialPort.PortName = portName;
                 this.serialPort.BaudRate = baud;
                 this.serialPort.Open();
-                this.serialCommand("conn#");
+                this.serialCommand("conn");
                 Thread.Sleep(50);
 
                 this.toolStripStatusConnectSerialPort.Text = Resources.STATUS_PROCESS_8;// Serial Connected
@@ -241,6 +254,7 @@ namespace SC_M2_V2_00
             }
             catch (Exception ex)
             {
+                LogWriter.SaveLog("Error :" + ex.Message);
                 this.toolStripStatusConnectSerialPort.Text = Resources.STATUS_PROCESS_9;// "Serial Port: Disconnect";
                 this.toolStripStatusConnectSerialPort.ForeColor = Color.Red;
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -276,6 +290,7 @@ namespace SC_M2_V2_00
             }
             catch (Exception ex)
             {
+                LogWriter.SaveLog("Error :" + ex.Message);
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -288,7 +303,9 @@ namespace SC_M2_V2_00
                 string data = this.dataSerialReceived.Replace("\r", string.Empty).Replace("\n", string.Empty);
                 data = data.Substring(data.IndexOf(">") + 1, data.IndexOf("<") - 1);
                 this.dataSerialReceived = string.Empty;
+                LogWriter.SaveLog("Serial : "+data);
                 Console.WriteLine("RST : "+data);
+                toolStripStatusSerialData.Text = "DATA :"+data;
                 // Console.WriteLine("Received ->: " + data);
                 if (data == "rst")
                 {
@@ -335,6 +352,7 @@ namespace SC_M2_V2_00
                     return;
                 }
                 step_program = 2;
+                LogWriter.SaveLog("Camera...");
                 lbTitle.Text = Resources.STATUS_PROCES_CONNECTING; // Connecting...
                 this.timerVideo1.Stop();
                 //this.timerVideo2.Stop();
@@ -357,9 +375,12 @@ namespace SC_M2_V2_00
                 lbTitle.BackColor = Color.Yellow;
                 toolStripStatusConnectionCamera.Text = Resources.STATUS_PROCES_CAMERA_CON; //"Camera: Connected";
                 toolStripStatusConnectionCamera.ForeColor = Color.Green;
+                LogWriter.SaveLog("Camera..");
+                serialConnect();
             }
             catch (Exception ex)
             {
+                LogWriter.SaveLog("Error camera connect :" + ex.Message);
                 lbTitle.Text = Resources.STATUS_PROCES_DIS; // Camera can't connected.
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -384,6 +405,7 @@ namespace SC_M2_V2_00
             }
             catch (Exception ex)
             {
+                LogWriter.SaveLog("Error stop camera :" + ex.Message);
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -399,7 +421,6 @@ namespace SC_M2_V2_00
             if(is_Blink_NG)
             {
                toggle_blink_ng = !toggle_blink_ng;
-               
                if(toggle_blink_ng)
                {
                     lbTitle.BackColor = Color.Red;
@@ -417,51 +438,60 @@ namespace SC_M2_V2_00
             }
         }
         string _pathFile, _nameTemp;
+        private Random rnd = new Random();
         private void timerVideo1_Tick(object sender, EventArgs e)
         {
             try
             {
-                if (countDetect > 0 && isStaetReset && videoCAM_1.IsRunning && videoCAM_2.IsRunning)
+                if (countDetect > 0 && isStaetReset && videoCAM_1.IsRunning && videoCAM_2.IsRunning && pictureBoxCamera2.Image != null)
                 {
                     lbTitle.Text = Resoure.STATUS_PROCESS_5; //Waiting for detection
                     lbTitle.Refresh();
                     if (_stepImageClassification == 0 && isStaetReset)
                     {
-                        string fileName = Guid.NewGuid().ToString() + ".jpg";
-                        _nameTemp = SC_M2_V2._00.Properties.Resources.Path_System_Temp + "/" + fileName;
-                        pictureBoxCamera1.Image.Save(_nameTemp, ImageFormat.Jpeg);
-                        _pathFile = System.IO.Path.Combine(_path_defult, "System", "temp", fileName);
+                        //string fileName = Guid.NewGuid().ToString() + ".jpg";
+                        //_nameTemp = SC_M2_V2._00.Properties.Resources.Path_System_Temp + "/" + fileName;
+                        //pictureBoxCamera1.Image.Save(_nameTemp, ImageFormat.Jpeg);
+                        //_pathFile = System.IO.Path.Combine(_path_defult, "System", "temp", fileName);
 
-                        _streamWriterCMD.WriteLine(_pathFile);
+                        //_streamWriterCMD.WriteLine(_pathFile);
                         _stepImageClassification = 1;
                     }
                     else if (_stepImageClassification == 1)
                     {
                         // Wait received
-                        LabelSW = string.Empty;
+                        // LogWriter.SaveLog("Wait received");
+                        // LabelSW = string.Empty;
+                        LabelSW = "VER";
+                        _stepImageClassification = 2;
                     }
                     else if (_stepImageClassification == 2 && LabelSW != string.Empty)
                     {
                         // Check Label SW Page
                         Console.WriteLine("Label :" + LabelSW);
-                        if (LabelSW == "VER")
-                        {
-                            lbTitle.Text = Resoure.STATUS_PROCES_12; // System is processing
-                            //lbTitle.Text = Resoure.STATUS_PROCESS_6;
-                            // OCR
-                            FuncOCR_();
-                            isStaetReset = false; // Wait Reset
-                        }
-                        else
-                        {
+                        LogWriter.SaveLog("Label :" + LabelSW);
 
-                        }                      
+                        //toolStripStatusDetect.Text = "Label :" + LabelSW;
+                        //toolStripStatusDetect.ForeColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+                        LabelSW = "VER";
+;                        if (LabelSW == "VER")
+                        {
+                            lbTitle.Text = Resoure.STATUS_PROCES_13; // System is processing
+                            // lbTitle.Text = Resoure.STATUS_PROCESS_6;
+                            // OCR
+                            isStaetReset = false; // Wait Reset
+                            _ = Task.Run(() =>
+                            {
+                                FuncOCR_();
+                            });
+                        }                   
                         _stepImageClassification = 0;
 
                         if (File.Exists(_pathFile))
                         {
                             File.Delete(_pathFile);
                         }
+                        // _ = Task.Run(() => deletedFileTemp());
                         deletedFileTemp();
                     }
                     countDetect = 0;
@@ -470,69 +500,47 @@ namespace SC_M2_V2_00
             catch (Exception ex)
             {
                 countDetect = 0;
-                //this.timerVideo1.Stop();
                 Console.WriteLine(ex.Message);
-                //MessageBox.Show(ex.Message, "Exclamation B00", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
         private void deletedFileTemp()
         {
-            string _dir = SC_M2_V2._00.Properties.Resources.Path_System_Temp;
-
-            string[] files = Directory.GetFiles(_dir);
-            int i = 0;
-            foreach (string file in files)
-            {
-                i++;
-                FileInfo info = new FileInfo(file);
-                if (info.LastAccessTime < DateTime.Now.AddHours(-1))
-                    info.Delete();
-                if (i > 10)
-                    break;
-            }
-            i = 0;
-            files.Reverse();
-            foreach (string file in files)
-            {
-                i++;
-                FileInfo info = new FileInfo(file);
-                if (info.LastAccessTime < DateTime.Now.AddHours(-1))
-                    info.Delete();
-                if (i > 10)
-                    break;
-            }
-        }
-        private void timerVideo2_Tick(object sender, EventArgs e)
-        {
             try
             {
-                ////Console.WriteLine("Run..");
-                //if (videoCapture2 != null && videoCapture2.IsOpened())
-                //{
-                //    using (OpenCvSharp.Mat frame = new OpenCvSharp.Mat())
-                //    {
-                //        videoCapture2.Read(frame);
-                //        if (frame != null)
-                //        {
-                //            pictureBoxCamera2.SuspendLayout();
-                //            pictureBoxCamera2.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(frame);
-                //            pictureBoxCamera2.ResumeLayout();
-                //        }
-                //    }
-                //}
-
+                string _dir = SC_M2_V2._00.Properties.Resources.Path_System_Temp;
+                string[] files = Directory.GetFiles(_dir);
+                int i = 0;
+                foreach (string file in files)
+                {
+                    i++;
+                    FileInfo info = new FileInfo(file);
+                    if (info.LastAccessTime < DateTime.Now.AddMinutes(-5))
+                        info.Delete();
+                    if (i > 10)
+                        break;
+                }
+                i = 0;
+                files.Reverse();
+                foreach (string file in files)
+                {
+                    i++;
+                    FileInfo info = new FileInfo(file);
+                    if (info.LastAccessTime < DateTime.Now.AddMinutes(-5))
+                        info.Delete();
+                    if (i > 10)
+                        break;
+                }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                this.timerVideo2.Stop();
-                MessageBox.Show(ex.Message, "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                Console.WriteLine(ex.Message);
             }
+            
         }
 
         private void Home_FormClosing(object sender, FormClosingEventArgs e)
-        {
-          
-            _streamWriterCMD.WriteLine("exit");
+        {          
+            //_streamWriterCMD.WriteLine("exit");
             if (serialPort.IsOpen)
             {
                 serialPort.Close();
@@ -548,6 +556,11 @@ namespace SC_M2_V2_00
             {
                 videoCAM_2.Dispose();
             }
+            if (_processCMD!= null)
+            {
+                _processCMD.CloseMainWindow();
+            }
+            LogWriter.SaveLog("FormClosing");
         }
 
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
@@ -611,22 +624,6 @@ namespace SC_M2_V2_00
         }
         List<SC_M2_V2._00.Modules.Setting> settings1 = new List<SC_M2_V2._00.Modules.Setting>();
         List<SC_M2_V2._00.Modules.Setting> settings2 = new List<SC_M2_V2._00.Modules.Setting>();
-
-        private void backgroundWorkerOpenCamera_DoWork(object sender, DoWorkEventArgs e)
-        {
-            cameraConnect();
-            toolStripStatusConnectionCamera.Text = SC_M2_V2._00.Properties.Resources.CamConnecting;
-            toolStripStatusConnectionCamera.ForeColor = Color.Green;
-        }
-
-        private void backgroundWorkerOpenCamera_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-        }
-
-        private void backgroundWorkerOpenCamera_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-
-        }
 
         public double Compare(Bitmap master, Bitmap slave)
         {
@@ -789,15 +786,18 @@ namespace SC_M2_V2_00
             Bitmap bitmap = Matching(imagemaster, imageCam);
             bitmap.Save(file_name);
             double conpare = Compare(imagemaster, bitmap);
-            if(conpare < 30)
+            LogWriter.SaveLog("Rate 1 :"+ conpare);
+            toolStripStatusDetect.Text = "Rate 1 :" + conpare;
+            toolStripStatusDetect.ForeColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+            if (conpare < 50)
             {
-                lbTitle.Text = Resoure.STATUS_PROCES_NOT_MATCH; //"Image not match";
-                serialCommand("NG#");
+                //lbTitle.Text = Resoure.STATUS_PROCES_NOT_MATCH; //"Image not match";cm
+                //serialCommand("NG#");
                 countDetect = 0;
                 isStaetReset = true;
                 return;
             }
-
+            LogWriter.SaveLog("OCR Starting.....");
             pictureBoxCamDetect1.Image = Image.FromFile(file_name);
             inputfilename = file_name;
             imageList = new List<Image>();
@@ -822,7 +822,12 @@ namespace SC_M2_V2_00
                 result = performOCR(imageList, file_name, imageIndex, Rectangle.Empty);
             }
             result = Regex.Replace(result, "[^a-zA-Z,0-9,(),:,-]", "");
-            richTextBox1.Text = result.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", "");
+            var a = result.IndexOf("-731");
+            result = result.Substring(a + 1);
+            a = result.IndexOf("|731");
+            result = result.Substring(a + 1);
+            richTextBox1.Text = result.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", "").Replace("|", "");
+            LogWriter.SaveLog("OCR 1 :" + richTextBox1.Text + ",Rate :" + conpare);
             FuncOCR2_();
         }
 
@@ -909,7 +914,7 @@ namespace SC_M2_V2_00
             }
 
             richTextBox2.Text = result.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", "");
-
+            LogWriter.SaveLog("OCR 2 :" + richTextBox1.Text);
             Compare_Master(richTextBox1.Text.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", ""), richTextBox2.Text.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", ""));
         }
        
@@ -931,11 +936,13 @@ namespace SC_M2_V2_00
             inputfilename = file_name;
 
             double conpare = Compare(imagemaster, bitmap);
-
-            if (conpare < 30)
+            LogWriter.SaveLog("Rate 2 :" + conpare);
+            toolStripStatusDetect.Text= "Rate 2 :" + conpare;
+            toolStripStatusDetect.ForeColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+            if (conpare < 50)
             {
                 lbTitle.Text = Resoure.STATUS_PROCES_NOT_MATCH; //"Image not match";
-                serialCommand("NG#");
+                //serialCommand("NG#");
                 countDetect = 0;
                 isStaetReset = true;
                 return;
@@ -967,21 +974,21 @@ namespace SC_M2_V2_00
 
             result = Regex.Replace(result, "[^a-zA-Z,0-9,(),:,-]", "");
 
-            richTextBox2.Text = result.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", "").Replace("'", "");
-
+            richTextBox2.Text = result.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", "").Replace("'", "").Replace("|", "");
+            LogWriter.SaveLog("OCR 2 :" + richTextBox2.Text +",Rate :"+ conpare);
             Compare_Master(richTextBox1.Text.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", ""), richTextBox2.Text.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", ""));
         }
         History history;
         private void Compare_Master(string txt_sw, string txt_lb)
         {
-            lbTitle.Text = Resoure.STATUS_PROCES_12; // System is processing
+            lbTitle.Text = Resoure.STATUS_PROCES_13; // System is processing
             history = new History();
-            txt_lb = txt_lb.Replace("O", "0");
+            //txt_lb = txt_lb.Replace("O", "0");
             var lb = txt_lb.IndexOf("731TMC");
             var txt = txt_lb.Substring(0, lb);
+            txt = txt.Replace("O", "0");
             var master_lb = MasterAll.GetMasterALLByLBName(txt);
-            
-          
+
             bool check = false;
             if (master_lb.Count > 0)
             {
@@ -1025,7 +1032,10 @@ namespace SC_M2_V2_00
             history.name_sw = txt_sw;
             history.result = check? "OK" : "NG";
             history.Save();
+            LogWriter.SaveLog("Result :"+history.result);
+            isStaetReset = false;
             loadTableHistory();
+
         }
 
         private void textTestToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1036,6 +1046,11 @@ namespace SC_M2_V2_00
             txt = "^7`31'TM~+C6A:\r\n \t \a\a 21-11-11-1MCU-(VER):20-6-2-1";
             string cha = Regex.Replace(txt, "[^a-zA-Z,0-9,(),:,-]", "");
             Console.WriteLine(cha);
+            string sw = "-731TMC6:21-8-11-1MCU-VER:21-8-12-1";
+            var a = sw.IndexOf("-73");
+            sw= sw.Substring(a+1);
+            Console.WriteLine($"{a} , {sw}");
+            
         }
 
         private void backgroundWorkerOcr_ProgressChanged(object sender, ProgressChangedEventArgs e)

@@ -134,6 +134,15 @@ namespace SC_M2_V2._00.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ./System/log.
+        /// </summary>
+        internal static string Path_log {
+            get {
+                return ResourceManager.GetString("Path_log", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ./System.
         /// </summary>
         internal static string Path_System {

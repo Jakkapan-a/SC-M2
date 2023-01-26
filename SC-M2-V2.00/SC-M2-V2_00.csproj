@@ -265,6 +265,7 @@
     <Compile Include="Utilities\GrayBMP_File.cs" />
     <Compile Include="Utilities\ImageConverter.cs" />
     <Compile Include="Utilities\ImageHelper.cs" />
+    <Compile Include="Utilities\LogWriter.cs" />
     <EmbeddedResource Include="Controls\VideoCapture.resx">
       <DependentUpon>VideoCapture.cs</DependentUpon>
     </EmbeddedResource>
@@ -308,9 +309,7 @@
     <None Include="database\data.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="datatest\731TMC.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="datatest\731TMC.zip" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

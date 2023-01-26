@@ -34,13 +34,16 @@
             this.toolStripStatusDrive = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusConnectionCamera = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusConnectSerialPort = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusSerialData = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusDetect = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusError = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetIOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.conectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.masterModelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,12 +52,10 @@
             this.pictureBoxCamera1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.pictureBoxCamDetect1 = new OCR1.Controls.ScrollablePictureBox();
             this.lbCamTitle_1 = new System.Windows.Forms.Label();
             this.pictureBoxCamera2 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.pictureBoxCamDetect2 = new OCR1.Controls.ScrollablePictureBox();
             this.lbCamTitle_2 = new System.Windows.Forms.Label();
             this.panelTable = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
@@ -66,12 +67,12 @@
             this.lbTitle = new System.Windows.Forms.Label();
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.timerVideo1 = new System.Windows.Forms.Timer(this.components);
-            this.timerVideo2 = new System.Windows.Forms.Timer(this.components);
             this.serialPort = new System.IO.Ports.SerialPort(this.components);
             this.timerStartStop = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerOcr = new System.ComponentModel.BackgroundWorker();
             this.timerRunOCR = new System.Windows.Forms.Timer(this.components);
-            this.resetIOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBoxCamDetect1 = new OCR1.Controls.ScrollablePictureBox();
+            this.pictureBoxCamDetect2 = new OCR1.Controls.ScrollablePictureBox();
             this.statusStripStatus.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerHome)).BeginInit();
@@ -80,13 +81,13 @@
             this.splitContainerHome.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera2)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect2)).BeginInit();
             this.panelTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHistory)).BeginInit();
             this.panelMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect2)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStripStatus
@@ -95,7 +96,9 @@
             this.toolStripStatusDrive,
             this.toolStripStatusConnectionCamera,
             this.toolStripStatusConnectSerialPort,
-            this.toolStripStatusLabel4});
+            this.toolStripStatusSerialData,
+            this.toolStripStatusDetect,
+            this.toolStripStatusError});
             this.statusStripStatus.Location = new System.Drawing.Point(0, 569);
             this.statusStripStatus.Name = "statusStripStatus";
             this.statusStripStatus.Size = new System.Drawing.Size(913, 24);
@@ -122,12 +125,26 @@
             this.toolStripStatusConnectSerialPort.Size = new System.Drawing.Size(122, 19);
             this.toolStripStatusConnectSerialPort.Text = "toolStripStatusLabel3";
             // 
-            // toolStripStatusLabel4
+            // toolStripStatusSerialData
             // 
-            this.toolStripStatusLabel4.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
-            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(122, 19);
-            this.toolStripStatusLabel4.Text = "toolStripStatusLabel4";
+            this.toolStripStatusSerialData.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.toolStripStatusSerialData.Name = "toolStripStatusSerialData";
+            this.toolStripStatusSerialData.Size = new System.Drawing.Size(122, 19);
+            this.toolStripStatusSerialData.Text = "toolStripStatusLabel4";
+            // 
+            // toolStripStatusDetect
+            // 
+            this.toolStripStatusDetect.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.toolStripStatusDetect.Name = "toolStripStatusDetect";
+            this.toolStripStatusDetect.Size = new System.Drawing.Size(122, 19);
+            this.toolStripStatusDetect.Text = "toolStripStatusLabel1";
+            // 
+            // toolStripStatusError
+            // 
+            this.toolStripStatusError.ForeColor = System.Drawing.Color.Red;
+            this.toolStripStatusError.Name = "toolStripStatusError";
+            this.toolStripStatusError.Size = new System.Drawing.Size(118, 19);
+            this.toolStripStatusError.Text = "toolStripStatusLabel1";
             // 
             // menuStrip1
             // 
@@ -162,7 +179,7 @@
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
             this.startToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
@@ -171,17 +188,24 @@
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
             this.stopToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
             // textTestToolStripMenuItem
             // 
             this.textTestToolStripMenuItem.Name = "textTestToolStripMenuItem";
-            this.textTestToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.textTestToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.textTestToolStripMenuItem.Text = "Text test";
             this.textTestToolStripMenuItem.Visible = false;
             this.textTestToolStripMenuItem.Click += new System.EventHandler(this.textTestToolStripMenuItem_Click);
+            // 
+            // resetIOToolStripMenuItem
+            // 
+            this.resetIOToolStripMenuItem.Name = "resetIOToolStripMenuItem";
+            this.resetIOToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.resetIOToolStripMenuItem.Text = "Reset IO";
+            this.resetIOToolStripMenuItem.Click += new System.EventHandler(this.resetIOToolStripMenuItem_Click);
             // 
             // settingToolStripMenuItem
             // 
@@ -277,19 +301,6 @@
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
-            // pictureBoxCamDetect1
-            // 
-            this.pictureBoxCamDetect1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxCamDetect1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBoxCamDetect1.Name = "pictureBoxCamDetect1";
-            this.pictureBoxCamDetect1.SegmentedRegions = null;
-            this.pictureBoxCamDetect1.Size = new System.Drawing.Size(213, 110);
-            this.pictureBoxCamDetect1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxCamDetect1.TabIndex = 1;
-            this.pictureBoxCamDetect1.TabStop = false;
-            // 
             // lbCamTitle_1
             // 
             this.lbCamTitle_1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -340,19 +351,6 @@
             this.richTextBox2.Size = new System.Drawing.Size(217, 110);
             this.richTextBox2.TabIndex = 2;
             this.richTextBox2.Text = "";
-            // 
-            // pictureBoxCamDetect2
-            // 
-            this.pictureBoxCamDetect2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxCamDetect2.Location = new System.Drawing.Point(3, 3);
-            this.pictureBoxCamDetect2.Name = "pictureBoxCamDetect2";
-            this.pictureBoxCamDetect2.SegmentedRegions = null;
-            this.pictureBoxCamDetect2.Size = new System.Drawing.Size(215, 110);
-            this.pictureBoxCamDetect2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxCamDetect2.TabIndex = 3;
-            this.pictureBoxCamDetect2.TabStop = false;
             // 
             // lbCamTitle_2
             // 
@@ -464,12 +462,7 @@
             // 
             // timerVideo1
             // 
-            this.timerVideo1.Interval = 500;
             this.timerVideo1.Tick += new System.EventHandler(this.timerVideo1_Tick);
-            // 
-            // timerVideo2
-            // 
-            this.timerVideo2.Tick += new System.EventHandler(this.timerVideo2_Tick);
             // 
             // serialPort
             // 
@@ -485,12 +478,31 @@
             this.backgroundWorkerOcr.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerOcr_ProgressChanged);
             this.backgroundWorkerOcr.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerOcr_RunWorkerCompleted);
             // 
-            // resetIOToolStripMenuItem
+            // pictureBoxCamDetect1
             // 
-            this.resetIOToolStripMenuItem.Name = "resetIOToolStripMenuItem";
-            this.resetIOToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.resetIOToolStripMenuItem.Text = "Reset IO";
-            this.resetIOToolStripMenuItem.Click += new System.EventHandler(this.resetIOToolStripMenuItem_Click);
+            this.pictureBoxCamDetect1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxCamDetect1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBoxCamDetect1.Name = "pictureBoxCamDetect1";
+            this.pictureBoxCamDetect1.SegmentedRegions = null;
+            this.pictureBoxCamDetect1.Size = new System.Drawing.Size(213, 110);
+            this.pictureBoxCamDetect1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxCamDetect1.TabIndex = 1;
+            this.pictureBoxCamDetect1.TabStop = false;
+            // 
+            // pictureBoxCamDetect2
+            // 
+            this.pictureBoxCamDetect2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxCamDetect2.Location = new System.Drawing.Point(3, 3);
+            this.pictureBoxCamDetect2.Name = "pictureBoxCamDetect2";
+            this.pictureBoxCamDetect2.SegmentedRegions = null;
+            this.pictureBoxCamDetect2.Size = new System.Drawing.Size(215, 110);
+            this.pictureBoxCamDetect2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxCamDetect2.TabIndex = 3;
+            this.pictureBoxCamDetect2.TabStop = false;
             // 
             // Home
             // 
@@ -519,14 +531,14 @@
             this.splitContainerHome.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera2)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect2)).EndInit();
             this.panelTable.ResumeLayout(false);
             this.panelTable.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHistory)).EndInit();
             this.panelMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -551,10 +563,9 @@
         private System.Windows.Forms.Label lbTitle;
         private System.Windows.Forms.Timer timerMain;
         private System.Windows.Forms.Timer timerVideo1;
-        private System.Windows.Forms.Timer timerVideo2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusConnectionCamera;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusConnectSerialPort;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusSerialData;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
@@ -575,6 +586,8 @@
         private System.Windows.Forms.TextBox txtEmployee;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolStripMenuItem resetIOToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusDetect;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusError;
     }
 }
 

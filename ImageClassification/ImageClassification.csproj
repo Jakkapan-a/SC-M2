@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <PackageIcon></PackageIcon>
     <ApplicationIcon>layers.ico</ApplicationIcon>
+    <StartupObject></StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="layers.ico" />
