@@ -63,7 +63,7 @@ void setup() {
   serialCommand("rst");
 }
 void serialCommand(String command) {
-  Serial.println(">" + command + "<#");
+  Serial.println(">" + command + "<");
   count =0;
 }
 void loop() {
@@ -74,7 +74,6 @@ void loop() {
     imagePrepare.on();
     alarm.off();
     state_1 = false;
-    // Serial.println("RST - PIN");
     serialCommand("rst");
   }
   // check to see if the string is complete:
@@ -94,4 +93,6 @@ void loop() {
     stringComplete = false;
     count =0;
   }
+  // Serial.println("State :"+String(button_1.isPressed()));
+  // delay(10);
 }

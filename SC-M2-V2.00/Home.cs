@@ -278,6 +278,7 @@ namespace SC_M2_V2_00
             if (this.serialPort.IsOpen)
             {
                 this.serialPort.Write(">" + command + "<#");
+                LogWriter.SaveLog("Serial send : "+ command);
             }
         }
 
@@ -303,10 +304,10 @@ namespace SC_M2_V2_00
                 string data = this.dataSerialReceived.Replace("\r", string.Empty).Replace("\n", string.Empty);
                 data = data.Substring(data.IndexOf(">") + 1, data.IndexOf("<") - 1);
                 this.dataSerialReceived = string.Empty;
-                LogWriter.SaveLog("Serial : "+data);
+                LogWriter.SaveLog("Serial Received : " + data);
                 Console.WriteLine("RST : "+data);
+                data = data.Replace(">", "").Replace("<", "");
                 toolStripStatusSerialData.Text = "DATA :"+data;
-                // Console.WriteLine("Received ->: " + data);
                 if (data == "rst")
                 {
                   
@@ -355,8 +356,6 @@ namespace SC_M2_V2_00
                 LogWriter.SaveLog("Camera...");
                 lbTitle.Text = Resources.STATUS_PROCES_CONNECTING; // Connecting...
                 this.timerVideo1.Stop();
-                //this.timerVideo2.Stop();
-                //Console.WriteLine("Start OPEN" + DateTime.Now.ToString("HH:mm:ss"));
                 Stopwatch stopwatch = new Stopwatch();
                 stopwatch.Start();
                 _ = Task.Run(() =>
@@ -370,7 +369,6 @@ namespace SC_M2_V2_00
                 countDetect = 0;
                 Console.WriteLine("Elapsed Time is {0} ms", stopwatch.ElapsedMilliseconds);
 
-                //lbTitle.Text = Resources.STATUS_PROCESS_5;
                 lbTitle.ForeColor = Color.Black;
                 lbTitle.BackColor = Color.Yellow;
                 toolStripStatusConnectionCamera.Text = Resources.STATUS_PROCES_CAMERA_CON; //"Camera: Connected";
@@ -449,12 +447,6 @@ namespace SC_M2_V2_00
                     lbTitle.Refresh();
                     if (_stepImageClassification == 0 && isStaetReset)
                     {
-                        //string fileName = Guid.NewGuid().ToString() + ".jpg";
-                        //_nameTemp = SC_M2_V2._00.Properties.Resources.Path_System_Temp + "/" + fileName;
-                        //pictureBoxCamera1.Image.Save(_nameTemp, ImageFormat.Jpeg);
-                        //_pathFile = System.IO.Path.Combine(_path_defult, "System", "temp", fileName);
-
-                        //_streamWriterCMD.WriteLine(_pathFile);
                         _stepImageClassification = 1;
                     }
                     else if (_stepImageClassification == 1)
@@ -469,7 +461,7 @@ namespace SC_M2_V2_00
                     {
                         // Check Label SW Page
                         Console.WriteLine("Label :" + LabelSW);
-                        LogWriter.SaveLog("Label :" + LabelSW);
+                        //LogWriter.SaveLog("Label :" + LabelSW);
 
                         //toolStripStatusDetect.Text = "Label :" + LabelSW;
                         //toolStripStatusDetect.ForeColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
@@ -480,10 +472,10 @@ namespace SC_M2_V2_00
                             // lbTitle.Text = Resoure.STATUS_PROCESS_6;
                             // OCR
                             isStaetReset = false; // Wait Reset
-                            _ = Task.Run(() =>
-                            {
+                            //_ = Task.Run(() =>
+                            //{
                                 FuncOCR_();
-                            });
+                            //});
                         }                   
                         _stepImageClassification = 0;
 
@@ -789,12 +781,13 @@ namespace SC_M2_V2_00
             LogWriter.SaveLog("Rate 1 :"+ conpare);
             toolStripStatusDetect.Text = "Rate 1 :" + conpare;
             toolStripStatusDetect.ForeColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
-            if (conpare < 50)
+            if (conpare < 30)
             {
                 //lbTitle.Text = Resoure.STATUS_PROCES_NOT_MATCH; //"Image not match";cm
                 //serialCommand("NG#");
                 countDetect = 0;
                 isStaetReset = true;
+                pictureBoxCamDetect1.Image = null;
                 return;
             }
             LogWriter.SaveLog("OCR Starting.....");
@@ -939,12 +932,13 @@ namespace SC_M2_V2_00
             LogWriter.SaveLog("Rate 2 :" + conpare);
             toolStripStatusDetect.Text= "Rate 2 :" + conpare;
             toolStripStatusDetect.ForeColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
-            if (conpare < 50)
+            if (conpare < 30)
             {
                 lbTitle.Text = Resoure.STATUS_PROCES_NOT_MATCH; //"Image not match";
                 //serialCommand("NG#");
                 countDetect = 0;
                 isStaetReset = true;
+                pictureBoxCamDetect2.Image = null;
                 return;
             }
 
@@ -981,60 +975,87 @@ namespace SC_M2_V2_00
         History history;
         private void Compare_Master(string txt_sw, string txt_lb)
         {
-            lbTitle.Text = Resoure.STATUS_PROCES_13; // System is processing
-            history = new History();
-            //txt_lb = txt_lb.Replace("O", "0");
-            var lb = txt_lb.IndexOf("731TMC");
-            var txt = txt_lb.Substring(0, lb);
-            txt = txt.Replace("O", "0");
-            var master_lb = MasterAll.GetMasterALLByLBName(txt);
-
-            bool check = false;
-            if (master_lb.Count > 0)
+            try
             {
-                foreach (var item in master_lb)
+                LogWriter.SaveLog("TXT Read :" + txt_sw+", "+ txt_lb);
+                lbTitle.Text = Resoure.STATUS_PROCES_13; // System is processing
+                history = new History();
+                //txt_lb = txt_lb.Replace("O", "0");
+                var lb = txt_lb.IndexOf("731TMC");
+                // If not found, IndexOf returns -1.
+                if (lb == -1)
                 {
-                    history.master_sw = item.nameSW;
-                    history.master_lb = item.nameModel;
-                    if (item.nameSW == txt_sw)
+                    // Return the original string.
+                    pictureBoxCamDetect1.Image = null;
+                    pictureBoxCamDetect2.Image = null;
+                    lbTitle.Text = Resoure.STATUS_PROCES_NOT_MATCH; // "Image not match";
+                    serialCommand("NG#");
+                    countDetect = 0;
+                    isStaetReset = true;
+                    return;
+                }
+                var txt = txt_lb.Substring(0, lb);
+                txt = txt.Replace("O", "0");
+                var master_lb = MasterAll.GetMasterALLByLBName(txt);
+
+                bool check = false;
+                if (master_lb.Count > 0)
+                {
+                    foreach (var item in master_lb)
                     {
-                        check = true;
-                        serialCommand("OK#");
-                        break;
+                        history.master_sw = item.nameSW;
+                        history.master_lb = item.nameModel;
+                        if (item.nameSW == txt_sw)
+                        {
+                            check = true;
+
+                            break;
+                        }
                     }
                 }
-            }
-            else
-            {
-                history.master_sw = "null";
-                history.master_lb = "null";
-            }
-           
-
-            if (!check)
-            {
-                lbTitle.Text = "NG";
-                lbTitle.ForeColor = Color.White;
-                lbTitle.BackColor = Color.Red;
-                is_Blink_NG = true;
-                serialCommand("NG#");
-            }
-            else
-            {
-                lbTitle.Text = "OK";
-                lbTitle.ForeColor = Color.White;
-                lbTitle.BackColor = Color.Green;
-            }
+                else
+                {
+                    history.master_sw = "null";
+                    history.master_lb = "null";
+                }
             
-          
-            history.name = txtEmployee.Text.Trim();
-            history.name_lb = txt_lb;
-            history.name_sw = txt_sw;
-            history.result = check? "OK" : "NG";
-            history.Save();
-            LogWriter.SaveLog("Result :"+history.result);
-            isStaetReset = false;
-            loadTableHistory();
+
+                if (!check)
+                {
+                    lbTitle.Text = "NG";
+                    lbTitle.ForeColor = Color.White;
+                    lbTitle.BackColor = Color.Red;
+                    is_Blink_NG = true;
+                    serialCommand("NG#");
+                }
+                else
+                {
+                    lbTitle.Text = "OK";
+                    lbTitle.ForeColor = Color.White;
+                    lbTitle.BackColor = Color.Green;
+                    serialCommand("OK#");
+                }
+                
+            
+                history.name = txtEmployee.Text.Trim();
+                history.name_lb = txt_lb;
+                history.name_sw = txt_sw;
+                history.result = check? "OK" : "NG";
+                history.Save();
+                LogWriter.SaveLog("Result :"+history.result);
+                isStaetReset = false;
+                loadTableHistory();
+             }catch(Exception ex)
+            {
+                // Reset 
+                pictureBoxCamDetect1.Image = null;
+                pictureBoxCamDetect2.Image = null;
+                lbTitle.Text = Resoure.STATUS_PROCES_NOT_MATCH; // "Image not match";
+                serialCommand("NG#");
+                countDetect = 0;
+                isStaetReset = true;
+                return;
+            }
 
         }
 

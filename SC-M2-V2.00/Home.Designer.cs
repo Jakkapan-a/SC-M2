@@ -52,10 +52,12 @@
             this.pictureBoxCamera1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.pictureBoxCamDetect1 = new OCR1.Controls.ScrollablePictureBox();
             this.lbCamTitle_1 = new System.Windows.Forms.Label();
             this.pictureBoxCamera2 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.pictureBoxCamDetect2 = new OCR1.Controls.ScrollablePictureBox();
             this.lbCamTitle_2 = new System.Windows.Forms.Label();
             this.panelTable = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
@@ -71,8 +73,6 @@
             this.timerStartStop = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerOcr = new System.ComponentModel.BackgroundWorker();
             this.timerRunOCR = new System.Windows.Forms.Timer(this.components);
-            this.pictureBoxCamDetect1 = new OCR1.Controls.ScrollablePictureBox();
-            this.pictureBoxCamDetect2 = new OCR1.Controls.ScrollablePictureBox();
             this.statusStripStatus.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerHome)).BeginInit();
@@ -81,13 +81,13 @@
             this.splitContainerHome.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera2)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect2)).BeginInit();
             this.panelTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHistory)).BeginInit();
             this.panelMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect2)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStripStatus
@@ -301,6 +301,19 @@
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
+            // pictureBoxCamDetect1
+            // 
+            this.pictureBoxCamDetect1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxCamDetect1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBoxCamDetect1.Name = "pictureBoxCamDetect1";
+            this.pictureBoxCamDetect1.SegmentedRegions = null;
+            this.pictureBoxCamDetect1.Size = new System.Drawing.Size(213, 110);
+            this.pictureBoxCamDetect1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxCamDetect1.TabIndex = 1;
+            this.pictureBoxCamDetect1.TabStop = false;
+            // 
             // lbCamTitle_1
             // 
             this.lbCamTitle_1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -351,6 +364,19 @@
             this.richTextBox2.Size = new System.Drawing.Size(217, 110);
             this.richTextBox2.TabIndex = 2;
             this.richTextBox2.Text = "";
+            // 
+            // pictureBoxCamDetect2
+            // 
+            this.pictureBoxCamDetect2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxCamDetect2.Location = new System.Drawing.Point(3, 3);
+            this.pictureBoxCamDetect2.Name = "pictureBoxCamDetect2";
+            this.pictureBoxCamDetect2.SegmentedRegions = null;
+            this.pictureBoxCamDetect2.Size = new System.Drawing.Size(215, 110);
+            this.pictureBoxCamDetect2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxCamDetect2.TabIndex = 3;
+            this.pictureBoxCamDetect2.TabStop = false;
             // 
             // lbCamTitle_2
             // 
@@ -478,32 +504,6 @@
             this.backgroundWorkerOcr.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerOcr_ProgressChanged);
             this.backgroundWorkerOcr.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerOcr_RunWorkerCompleted);
             // 
-            // pictureBoxCamDetect1
-            // 
-            this.pictureBoxCamDetect1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxCamDetect1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBoxCamDetect1.Name = "pictureBoxCamDetect1";
-            this.pictureBoxCamDetect1.SegmentedRegions = null;
-            this.pictureBoxCamDetect1.Size = new System.Drawing.Size(213, 110);
-            this.pictureBoxCamDetect1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxCamDetect1.TabIndex = 1;
-            this.pictureBoxCamDetect1.TabStop = false;
-            // 
-            // pictureBoxCamDetect2
-            // 
-            this.pictureBoxCamDetect2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxCamDetect2.Location = new System.Drawing.Point(3, 3);
-            this.pictureBoxCamDetect2.Name = "pictureBoxCamDetect2";
-            this.pictureBoxCamDetect2.SegmentedRegions = null;
-            this.pictureBoxCamDetect2.Size = new System.Drawing.Size(215, 110);
-            this.pictureBoxCamDetect2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxCamDetect2.TabIndex = 3;
-            this.pictureBoxCamDetect2.TabStop = false;
-            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -518,7 +518,7 @@
             this.MinimumSize = new System.Drawing.Size(929, 632);
             this.Name = "Home";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "731TMC ECU INSPECTION SOFTWARE V2.10";
+            this.Text = "731TMC ECU INSPECTION SOFTWARE V3.10";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Home_FormClosing);
             this.Load += new System.EventHandler(this.Home_Load);
             this.statusStripStatus.ResumeLayout(false);
@@ -531,14 +531,14 @@
             this.splitContainerHome.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera2)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect2)).EndInit();
             this.panelTable.ResumeLayout(false);
             this.panelTable.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHistory)).EndInit();
             this.panelMain.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamDetect2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

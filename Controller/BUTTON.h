@@ -17,9 +17,10 @@ class BUTTON
 	 bool _lastState = true;
 	 unsigned long _lastDebounceTime = 0;
 	 unsigned long _debounceDelay = 50;
-	 bool getState();
+
  public:
 	BUTTON(uint8_t pin);
+  bool getState();
 	void update();
 	void init();
 	bool isPressed();

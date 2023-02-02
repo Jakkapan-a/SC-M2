@@ -102,31 +102,31 @@ namespace OCR1.Controls
                 Graphics g = (Graphics)pe.Graphics;
 
                 // Create pen
-                Pen blackPen = new Pen(Color.Black);
-                //blackPen.DashStyle = DashStyle.Solid;
+                Pen redPen = new Pen(Color.Red);
+                //redPen.DashStyle = DashStyle.Solid;
 
                 List<Rectangle> squares = createSquares(rect);
                 foreach (Rectangle square in squares)
                 {
-                    g.DrawRectangle(blackPen, square);
+                    g.DrawRectangle(redPen, square);
                 }
 
-                blackPen.DashCap = DashCap.Round;
-                blackPen.LineJoin = LineJoin.Round;
-                blackPen.MiterLimit = 0;
-                blackPen.DashPattern = new float[] { 6, 6 };
-                blackPen.DashOffset = offset;
+                redPen.DashCap = DashCap.Round;
+                redPen.LineJoin = LineJoin.Round;
+                redPen.MiterLimit = 0;
+                redPen.DashPattern = new float[] { 6, 6 };
+                redPen.DashOffset = offset;
 
                 try
                 {
-                    g.DrawRectangle(blackPen, rect);
+                    g.DrawRectangle(redPen, rect);
                 }
                 catch (OutOfMemoryException e)
                 {
                     Console.WriteLine(e.Message + Environment.NewLine + e.StackTrace + Environment.NewLine + rect.ToString());
                 }
 
-                blackPen.Dispose();
+                redPen.Dispose();
             }
         }
         /**
