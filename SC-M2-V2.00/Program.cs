@@ -19,7 +19,7 @@ namespace SC_M2_V2_00
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Home());
+            Application.Run(new Options_2());
         }
     }
 }

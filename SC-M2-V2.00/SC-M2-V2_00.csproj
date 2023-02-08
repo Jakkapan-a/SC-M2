@@ -220,6 +220,12 @@
     <Compile Include="FormComponents\Crop_Image.Designer.cs">
       <DependentUpon>Crop_Image.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormComponents\Options_2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormComponents\Options_2.Designer.cs">
+      <DependentUpon>Options_2.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormComponents\Rename.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -280,6 +286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormComponents\Crop_Image.resx">
       <DependentUpon>Crop_Image.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormComponents\Options_2.resx">
+      <DependentUpon>Options_2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormComponents\Rename.resx">
       <DependentUpon>Rename.cs</DependentUpon>

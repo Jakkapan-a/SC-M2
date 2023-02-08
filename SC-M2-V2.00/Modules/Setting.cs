@@ -39,8 +39,18 @@ namespace SC_M2_V2._00.Modules
             SQliteDataAccess.InserInputDB(sql, parameters);
         }
 
+        public void Delete(){
+            string sql = "delete from settings where id = @id";
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("@id", id);
+            SQliteDataAccess.InserInputDB(sql, parameters);
+        }
+
         public static List<Setting> GetSetting(int _type) => SQliteDataAccess.GetRow<Setting>("select * from settings where _type = " + _type+" order by id desc limit 1");
 
         public static List<Setting> GetSettingRemove() => SQliteDataAccess.GetRow<Setting>("select * from settings where state = 0 order by id desc");
+        
+        public static List<Setting> GetListImage(int _type) => SQliteDataAccess.GetRow<Setting>("select * from settings where _type = " + _type + " and state = 1 order by id desc limit 1");
+
     }
 }

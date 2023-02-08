@@ -64,9 +64,6 @@ namespace SC_M2_V2_00
 
         private int countDetect = 0;
 
-        private Process _processCMD;
-        private StreamWriter _streamWriterCMD;
-
         public string _path_defult;
         private int _stepImageClassification = 0;
         private string LabelSW;
@@ -106,26 +103,6 @@ namespace SC_M2_V2_00
                     Directory.CreateDirectory(SC_M2_V2._00.Properties.Resources.Path_ImageClassification);
                 }
 
-                //Process _processCMD = new Process();
-                //_processCMD.StartInfo.WorkingDirectory = SC_M2_V2._00.Properties.Resources.Path_ImageClassification;
-                //_processCMD.StartInfo.FileName = "cmd.exe";
-                //_processCMD.StartInfo.UseShellExecute = false;
-                //_processCMD.StartInfo.RedirectStandardOutput = true;
-                //_processCMD.StartInfo.StandardOutputEncoding = System.Text.Encoding.UTF8;
-                //_processCMD.StartInfo.RedirectStandardError = true;
-                //_processCMD.StartInfo.StandardErrorEncoding = System.Text.Encoding.UTF8;
-                //_processCMD.StartInfo.RedirectStandardInput = true;
-                //_processCMD.StartInfo.CreateNoWindow = false;
-                //_processCMD.EnableRaisingEvents = true;
-                //_processCMD.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                ////_processCMD.Start();
-                //_processCMD.BeginOutputReadLine();
-                //_streamWriterCMD = _processCMD.StandardInput;
-                //_streamWriterCMD.AutoFlush = true;
-                //_streamWriterCMD.WriteLine("ImageClassification.exe -file");
-                //_processCMD.OutputDataReceived += new DataReceivedEventHandler(this.process_OutputReceived);
-
-                // Clear statusStripStatus text
                 foreach (ToolStripItem item in statusStripStatus.Items)
                 {
                     item.Text = "";
@@ -506,7 +483,7 @@ namespace SC_M2_V2_00
                     FileInfo info = new FileInfo(file);
                     if (info.LastAccessTime < DateTime.Now.AddMinutes(-5))
                         info.Delete();
-                    if (i > 10)
+                    if (i > 100)
                         break;
                 }
                 i = 0;
@@ -517,7 +494,7 @@ namespace SC_M2_V2_00
                     FileInfo info = new FileInfo(file);
                     if (info.LastAccessTime < DateTime.Now.AddMinutes(-5))
                         info.Delete();
-                    if (i > 10)
+                    if (i > 100)
                         break;
                 }
             }
@@ -530,7 +507,6 @@ namespace SC_M2_V2_00
 
         private void Home_FormClosing(object sender, FormClosingEventArgs e)
         {          
-            //_streamWriterCMD.WriteLine("exit");
             if (serialPort.IsOpen)
             {
                 serialPort.Close();
@@ -545,10 +521,6 @@ namespace SC_M2_V2_00
             if (videoCAM_2 != null)
             {
                 videoCAM_2.Dispose();
-            }
-            if (_processCMD!= null)
-            {
-                _processCMD.CloseMainWindow();
             }
             LogWriter.SaveLog("FormClosing");
         }
