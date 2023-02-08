@@ -75,6 +75,8 @@ void loop() {
     alarm.off();
     state_1 = false;
     serialCommand("rst");
+    delay(100);
+    serialCommand("rst");
   }
   // check to see if the string is complete:
   if (stringComplete) {  // If state complete is true
