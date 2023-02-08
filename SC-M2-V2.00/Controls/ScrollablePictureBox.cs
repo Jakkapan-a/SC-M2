@@ -33,7 +33,6 @@ namespace OCR1.Controls
         public ScrollablePictureBox()
         {
             InitializeComponent();
-
             rect = Rectangle.Empty;
 
             System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();

@@ -303,12 +303,12 @@ namespace SC_M2_V2_00
             {
                 string data = this.dataSerialReceived.Replace("\r", string.Empty).Replace("\n", string.Empty);
                 data = data.Substring(data.IndexOf(">") + 1, data.IndexOf("<") - 1);
-                this.dataSerialReceived = string.Empty;
-                LogWriter.SaveLog("Serial Received : " + data);
+                this.dataSerialReceived = string.Empty;                
                 Console.WriteLine("RST : "+data);
                 data = data.Replace(">", "").Replace("<", "");
                 toolStripStatusSerialData.Text = "DATA :"+data;
-                if (data == "rst")
+                LogWriter.SaveLog("Serial Received : " + data);
+                if (data == "rst" || data == "rst<")
                 {
                   
                     isStaetReset = true;
@@ -320,11 +320,9 @@ namespace SC_M2_V2_00
                     lbTitle.ForeColor = Color.Black;
                     lbTitle.BackColor = Color.Yellow;
                     countDetect = 0;
-
                     richTextBox1.Text = "";
                     richTextBox2.Text = "";
                     pictureBoxCamDetect1.Image = null; pictureBoxCamDetect2.Image = null;
-
                 }
             }
             else if (!dataSerialReceived.Contains(">"))
