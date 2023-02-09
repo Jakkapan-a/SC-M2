@@ -172,6 +172,7 @@ namespace SC_M2_V2_00
                 pictureBoxCamera2.Image = new Bitmap(bitmap);
             }
         }
+
         private void process_OutputReceived(object sender, DataReceivedEventArgs e)
         {
             if (e.Data == null)
@@ -285,7 +286,7 @@ namespace SC_M2_V2_00
                 data = data.Replace(">", "").Replace("<", "");
                 toolStripStatusSerialData.Text = "DATA :"+data;
                 LogWriter.SaveLog("Serial Received : " + data);
-                if (data == "rst" || data == "rst<")
+                if (data == "rst" || data.Contains("rst"))
                 {
                   
                     isStaetReset = true;
@@ -383,7 +384,6 @@ namespace SC_M2_V2_00
             }
         }
 
-
         private bool toggle_blink_ng = false;
         private void timerMain_Tick(object sender, EventArgs e)
         {
@@ -436,31 +436,22 @@ namespace SC_M2_V2_00
                     {
                         // Check Label SW Page
                         Console.WriteLine("Label :" + LabelSW);
-                        //LogWriter.SaveLog("Label :" + LabelSW);
-
-                        //toolStripStatusDetect.Text = "Label :" + LabelSW;
-                        //toolStripStatusDetect.ForeColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
                         LabelSW = "VER";
 ;                        if (LabelSW == "VER")
                         {
                             lbTitle.Text = Resoure.STATUS_PROCES_13; // System is processing
-                            // lbTitle.Text = Resoure.STATUS_PROCESS_6;
                             // OCR
                             isStaetReset = false; // Wait Reset
-                            //_ = Task.Run(() =>
-                            //{
                                 FuncOCR_();
-                            //});
                         }                   
                         _stepImageClassification = 0;
 
                         if (File.Exists(_pathFile))
                         {
                             File.Delete(_pathFile);
-                        }
-                        // _ = Task.Run(() => deletedFileTemp());
-                        deletedFileTemp();
+                        }                   
                     }
+                    deletedFileTemp();
                     countDetect = 0;
                 }
             }

@@ -61,6 +61,8 @@ void setup() {
   // serialCommand("rst");
   delay(500);
   serialCommand("rst");
+  delay(100);
+  serialCommand("rst");
 }
 void serialCommand(String command) {
   Serial.println(">" + command + "<");

@@ -1,13 +1,10 @@
-﻿using SC_M2_V2._00;
-using SC_M2_V2._00.FormComponents;
-using SC_M2_V2._00.Modules;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SC_M2_V2_00
+namespace SC_M4
 {
     internal static class Program
     {
