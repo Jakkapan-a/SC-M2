@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TCapture;
@@ -19,10 +20,14 @@ namespace SC_M4
 
         public TCapture.Capture capture_1;
         public TCapture.Capture capture_2;
+        private Thread thread;
+
+
         public Home()
         {
             InitializeComponent();
         }
+
         public string[] baudList = { "9600", "19200", "38400", "57600", "115200" };
         private void Home_Load(object sender, EventArgs e)
         {
@@ -60,15 +65,14 @@ namespace SC_M4
             capture_2.OnVideoStop += Capture_2_OnVideoStop;
         }
 
+        private delegate void Stop_video();
         private void Capture_2_OnVideoStop()
         {
-            //throw new NotImplementedException();
-            //Console.WriteLine("Cam 2 Started");
+
         }
 
         private void Capture_2_OnVideoStarted()
         {
-            //throw new NotImplementedException();
             Console.WriteLine("Cam 2 Started");
         }
 
@@ -81,17 +85,20 @@ namespace SC_M4
                 pictureBoxCamera02.Invoke(new FrameRate(Capture_2_OnFrameHeadler), bitmap);
                 return;
             }
-            pictureBoxCamera02.Image = (Image)bitmap.Clone();
+
+            if (!isStart)
+                pictureBoxCamera02.Image = null;
+            else
+                pictureBoxCamera02.Image = (Image)bitmap.Clone();
         }
 
         private void Capture_1_OnVideoStop()
         {
-            //throw new NotImplementedException();
+            
         }
 
         private void Capture_1_OnVideoStarted()
         {
-            //throw new NotImplementedException();
             Console.WriteLine("Cam 1 Started");
         }
 
@@ -103,10 +110,16 @@ namespace SC_M4
                 pictureBoxCamera01.Invoke(new FrameRate(Capture_1_OnFrameHeadler),bitmap);
                 return;
             }
-            pictureBoxCamera01.Image = (Image)bitmap.Clone();
+            if (!isStart)
+                pictureBoxCamera01.Image = null;
+            else
+                pictureBoxCamera01.Image = (Image)bitmap.Clone();
         }
 
         private bool isStart = false;
+        private int driveindex_01 = -1;
+        private int driveindex_02 = -1;
+
         private void btStartStop_Click(object sender, EventArgs e)
         {
             this.isStart = !this.isStart;
@@ -123,35 +136,33 @@ namespace SC_M4
                         capture_1.Stop();
                     if (capture_2.IsOpened)
                         capture_2.Stop();
-                    openCamera();
+                    //openCamera();
+                    driveindex_01 = comboBoxCamera1.SelectedIndex;
+                    driveindex_02 = comboBoxCamera2.SelectedIndex;
+                    Task.Factory.StartNew(() => capture_1.Start(driveindex_01));
+                    Task.Factory.StartNew(() => capture_2.Start(driveindex_02));
 
                     btStartStop.Text = "STOP";
                 }
                 else
                 {
+                    if (capture_1._isRunning)
+                        capture_1.Stop();
+                    
+                    if (capture_2._isRunning)
+                        capture_2.Stop();
+
                     btStartStop.Text = "START";
+                    pictureBoxCamera02.Image = null;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                this.isStart = !this.isStart;
-                if (this.isStart)
-                {
-                    btStartStop.Text = "STOP";
-                }
-                else
-                {
-                    btStartStop.Text = "START";
-                }
+                this.isStart = false;
+                btStartStop.Text = "START";
+                
             }
-        }
-
-        public async void openCamera()
-        {
-            capture_1.Start(this.comboBoxCamera1.SelectedIndex);
-            capture_2.Start(this.comboBoxCamera2.SelectedIndex);
-            await Task.Delay(10);
         }
 
         private void Home_FormClosing(object sender, FormClosingEventArgs e)
