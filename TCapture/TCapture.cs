@@ -18,7 +18,7 @@ namespace TCapture
 
         public delegate void VideoFrameHeadler(Bitmap bitmap);
         public event VideoFrameHeadler OnFrameHeadler;
-
+        
         public delegate void VideoCaptureStop();
         public event VideoCaptureStop OnVideoStop;
 

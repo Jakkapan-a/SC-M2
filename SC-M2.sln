@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SC-M4", "SC-M4\SC-M4.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCapture", "TCapture\TCapture.csproj", "{64C2C1C7-7C6B-4EB5-B63C-A9387FE8C7B7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogWriter", "LogWriter\LogWriter.csproj", "{F81BD55E-5AF5-4396-AC8C-850AD9E83266}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,14 @@ Global
 		{64C2C1C7-7C6B-4EB5-B63C-A9387FE8C7B7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{64C2C1C7-7C6B-4EB5-B63C-A9387FE8C7B7}.Release|x86.ActiveCfg = Release|Any CPU
 		{64C2C1C7-7C6B-4EB5-B63C-A9387FE8C7B7}.Release|x86.Build.0 = Release|Any CPU
+		{F81BD55E-5AF5-4396-AC8C-850AD9E83266}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F81BD55E-5AF5-4396-AC8C-850AD9E83266}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F81BD55E-5AF5-4396-AC8C-850AD9E83266}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F81BD55E-5AF5-4396-AC8C-850AD9E83266}.Debug|x86.Build.0 = Debug|Any CPU
+		{F81BD55E-5AF5-4396-AC8C-850AD9E83266}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F81BD55E-5AF5-4396-AC8C-850AD9E83266}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F81BD55E-5AF5-4396-AC8C-850AD9E83266}.Release|x86.ActiveCfg = Release|Any CPU
+		{F81BD55E-5AF5-4396-AC8C-850AD9E83266}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
