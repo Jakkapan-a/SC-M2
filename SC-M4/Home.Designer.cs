@@ -34,7 +34,12 @@
             this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.masterListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testOKToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testNGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripHome = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusConnectSerialPort = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusSerialData = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusSentData = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelHeader = new System.Windows.Forms.Panel();
             this.btStartStop = new System.Windows.Forms.Button();
             this.lbTitle = new System.Windows.Forms.Label();
@@ -47,10 +52,12 @@
             this.pictureBoxCamera01 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanelChild01 = new System.Windows.Forms.TableLayoutPanel();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.scrollablePictureBoxCamera01 = new SC_M4.Controls.ScrollablePictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBoxCamera02 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanelChild02 = new System.Windows.Forms.TableLayoutPanel();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.scrollablePictureBoxCamera02 = new SC_M4.Controls.ScrollablePictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -65,14 +72,7 @@
             this.comboBoxBaud = new System.Windows.Forms.ComboBox();
             this.dataGridViewHistory = new System.Windows.Forms.DataGridView();
             this.serialPort = new System.IO.Ports.SerialPort(this.components);
-            this.toolStripStatusConnectSerialPort = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusSerialData = new System.Windows.Forms.ToolStripStatusLabel();
             this.timerMain = new System.Windows.Forms.Timer(this.components);
-            this.testOKToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.testNGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripStatusSentData = new System.Windows.Forms.ToolStripStatusLabel();
-            this.scrollablePictureBoxCamera01 = new SC_M4.Controls.ScrollablePictureBox();
-            this.scrollablePictureBoxCamera02 = new SC_M4.Controls.ScrollablePictureBox();
             this.menuStripHome.SuspendLayout();
             this.statusStripHome.SuspendLayout();
             this.panelHeader.SuspendLayout();
@@ -88,13 +88,13 @@
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera01)).BeginInit();
             this.tableLayoutPanelChild01.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera01)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera02)).BeginInit();
             this.tableLayoutPanelChild02.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera02)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHistory)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera01)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera02)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStripHome
@@ -139,6 +139,20 @@
             this.optionsToolStripMenuItem.Text = "Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
+            // testOKToolStripMenuItem
+            // 
+            this.testOKToolStripMenuItem.Name = "testOKToolStripMenuItem";
+            this.testOKToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.testOKToolStripMenuItem.Text = "Test OK";
+            this.testOKToolStripMenuItem.Click += new System.EventHandler(this.testOKToolStripMenuItem_Click);
+            // 
+            // testNGToolStripMenuItem
+            // 
+            this.testNGToolStripMenuItem.Name = "testNGToolStripMenuItem";
+            this.testNGToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.testNGToolStripMenuItem.Text = "Test NG";
+            this.testNGToolStripMenuItem.Click += new System.EventHandler(this.testNGToolStripMenuItem_Click);
+            // 
             // statusStripHome
             // 
             this.statusStripHome.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -150,6 +164,25 @@
             this.statusStripHome.Size = new System.Drawing.Size(946, 24);
             this.statusStripHome.TabIndex = 1;
             this.statusStripHome.Text = "statusStrip1";
+            // 
+            // toolStripStatusConnectSerialPort
+            // 
+            this.toolStripStatusConnectSerialPort.Name = "toolStripStatusConnectSerialPort";
+            this.toolStripStatusConnectSerialPort.Size = new System.Drawing.Size(118, 19);
+            this.toolStripStatusConnectSerialPort.Text = "toolStripStatusLabel1";
+            // 
+            // toolStripStatusSerialData
+            // 
+            this.toolStripStatusSerialData.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.toolStripStatusSerialData.Name = "toolStripStatusSerialData";
+            this.toolStripStatusSerialData.Size = new System.Drawing.Size(140, 19);
+            this.toolStripStatusSerialData.Text = "toolStripStatusSerialData";
+            // 
+            // toolStripStatusSentData
+            // 
+            this.toolStripStatusSentData.Name = "toolStripStatusSentData";
+            this.toolStripStatusSentData.Size = new System.Drawing.Size(118, 19);
+            this.toolStripStatusSentData.Text = "toolStripStatusLabel1";
             // 
             // panelHeader
             // 
@@ -316,6 +349,19 @@
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
+            // scrollablePictureBoxCamera01
+            // 
+            this.scrollablePictureBoxCamera01.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.scrollablePictureBoxCamera01.Location = new System.Drawing.Point(3, 3);
+            this.scrollablePictureBoxCamera01.Name = "scrollablePictureBoxCamera01";
+            this.scrollablePictureBoxCamera01.SegmentedRegions = null;
+            this.scrollablePictureBoxCamera01.Size = new System.Drawing.Size(159, 104);
+            this.scrollablePictureBoxCamera01.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.scrollablePictureBoxCamera01.TabIndex = 1;
+            this.scrollablePictureBoxCamera01.TabStop = false;
+            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -373,6 +419,19 @@
             this.richTextBox2.Size = new System.Drawing.Size(152, 103);
             this.richTextBox2.TabIndex = 0;
             this.richTextBox2.Text = "";
+            // 
+            // scrollablePictureBoxCamera02
+            // 
+            this.scrollablePictureBoxCamera02.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.scrollablePictureBoxCamera02.Location = new System.Drawing.Point(3, 3);
+            this.scrollablePictureBoxCamera02.Name = "scrollablePictureBoxCamera02";
+            this.scrollablePictureBoxCamera02.SegmentedRegions = null;
+            this.scrollablePictureBoxCamera02.Size = new System.Drawing.Size(152, 103);
+            this.scrollablePictureBoxCamera02.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.scrollablePictureBoxCamera02.TabIndex = 1;
+            this.scrollablePictureBoxCamera02.TabStop = false;
             // 
             // groupBox1
             // 
@@ -497,9 +556,12 @@
             this.dataGridViewHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewHistory.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewHistory.Name = "dataGridViewHistory";
+            this.dataGridViewHistory.RowHeadersVisible = false;
+            this.dataGridViewHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewHistory.Size = new System.Drawing.Size(914, 115);
             this.dataGridViewHistory.TabIndex = 0;
             // 
@@ -507,69 +569,10 @@
             // 
             this.serialPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort_DataReceived);
             // 
-            // toolStripStatusConnectSerialPort
-            // 
-            this.toolStripStatusConnectSerialPort.Name = "toolStripStatusConnectSerialPort";
-            this.toolStripStatusConnectSerialPort.Size = new System.Drawing.Size(118, 19);
-            this.toolStripStatusConnectSerialPort.Text = "toolStripStatusLabel1";
-            // 
-            // toolStripStatusSerialData
-            // 
-            this.toolStripStatusSerialData.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
-            this.toolStripStatusSerialData.Name = "toolStripStatusSerialData";
-            this.toolStripStatusSerialData.Size = new System.Drawing.Size(140, 19);
-            this.toolStripStatusSerialData.Text = "toolStripStatusSerialData";
-            // 
             // timerMain
             // 
             this.timerMain.Interval = 1000;
             this.timerMain.Tick += new System.EventHandler(this.timerMain_Tick);
-            // 
-            // testOKToolStripMenuItem
-            // 
-            this.testOKToolStripMenuItem.Name = "testOKToolStripMenuItem";
-            this.testOKToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
-            this.testOKToolStripMenuItem.Text = "Test OK";
-            this.testOKToolStripMenuItem.Click += new System.EventHandler(this.testOKToolStripMenuItem_Click);
-            // 
-            // testNGToolStripMenuItem
-            // 
-            this.testNGToolStripMenuItem.Name = "testNGToolStripMenuItem";
-            this.testNGToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
-            this.testNGToolStripMenuItem.Text = "Test NG";
-            this.testNGToolStripMenuItem.Click += new System.EventHandler(this.testNGToolStripMenuItem_Click);
-            // 
-            // toolStripStatusSentData
-            // 
-            this.toolStripStatusSentData.Name = "toolStripStatusSentData";
-            this.toolStripStatusSentData.Size = new System.Drawing.Size(118, 19);
-            this.toolStripStatusSentData.Text = "toolStripStatusLabel1";
-            // 
-            // scrollablePictureBoxCamera01
-            // 
-            this.scrollablePictureBoxCamera01.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.scrollablePictureBoxCamera01.Location = new System.Drawing.Point(3, 3);
-            this.scrollablePictureBoxCamera01.Name = "scrollablePictureBoxCamera01";
-            this.scrollablePictureBoxCamera01.SegmentedRegions = null;
-            this.scrollablePictureBoxCamera01.Size = new System.Drawing.Size(159, 104);
-            this.scrollablePictureBoxCamera01.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.scrollablePictureBoxCamera01.TabIndex = 1;
-            this.scrollablePictureBoxCamera01.TabStop = false;
-            // 
-            // scrollablePictureBoxCamera02
-            // 
-            this.scrollablePictureBoxCamera02.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.scrollablePictureBoxCamera02.Location = new System.Drawing.Point(3, 3);
-            this.scrollablePictureBoxCamera02.Name = "scrollablePictureBoxCamera02";
-            this.scrollablePictureBoxCamera02.SegmentedRegions = null;
-            this.scrollablePictureBoxCamera02.Size = new System.Drawing.Size(152, 103);
-            this.scrollablePictureBoxCamera02.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.scrollablePictureBoxCamera02.TabIndex = 1;
-            this.scrollablePictureBoxCamera02.TabStop = false;
             // 
             // Home
             // 
@@ -603,14 +606,14 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera01)).EndInit();
             this.tableLayoutPanelChild01.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera01)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera02)).EndInit();
             this.tableLayoutPanelChild02.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera02)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHistory)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera01)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera02)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -302,7 +302,6 @@ namespace SC_M4
                 LogWriter.SaveLog("Serial Received : " + data);
                 if (data == "rst" || data.Contains("rst"))
                 {
-
                     isStaetReset = true;
                     is_Blink_NG = false;
                     if (capture_1.IsOpened && capture_2.IsOpened)
@@ -376,6 +375,11 @@ namespace SC_M4
 
                     thread = new Thread(new ThreadStart(ProcessTesting));
                     thread.Start();
+                    this.richTextBox1.Text = string.Empty;
+                    this.richTextBox2.Text = string.Empty;
+
+                    scrollablePictureBoxCamera01.Image = null;
+                    scrollablePictureBoxCamera02.Image = null;
 
                 }
                 else
@@ -389,6 +393,12 @@ namespace SC_M4
                     btStartStop.Text = "START";
                     pictureBoxCamera01.Image = null;
                     pictureBoxCamera02.Image = null;
+
+                    this.richTextBox1.Text = string.Empty;
+                    this.richTextBox2.Text = string.Empty;
+
+                    scrollablePictureBoxCamera01.Image = null;
+                    scrollablePictureBoxCamera02.Image = null;
 
                     if (thread != null)
                     {
@@ -565,7 +575,7 @@ namespace SC_M4
                     Thread.Sleep(3000);
                 }
             }catch(Exception ex) { 
-                Console.WriteLine(ex.Message;
+                Console.WriteLine(ex.Message);
                 LogWriter.SaveLog("ErrorMessage :" + ex.Message);
             }
         }
@@ -786,7 +796,7 @@ namespace SC_M4
                     lbTitle.ForeColor = Color.Red;
                 }
             }
-            else if (lbTitle.BackColor != Color.Yellow && isStaetReset && !isStaetReset)
+            else if (lbTitle.BackColor != Color.Yellow && isStaetReset)
             {
                 lbTitle.BackColor = Color.Yellow;
                 lbTitle.ForeColor = Color.Black;
@@ -828,7 +838,8 @@ namespace SC_M4
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Exclamation A00", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //MessageBox.Show(ex.Message, "Exclamation A00", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                LogWriter.SaveLog("A00 : " + ex.Message);
             }
             return "";
         }
