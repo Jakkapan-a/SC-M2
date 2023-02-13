@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Home));
             this.menuStripHome = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,12 +53,10 @@
             this.pictureBoxCamera01 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanelChild01 = new System.Windows.Forms.TableLayoutPanel();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.scrollablePictureBoxCamera01 = new SC_M4.Controls.ScrollablePictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBoxCamera02 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanelChild02 = new System.Windows.Forms.TableLayoutPanel();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.scrollablePictureBoxCamera02 = new SC_M4.Controls.ScrollablePictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -73,6 +72,8 @@
             this.dataGridViewHistory = new System.Windows.Forms.DataGridView();
             this.serialPort = new System.IO.Ports.SerialPort(this.components);
             this.timerMain = new System.Windows.Forms.Timer(this.components);
+            this.scrollablePictureBoxCamera01 = new SC_M4.Controls.ScrollablePictureBox();
+            this.scrollablePictureBoxCamera02 = new SC_M4.Controls.ScrollablePictureBox();
             this.menuStripHome.SuspendLayout();
             this.statusStripHome.SuspendLayout();
             this.panelHeader.SuspendLayout();
@@ -88,13 +89,13 @@
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera01)).BeginInit();
             this.tableLayoutPanelChild01.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera01)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera02)).BeginInit();
             this.tableLayoutPanelChild02.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera02)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHistory)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera01)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera02)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStripHome
@@ -349,19 +350,6 @@
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
-            // scrollablePictureBoxCamera01
-            // 
-            this.scrollablePictureBoxCamera01.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.scrollablePictureBoxCamera01.Location = new System.Drawing.Point(3, 3);
-            this.scrollablePictureBoxCamera01.Name = "scrollablePictureBoxCamera01";
-            this.scrollablePictureBoxCamera01.SegmentedRegions = null;
-            this.scrollablePictureBoxCamera01.Size = new System.Drawing.Size(159, 104);
-            this.scrollablePictureBoxCamera01.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.scrollablePictureBoxCamera01.TabIndex = 1;
-            this.scrollablePictureBoxCamera01.TabStop = false;
-            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -419,19 +407,6 @@
             this.richTextBox2.Size = new System.Drawing.Size(152, 103);
             this.richTextBox2.TabIndex = 0;
             this.richTextBox2.Text = "";
-            // 
-            // scrollablePictureBoxCamera02
-            // 
-            this.scrollablePictureBoxCamera02.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.scrollablePictureBoxCamera02.Location = new System.Drawing.Point(3, 3);
-            this.scrollablePictureBoxCamera02.Name = "scrollablePictureBoxCamera02";
-            this.scrollablePictureBoxCamera02.SegmentedRegions = null;
-            this.scrollablePictureBoxCamera02.Size = new System.Drawing.Size(152, 103);
-            this.scrollablePictureBoxCamera02.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.scrollablePictureBoxCamera02.TabIndex = 1;
-            this.scrollablePictureBoxCamera02.TabStop = false;
             // 
             // groupBox1
             // 
@@ -574,6 +549,32 @@
             this.timerMain.Interval = 1000;
             this.timerMain.Tick += new System.EventHandler(this.timerMain_Tick);
             // 
+            // scrollablePictureBoxCamera01
+            // 
+            this.scrollablePictureBoxCamera01.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.scrollablePictureBoxCamera01.Location = new System.Drawing.Point(3, 3);
+            this.scrollablePictureBoxCamera01.Name = "scrollablePictureBoxCamera01";
+            this.scrollablePictureBoxCamera01.SegmentedRegions = null;
+            this.scrollablePictureBoxCamera01.Size = new System.Drawing.Size(159, 104);
+            this.scrollablePictureBoxCamera01.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.scrollablePictureBoxCamera01.TabIndex = 1;
+            this.scrollablePictureBoxCamera01.TabStop = false;
+            // 
+            // scrollablePictureBoxCamera02
+            // 
+            this.scrollablePictureBoxCamera02.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.scrollablePictureBoxCamera02.Location = new System.Drawing.Point(3, 3);
+            this.scrollablePictureBoxCamera02.Name = "scrollablePictureBoxCamera02";
+            this.scrollablePictureBoxCamera02.SegmentedRegions = null;
+            this.scrollablePictureBoxCamera02.Size = new System.Drawing.Size(152, 103);
+            this.scrollablePictureBoxCamera02.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.scrollablePictureBoxCamera02.TabIndex = 1;
+            this.scrollablePictureBoxCamera02.TabStop = false;
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -583,6 +584,7 @@
             this.Controls.Add(this.panelHeader);
             this.Controls.Add(this.statusStripHome);
             this.Controls.Add(this.menuStripHome);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStripHome;
             this.Name = "Home";
             this.Text = "SC-M4";
@@ -606,14 +608,14 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera01)).EndInit();
             this.tableLayoutPanelChild01.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera01)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera02)).EndInit();
             this.tableLayoutPanelChild02.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera02)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHistory)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera01)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera02)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

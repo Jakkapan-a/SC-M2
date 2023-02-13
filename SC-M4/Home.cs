@@ -84,6 +84,24 @@ namespace SC_M4
             timerMain.Start();
             deletedFileTemp();
 
+            try
+            {
+                var s = Setting.GetSettingRemove();
+                if (s.Count > 0)
+                {
+                    foreach (var set in s)
+                    {
+                        if (File.Exists(set.path_image))
+                        {
+                            File.Delete(set.path_image);
+                            set.Delete();
+                        }
+                    }
+                }
+            } catch (Exception ex)
+            {
+                LogWriter.SaveLog("Error delete file : "+ ex.Message);
+            }
         }
 
         private void btRefresh_Click(object sender, EventArgs e)
@@ -112,6 +130,8 @@ namespace SC_M4
             comboBoxCOMPort.Items.AddRange(SerialPort.GetPortNames());
             if (comboBoxCOMPort.Items.Count > 0)
                 comboBoxCOMPort.SelectedIndex = 0;
+
+
         }
 
         private delegate void Stop_video();
@@ -365,6 +385,7 @@ namespace SC_M4
                     Task.Factory.StartNew(() => capture_1.Start(driveindex_01));
                     Task.Factory.StartNew(() => capture_2.Start(driveindex_02));
 
+                    lbTitle.Text = "Camera opening...";
                     btStartStop.Text = "STOP";
                     if (thread != null)
                     {
@@ -377,7 +398,7 @@ namespace SC_M4
                     thread.Start();
                     this.richTextBox1.Text = string.Empty;
                     this.richTextBox2.Text = string.Empty;
-
+                    
                     scrollablePictureBoxCamera01.Image = null;
                     scrollablePictureBoxCamera02.Image = null;
 
@@ -399,7 +420,7 @@ namespace SC_M4
 
                     scrollablePictureBoxCamera01.Image = null;
                     scrollablePictureBoxCamera02.Image = null;
-
+                    lbTitle.Text = "Camera close.";
                     if (thread != null)
                     {
                         thread.Abort(true);
@@ -450,7 +471,7 @@ namespace SC_M4
                                 lbTitle.Text = "Detecting.";
                             }));
                         }
-                        //Console.WriteLine("Process Image");
+
                         foreach (var item in _masterList_01)
                         {
                             // Get Bitmap 
@@ -461,7 +482,7 @@ namespace SC_M4
                             LogWriter.SaveLog("File temp 1 :" + filename_temp_1);
                             mat.Save(filename_temp_1);
                             score = TCapture.Match.CompareImage(item.path_image, filename_temp_1);
-
+                            LogWriter.SaveLog("Rate 1 :" + score);
                             Console.WriteLine("Score 01: {0}", score);
                             if (score > item.percent)
                             {
@@ -505,7 +526,7 @@ namespace SC_M4
                                 result = result.Substring(a + 1);
                                 a = result.IndexOf("|731");
                                 result = result.Substring(a + 1);
-
+                                result = result.Replace("T31TM", "731TM");
                                 richTextBox1.Invoke(new Action(() =>
                                 {
                                     this.richTextBox1.Text = result.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", "");
@@ -523,7 +544,7 @@ namespace SC_M4
 
                                     mat.Save(filename_temp_2);
                                     score = TCapture.Match.CompareImage(item_2.path_image, filename_temp_2);
-
+                                    LogWriter.SaveLog("Rate 2 :" + score);
                                     if (score > item_2.percent)
                                     {
                                         LogWriter.SaveLog("Caompare 2 :" + score);
@@ -581,13 +602,14 @@ namespace SC_M4
         }
 
 
-        private void deletedFileTemp()
+        private async void deletedFileTemp()
         {
             try
             {
                 string _dir = Properties.Resources.path_temp;
                 string[] files = Directory.GetFiles(_dir);
                 int i = 0;
+                await Task.Delay(1);
                 foreach (string file in files)
                 {
                     i++;
@@ -702,7 +724,6 @@ namespace SC_M4
             dataGridViewHistory.DataSource = null;
             int i = 0;
             // Reverse the list to display the latest record first
-            list.Reverse();
             var data = (from p in list
                         select new
                         {
@@ -716,7 +737,6 @@ namespace SC_M4
                             Results = p.result,
                             Update = p.created_at
                         }).ToList();
-            data.Reverse();
             dataGridViewHistory.DataSource = data;
             dataGridViewHistory.Columns[0].Visible = false;
             // 10% of the width of the DataGridView
