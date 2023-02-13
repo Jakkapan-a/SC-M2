@@ -126,5 +126,17 @@ namespace SC_M4.Forms
                 loadListImage();
             }
         }
+        Percent percent;
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(percent != null)
+            {
+                percent.Close();
+                percent.Dispose();
+            }
+
+            percent = new Percent(image_id);
+            percent.Show(this);
+        }
     }
 }

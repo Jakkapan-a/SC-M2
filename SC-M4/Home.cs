@@ -386,6 +386,7 @@ namespace SC_M4
                     Task.Factory.StartNew(() => capture_2.Start(driveindex_02));
 
                     lbTitle.Text = "Camera opening...";
+   
                     btStartStop.Text = "STOP";
                     if (thread != null)
                     {
@@ -426,6 +427,8 @@ namespace SC_M4
                         thread.Abort(true);
                     }
                 }
+                lbTitle.BackColor = Color.Yellow;
+                lbTitle.ForeColor = Color.Black;
             }
             catch (Exception ex)
             {
@@ -474,6 +477,10 @@ namespace SC_M4
 
                         foreach (var item in _masterList_01)
                         {
+                            if (!isStaetReset)
+                            {
+                                continue;
+                            }
                             // Get Bitmap 
                             bitmap = (Bitmap)bitmapCamaera_01.Clone();
                             string filename_temp_1 = getFileTemp();
@@ -534,7 +541,12 @@ namespace SC_M4
                                 // Image 02
                                 foreach (var item_2 in _masterList_02)
                                 {
-                                    LogWriter.SaveLog("Caompare 2 :" + score);
+                                    if (!isStaetReset)
+                                    {
+                                        LogWriter.SaveLog("Continue 2 ");
+                                        continue;
+                                    }
+
                                     bitmap = null;
                                     bitmap = (Bitmap)bitmapCamaera_02.Clone();
                                     string filename_temp_2 = getFileTemp();
@@ -544,6 +556,8 @@ namespace SC_M4
 
                                     mat.Save(filename_temp_2);
                                     score = TCapture.Match.CompareImage(item_2.path_image, filename_temp_2);
+
+                                   
                                     LogWriter.SaveLog("Rate 2 :" + score);
                                     if (score > item_2.percent)
                                     {
@@ -652,7 +666,12 @@ namespace SC_M4
                 if (lb == -1)
                 {
                     // Return the original string.
-                   
+
+                    richTextBox1.Text = string.Empty;
+                    richTextBox2.Text = string.Empty;
+
+                    scrollablePictureBoxCamera01.Image = null;
+                    scrollablePictureBoxCamera02.Image = null;
                     return;
                 }
                 var txt = txt_lb.Substring(0, lb);

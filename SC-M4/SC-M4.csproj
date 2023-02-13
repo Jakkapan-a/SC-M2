@@ -131,6 +131,12 @@
     <Compile Include="Forms\Options.Designer.cs">
       <DependentUpon>Options.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Percent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Percent.Designer.cs">
+      <DependentUpon>Percent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Rename.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,6 +177,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Options.resx">
       <DependentUpon>Options.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Percent.resx">
+      <DependentUpon>Percent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Rename.resx">
       <DependentUpon>Rename.cs</DependentUpon>

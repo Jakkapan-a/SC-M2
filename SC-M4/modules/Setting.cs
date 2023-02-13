@@ -60,6 +60,8 @@ namespace SC_M4.Modules
 
         public static List<Setting> GetSetting(int _type) => SQliteDataAccess.GetRow<Setting>("select * from settings where _type = " + _type+" order by id desc limit 1");
 
+        public static List<Setting> GetSettingID(int id) => SQliteDataAccess.GetRow<Setting>("select * from settings where id = " + id + " ");
+
         public static List<Setting> GetSettingRemove() => SQliteDataAccess.GetRow<Setting>("select * from settings where state = 0 order by id desc");
         
         public static List<Setting> GetListImage(int _type) => SQliteDataAccess.GetRow<Setting>("select * from settings where _type = " + _type + " and state = 1 order by id desc");

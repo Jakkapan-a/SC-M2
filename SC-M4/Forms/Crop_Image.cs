@@ -79,6 +79,7 @@ namespace SC_M4.Forms
                         Setting setting = new Setting();
                         setting.state = 1;
                         setting.path_image = path;
+                        setting.percent = (int)numericUpDown.Value;
                         setting._type = _type;
                         setting.Save();
                         /*
