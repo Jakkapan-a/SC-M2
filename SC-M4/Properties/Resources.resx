@@ -120,4 +120,16 @@
   <data name="msg_select_camera" xml:space="preserve">
     <value>Please select camera</value>
   </data>
+  <data name="path" xml:space="preserve">
+    <value>./system</value>
+  </data>
+  <data name="path_images" xml:space="preserve">
+    <value>./system/images</value>
+  </data>
+  <data name="path_log" xml:space="preserve">
+    <value>./system/logs</value>
+  </data>
+  <data name="path_temp" xml:space="preserve">
+    <value>./system/temp</value>
+  </data>
 </root>

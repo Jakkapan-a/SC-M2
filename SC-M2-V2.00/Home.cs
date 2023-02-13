@@ -1,6 +1,5 @@
 ﻿using OpenCvSharp;
 using SC_M2_V2_00.FormComponent;
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -75,11 +74,11 @@ namespace SC_M2_V2_00
 
         private int step_program = 0;
 
-
         public Home()
         {
             InitializeComponent();
         }
+
         SC_M2_V2_00.FormComponent.Connections connections;
 
         private void Home_Load(object sender, EventArgs e)
@@ -410,8 +409,11 @@ namespace SC_M2_V2_00
                 lbTitle.ForeColor = Color.Black;
             }
         }
+
         string _pathFile, _nameTemp;
+
         private Random rnd = new Random();
+
         private void timerVideo1_Tick(object sender, EventArgs e)
         {
             try
@@ -461,6 +463,7 @@ namespace SC_M2_V2_00
                 Console.WriteLine(ex.Message);
             }
         }
+
         private void deletedFileTemp()
         {
             try
@@ -530,8 +533,8 @@ namespace SC_M2_V2_00
             }
         }
 
-
         private Options options = new Options();
+
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (options != null)
@@ -575,7 +578,9 @@ namespace SC_M2_V2_00
             }
             return "";
         }
+
         List<SC_M2_V2._00.Modules.Setting> settings1 = new List<SC_M2_V2._00.Modules.Setting>();
+
         List<SC_M2_V2._00.Modules.Setting> settings2 = new List<SC_M2_V2._00.Modules.Setting>();
 
         public double Compare(Bitmap master, Bitmap slave)
@@ -631,7 +636,6 @@ namespace SC_M2_V2_00
                 MessageBox.Show("E006" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 0;
             }
-
         }
 
         private Bitmap Matching(Bitmap imageMaster, Bitmap imageSlave, string pathSave = null)
@@ -644,7 +648,7 @@ namespace SC_M2_V2_00
 
                 Emgu.CV.Mat imgout = new Emgu.CV.Mat();
 
-                CvInvoke.MatchTemplate(imgScene, template, imgout, Emgu.CV.CvEnum.TemplateMatchingType.CcorrNormed);
+                CvInvoke.MatchTemplate(imgScene, template, imgout, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed);
 
                 double minVal = 0.0;
                 double maxVal = 0.0;
@@ -933,7 +937,9 @@ namespace SC_M2_V2_00
             LogWriter.SaveLog("OCR 2 :" + richTextBox2.Text +",Rate :"+ conpare);
             Compare_Master(richTextBox1.Text.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", ""), richTextBox2.Text.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", ""));
         }
+
         History history;
+
         private void Compare_Master(string txt_sw, string txt_lb)
         {
             try
@@ -1052,7 +1058,6 @@ namespace SC_M2_V2_00
             }
         }
 
-        // Convert a Bitmap color white to background color
         public static Bitmap ConvertWhiteToBackground(Bitmap bmp)
         {
             Bitmap bmp2 = new Bitmap(bmp.Width, bmp.Height);

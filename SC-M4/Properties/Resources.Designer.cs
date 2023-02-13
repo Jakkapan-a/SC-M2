@@ -68,5 +68,41 @@ namespace SC_M4.Properties {
                 return ResourceManager.GetString("msg_select_camera", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ./system.
+        /// </summary>
+        internal static string path {
+            get {
+                return ResourceManager.GetString("path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ./system/images.
+        /// </summary>
+        internal static string path_images {
+            get {
+                return ResourceManager.GetString("path_images", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ./system/logs.
+        /// </summary>
+        internal static string path_log {
+            get {
+                return ResourceManager.GetString("path_log", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ./system/temp.
+        /// </summary>
+        internal static string path_temp {
+            get {
+                return ResourceManager.GetString("path_temp", resourceCulture);
+            }
+        }
     }
 }

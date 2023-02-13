@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -11,17 +12,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TCapture;
+using SC_M4.Properties;
+using System.Drawing.Imaging;
 
 namespace SC_M4
 {
     public partial class Home : Form
     {
-
-
         public TCapture.Capture capture_1;
         public TCapture.Capture capture_2;
         private Thread thread;
-
 
         public Home()
         {
@@ -29,6 +29,7 @@ namespace SC_M4
         }
 
         public string[] baudList = { "9600", "19200", "38400", "57600", "115200" };
+
         private void Home_Load(object sender, EventArgs e)
         {
             var videoDevices = new List<DsDevice>(DsDevice.GetDevicesOfCat(FilterCategory.VideoInputDevice));
@@ -63,9 +64,11 @@ namespace SC_M4
             capture_2.OnFrameHeadler += Capture_2_OnFrameHeadler;
             capture_2.OnVideoStarted += Capture_2_OnVideoStarted;
             capture_2.OnVideoStop += Capture_2_OnVideoStop;
+
         }
 
         private delegate void Stop_video();
+
         private void Capture_2_OnVideoStop()
         {
 
@@ -89,7 +92,7 @@ namespace SC_M4
             if (!isStart)
                 pictureBoxCamera02.Image = null;
             else
-                pictureBoxCamera02.Image = (Image)bitmap.Clone();
+                pictureBoxCamera02.Image = (Image)bitmap?.Clone();
         }
 
         private void Capture_1_OnVideoStop()
@@ -113,7 +116,7 @@ namespace SC_M4
             if (!isStart)
                 pictureBoxCamera01.Image = null;
             else
-                pictureBoxCamera01.Image = (Image)bitmap.Clone();
+                pictureBoxCamera01.Image = (Image)bitmap?.Clone();
         }
 
         private bool isStart = false;
@@ -143,6 +146,16 @@ namespace SC_M4
                     Task.Factory.StartNew(() => capture_2.Start(driveindex_02));
 
                     btStartStop.Text = "STOP";
+                    if (thread != null)
+                    {
+                        thread.Abort();
+                        thread.DisableComObjectEagerCleanup();
+                        thread = null;
+                    }
+
+                    thread = new Thread(new ThreadStart(ProcessTesting));
+                    thread.Start();
+
                 }
                 else
                 {
@@ -153,7 +166,13 @@ namespace SC_M4
                         capture_2.Stop();
 
                     btStartStop.Text = "START";
+                    pictureBoxCamera01.Image = null;
                     pictureBoxCamera02.Image = null;
+                   
+                    if(thread != null)
+                    {
+                        thread.Abort(true);
+                    }
                 }
             }
             catch (Exception ex)
@@ -163,6 +182,19 @@ namespace SC_M4
                 btStartStop.Text = "START";
                 
             }
+        }
+
+        private void ProcessTesting()
+        {
+            // This thread working in her
+            // While loop -> detect came
+            //int i = 0;
+            //while (true)
+            //{
+            //    i++;
+            //    Console.WriteLine("Test {0}",i);
+            //    Thread.Sleep(100);
+            //}
         }
 
         private void Home_FormClosing(object sender, FormClosingEventArgs e)
@@ -183,6 +215,12 @@ namespace SC_M4
                 }
                 capture_2.Dispose();
             }
+
+            if(thread != null)
+            {
+              thread.Abort();  
+            }
         }
+
     }
 }
