@@ -11,17 +11,20 @@ namespace SC_M4.Modules
         public int id { get; set; }
         public string path_image { get; set; }
         public int _type { get; set; }              // 0 = cam1, 1=cam2 ,2= cam2QR
+
+        public int percent { get; set; }
         public int state { get; set; }
         public string created_at { get; set; }
         public string updated_at { get; set;}
 
         public void Save()
         {
-            string sql = "insert into settings (path_image,_type,state,created_at,updated_at) values (@path_image,@_type,@state,@created_at,@updated_at)";
+            string sql = "insert into settings (path_image, _type, percent, state, created_at, updated_at) values (@path_image, @_type, @percent, @state, @created_at, @updated_at)";
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@path_image", path_image);
             parameters.Add("@_type", _type);
-            parameters.Add("@state", 1);
+            parameters.Add("@percent", percent);
+            parameters.Add("@state", state);
             parameters.Add("@created_at", SQliteDataAccess.GetDateTimeNow());
             parameters.Add("@updated_at", SQliteDataAccess.GetDateTimeNow());
             SQliteDataAccess.InserInputDB(sql, parameters);
@@ -29,13 +32,14 @@ namespace SC_M4.Modules
 
         public void Update()
         {
-            string sql = "update settings set path_image = @path_image, _type = @_type, state = @state, updated_at = @updated_at where id = @id";
+            string sql = "update settings set path_image = @path_image, _type = @_type, percent = @percent, state = @state, updated_at = @updated_at where id = @id";
             Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("@id", id);
             parameters.Add("@path_image", path_image);
             parameters.Add("@_type", _type);
+            parameters.Add("@percent", percent);
             parameters.Add("@state", state);
             parameters.Add("@updated_at", SQliteDataAccess.GetDateTimeNow());
+            parameters.Add("@id", id);
             SQliteDataAccess.InserInputDB(sql, parameters);
         }
 

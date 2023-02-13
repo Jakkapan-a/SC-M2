@@ -210,6 +210,7 @@ namespace SC_M2_V2_00
             this.serialportName = portName;
             this.baudrate = baud;
         }
+
         private void serialConnect(string portName, int baud)
         {
             try
@@ -638,7 +639,7 @@ namespace SC_M2_V2_00
             }
         }
 
-        private Bitmap Matching(Bitmap imageMaster, Bitmap imageSlave, string pathSave = null)
+        public Bitmap Matching(Bitmap imageMaster, Bitmap imageSlave, string pathSave = null)
         {
             try
             {
@@ -720,6 +721,8 @@ namespace SC_M2_V2_00
             }
 
             richTextBox1.Text = result.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", "");
+
+
             btnOCR2.PerformClick();
         }
 

@@ -233,6 +233,9 @@
     <EmbeddedResource Include="Setteing.resx">
       <DependentUpon>Setteing.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="data.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
