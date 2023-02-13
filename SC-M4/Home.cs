@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using TCapture;
 using SC_M4.Properties;
 using System.Drawing.Imaging;
+using SC_M4.Forms;
 
 namespace SC_M4
 {
@@ -23,6 +24,9 @@ namespace SC_M4
         public TCapture.Capture capture_2;
         private Thread thread;
 
+        public Image imageCamaera_01, imageCamaera_02;
+        public Bitmap bitmapCamaera_01;
+        public Bitmap bitmapCamaera_02;
         public Home()
         {
             InitializeComponent();
@@ -32,14 +36,32 @@ namespace SC_M4
 
         private void Home_Load(object sender, EventArgs e)
         {
+           
+
+            btRefresh.PerformClick();
+
+            capture_1 = new Capture();
+            capture_1.OnFrameHeadler += Capture_1_OnFrameHeadler;
+            capture_1.OnVideoStarted += Capture_1_OnVideoStarted;
+            capture_1.OnVideoStop += Capture_1_OnVideoStop;
+            capture_2 = new Capture();
+            capture_2.OnFrameHeadler += Capture_2_OnFrameHeadler;
+            capture_2.OnVideoStarted += Capture_2_OnVideoStarted;
+            capture_2.OnVideoStop += Capture_2_OnVideoStop;
+
+        }
+
+        private void btRefresh_Click(object sender, EventArgs e)
+        {
             var videoDevices = new List<DsDevice>(DsDevice.GetDevicesOfCat(FilterCategory.VideoInputDevice));
             comboBoxCamera1.Items.Clear();
-
+            comboBoxCamera2.Items.Clear();
             foreach (DsDevice device in videoDevices)
             {
                 comboBoxCamera1.Items.Add(device.Name);
                 comboBoxCamera2.Items.Add(device.Name);
             }
+        
             if (comboBoxCamera1.Items.Count > 0)
             {
                 comboBoxCamera1.SelectedIndex = 0;
@@ -55,16 +77,6 @@ namespace SC_M4
             comboBoxCOMPort.Items.AddRange(SerialPort.GetPortNames());
             if (comboBoxCOMPort.Items.Count > 0)
                 comboBoxCOMPort.SelectedIndex = 0;
-
-            capture_1 = new Capture();
-            capture_1.OnFrameHeadler += Capture_1_OnFrameHeadler;
-            capture_1.OnVideoStarted += Capture_1_OnVideoStarted;
-            capture_1.OnVideoStop += Capture_1_OnVideoStop;
-            capture_2 = new Capture();
-            capture_2.OnFrameHeadler += Capture_2_OnFrameHeadler;
-            capture_2.OnVideoStarted += Capture_2_OnVideoStarted;
-            capture_2.OnVideoStop += Capture_2_OnVideoStop;
-
         }
 
         private delegate void Stop_video();
@@ -90,9 +102,18 @@ namespace SC_M4
             }
 
             if (!isStart)
+            {
                 pictureBoxCamera02.Image = null;
+            }
             else
-                pictureBoxCamera02.Image = (Image)bitmap?.Clone();
+            {
+                pictureBoxCamera02.SuspendLayout();
+                pictureBoxCamera02.Image = new Bitmap(bitmap);
+                //imageCamaera_02 = (Image)bitmap?.Clone();
+                bitmapCamaera_02 = (Bitmap)pictureBoxCamera02.Image.Clone();
+                pictureBoxCamera02.ResumeLayout();
+            }
+
         }
 
         private void Capture_1_OnVideoStop()
@@ -114,9 +135,17 @@ namespace SC_M4
                 return;
             }
             if (!isStart)
+            {
                 pictureBoxCamera01.Image = null;
+            }
             else
-                pictureBoxCamera01.Image = (Image)bitmap?.Clone();
+            {
+                pictureBoxCamera01.SuspendLayout();
+                pictureBoxCamera01.Image = new Bitmap(bitmap);
+                //imageCamaera_01 = (Image)bitmap?.Clone();
+                bitmapCamaera_01 = (Bitmap)pictureBoxCamera01.Image.Clone();
+                pictureBoxCamera01.ResumeLayout();
+            }
         }
 
         private bool isStart = false;
@@ -221,6 +250,31 @@ namespace SC_M4
               thread.Abort();  
             }
         }
+        SettingModel setting;
+        private void masterListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(setting != null)
+            {
+                setting.Close();
+                setting.Dispose();
+            }
 
+            setting = new SettingModel();
+            setting.Show();
+        }
+        Options options;
+
+
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(options != null)
+            {
+                options.Close();
+                options.Dispose();
+            }
+            options = new Options(this);
+            options.Show();
+        }
     }
 }

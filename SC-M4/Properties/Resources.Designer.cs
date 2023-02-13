@@ -61,6 +61,16 @@ namespace SC_M4.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _refresh_16 {
+            get {
+                object obj = ResourceManager.GetObject("_refresh_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please select camera.
         /// </summary>
         internal static string msg_select_camera {

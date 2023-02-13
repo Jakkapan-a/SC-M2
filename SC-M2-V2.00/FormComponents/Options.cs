@@ -121,7 +121,7 @@ namespace SC_M2_V2._00.FormComponents
 
         private void Options_FormClosing(object sender, FormClosingEventArgs e)
         {
-            return;
+            //return;
         }
     }
 }
