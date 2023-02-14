@@ -9,7 +9,7 @@ namespace LogWriter
 {
     public class LogFile
     {
-        private string _path = "system/log";
+        private string _path = "system/logs";
 
         public string path
         {

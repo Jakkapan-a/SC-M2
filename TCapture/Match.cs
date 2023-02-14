@@ -49,9 +49,6 @@ namespace TCapture
 
         public static  Bitmap Matching(Bitmap imageMaster, Bitmap imageSlave, string pathSave = null)
         {
-
-            //try
-            //{
                 var imgScene = imageSlave.ToImage<Bgr, byte>();
                 var template = imageMaster.ToImage<Bgr, byte>();
 
@@ -79,12 +76,6 @@ namespace TCapture
 
              CvInvoke.Rectangle(imgScene,r, new MCvScalar(0, 0, 255), 2);
             return bit;
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("E007 " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return null;
-            //}
         }
 
         public static double CompareImage(string path_master, string path_slave)
@@ -123,6 +114,41 @@ namespace TCapture
             }
         }
 
-        
+        public static double CompareImage(Bitmap master, Bitmap slave)
+        {
+            try
+            {
+                Image<Gray, byte> imageMaster = master.ToImage<Gray,byte>();
+                Image<Gray, byte> imageSlave = slave.ToImage<Gray, byte>();
+                if (imageMaster.Width != imageSlave.Width || imageMaster.Height != imageSlave.Height)
+                {
+                    return 0;
+                }
+                var diffImage = new Image<Gray, byte>(imageMaster.Width, imageMaster.Height);
+                // Get the image of different pixels.
+                CvInvoke.AbsDiff(imageMaster, imageSlave, diffImage);
+                var threadholdImage = new Image<Gray, byte>(imageMaster.Width, imageMaster.Height);
+                // Check the pixies difference.
+                // For instance, if difference between the same pixel on both image are less then 20,
+                // we can say that this pixel is the same on both images.
+                // After threadholding we would have matrix on which we would have 0 for pixels which are "nearly" the same and 1 for pixes which are different.
+                CvInvoke.Threshold(diffImage, threadholdImage, 20, 1, Emgu.CV.CvEnum.ThresholdType.Binary);
+                int diff = CvInvoke.CountNonZero(threadholdImage);
+                // Take the percentage of the pixels which are different.
+                var deffPrecentage = diff / (double)(imageMaster.Width * imageMaster.Height);
+                // If the amount of different pixeles more then 15% then we can say that those immages are different.
+                var percent = deffPrecentage * 100;
+                imageMaster.Dispose();
+                imageSlave.Dispose();
+                // round off
+                return Math.Round(100 - percent, 3);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return 0;
+            }
+        }
+
     } 
 }

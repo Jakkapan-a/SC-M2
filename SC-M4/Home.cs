@@ -33,6 +33,11 @@ namespace SC_M4
         public Bitmap bitmapCamaera_01;
         public Bitmap bitmapCamaera_02;
 
+        public MemoryStream memoryCamaera_01;
+        public MemoryStream memoryCamaera_02;
+
+        public Stream streamCamaera_01;
+
         protected string curLangCode = "eng";
         protected IList<Image> imageList;
         protected string inputfilename;
@@ -45,6 +50,8 @@ namespace SC_M4
         private bool toggle_blink_ng = false;
         private bool isStaetReset = false;
         LogFile LogWriter;
+
+
         public Home()
         {
             InitializeComponent();
@@ -67,6 +74,10 @@ namespace SC_M4
             capture_2.OnVideoStarted += Capture_2_OnVideoStarted;
             capture_2.OnVideoStop += Capture_2_OnVideoStop;
 
+            memoryCamaera_01 = new MemoryStream();
+            memoryCamaera_02 = new MemoryStream();
+
+            streamCamaera_01 = new MemoryStream();
             if (!Directory.Exists(Properties.Resources.path_temp))
                 Directory.CreateDirectory(Properties.Resources.path_temp);
             if (!Directory.Exists(Properties.Resources.path_log))
@@ -168,6 +179,8 @@ namespace SC_M4
                 pictureBoxCamera02.SuspendLayout();
                 pictureBoxCamera02.Image = new Bitmap(bitmap);
                 bitmapCamaera_02 = (Bitmap)pictureBoxCamera02.Image.Clone();
+                // Copy to memory stream
+                bitmapCamaera_02.Save(memoryCamaera_02,ImageFormat.Jpeg);
                 pictureBoxCamera02.ResumeLayout();
             }
 
@@ -202,6 +215,8 @@ namespace SC_M4
                 pictureBoxCamera01.SuspendLayout();
                 pictureBoxCamera01.Image = new Bitmap(bitmap);
                 bitmapCamaera_01 = (Bitmap)pictureBoxCamera01.Image.Clone();
+                // Copy to memory stream
+                bitmapCamaera_01.Save(memoryCamaera_01, ImageFormat.Jpeg);
                 pictureBoxCamera01.ResumeLayout();
             }
         }
@@ -484,11 +499,12 @@ namespace SC_M4
                             // Get Bitmap 
                             bitmap = (Bitmap)bitmapCamaera_01.Clone();
                             string filename_temp_1 = getFileTemp();
+
                             mat = TCapture.Match.Matching(new Bitmap(item.path_image), bitmap);
                             filename_temp_1 = getFileTemp();
                             LogWriter.SaveLog("File temp 1 :" + filename_temp_1);
-                            mat.Save(filename_temp_1);
-                            score = TCapture.Match.CompareImage(item.path_image, filename_temp_1);
+                            //mat.Save(filename_temp_1);
+                            score = TCapture.Match.CompareImage(new Bitmap(item.path_image), new Bitmap(mat));
                             LogWriter.SaveLog("Rate 1 :" + score);
                             Console.WriteLine("Score 01: {0}", score);
                             if (score > item.percent)
@@ -555,9 +571,8 @@ namespace SC_M4
                                     mat = TCapture.Match.Matching(new Bitmap(item_2.path_image), bitmap);
 
                                     mat.Save(filename_temp_2);
-                                    score = TCapture.Match.CompareImage(item_2.path_image, filename_temp_2);
+                                    score = TCapture.Match.CompareImage(new Bitmap(item_2.path_image),new Bitmap(mat));
 
-                                   
                                     LogWriter.SaveLog("Rate 2 :" + score);
                                     if (score > item_2.percent)
                                     {
@@ -583,6 +598,7 @@ namespace SC_M4
                                             catch (Exception ex)
                                             {
                                                 Console.WriteLine(ex.StackTrace);
+                                                LogWriter.SaveLog($"{ex.Message}");
                                             }
                                         }
                                         else
@@ -607,7 +623,7 @@ namespace SC_M4
                         }
                     }
                     deletedFileTemp();
-                    Thread.Sleep(3000);
+                   Thread.Sleep(2000);
                 }
             }catch(Exception ex) { 
                 Console.WriteLine(ex.Message);
@@ -630,7 +646,7 @@ namespace SC_M4
                     FileInfo info = new FileInfo(file);
                     if (info.LastAccessTime < DateTime.Now.AddMinutes(-30))
                         info.Delete();
-                    if (i > 300)
+                    if (i > 200)
                         break;
                 }
                 i = 0;
@@ -641,7 +657,7 @@ namespace SC_M4
                     FileInfo info = new FileInfo(file);
                     if (info.LastAccessTime < DateTime.Now.AddMinutes(-30))
                         info.Delete();
-                    if (i > 300)
+                    if (i > 200)
                         break;
                 }
             }
@@ -862,7 +878,6 @@ namespace SC_M4
                     return "";
                 }
                 OCRImageEntity entity = new OCRImageEntity(imageList, inputfilename, index, rect, curLangCode);
-                //entity.ScreenshotMode = this.screenshotModeToolStripMenuItem.Checked;
                 entity.ScreenshotMode = false;
                 entity.Language = "eng";
                 OCR<Image> ocrEngine = new OCRImages();
