@@ -72,7 +72,7 @@ namespace TCapture
                 }
 
             if (pathSave != null)
-            { bit.Save(pathSave); }
+                { bit.Save(pathSave); }
 
              CvInvoke.Rectangle(imgScene,r, new MCvScalar(0, 0, 255), 2);
             return bit;

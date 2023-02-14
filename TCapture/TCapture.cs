@@ -144,5 +144,75 @@ namespace TCapture
                 _thread.Abort();
             }
         }
+
+        // Get Focus
+        public int GetFocus()
+        {
+            return (int)_videoCapture.Get(OpenCvSharp.VideoCaptureProperties.Focus);
+        }
+        // Set Focus 
+        public void SetFocus(int value)
+        {
+            _videoCapture.Set(OpenCvSharp.VideoCaptureProperties.Focus, value);
+        }
+        // Auto Focus
+        public void AutoFocus()
+        {
+            _videoCapture.Set(OpenCvSharp.VideoCaptureProperties.Focus, -1);
+        }
+
+        // Get Zoom
+        public int GetZoom()
+        {
+            return (int)_videoCapture.Get(OpenCvSharp.VideoCaptureProperties.Zoom);
+        }
+
+        // Set Zoom
+        public void SetZoom(int value)
+        {
+            _videoCapture.Set(OpenCvSharp.VideoCaptureProperties.Zoom, value);
+        }
+        // Get Exposure
+        public int GetExposure()
+        {
+            return (int)_videoCapture.Get(OpenCvSharp.VideoCaptureProperties.Exposure);
+        }
+
+        // Set Exposure
+        public void SetExposure(int value)
+        {
+            _videoCapture.Set(OpenCvSharp.VideoCaptureProperties.Exposure, value);
+        }
+
+        // Get Gain
+        public int GetGain()
+        {
+            return (int)_videoCapture.Get(OpenCvSharp.VideoCaptureProperties.Gain);
+        }
+
+        // Set Gain
+        public void SetGain(int value)
+        {
+            _videoCapture.Set(OpenCvSharp.VideoCaptureProperties.Gain, value);
+        }
+
+        // Set Brightness
+        public void SetBrightness(int value)
+        {
+            _videoCapture.Set(OpenCvSharp.VideoCaptureProperties.Brightness, value);
+        }
+
+        // Set Contrast
+        public void SetContrast(int value)
+        {
+            _videoCapture.Set(OpenCvSharp.VideoCaptureProperties.Contrast, value);
+        }
+
+        // Set Saturation
+        public void SetSaturation(int value)
+        {
+            _videoCapture.Set(OpenCvSharp.VideoCaptureProperties.Saturation, value);
+        }
+
     }
 }

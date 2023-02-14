@@ -156,7 +156,10 @@ namespace SC_M4
         {
             Console.WriteLine("Cam 2 Started");
             LogWriter.SaveLog("Video 2 Started");
-            Invoke(new Action(()=> scrollablePictureBoxCamera02.Image = null));
+            Invoke(new Action(() => {
+                scrollablePictureBoxCamera02.Image = null;
+                numericUpDownFocus.Value = capture_2.GetFocus();
+                }));
             
         }
 
@@ -180,7 +183,7 @@ namespace SC_M4
                 pictureBoxCamera02.Image = new Bitmap(bitmap);
                 bitmapCamaera_02 = (Bitmap)pictureBoxCamera02.Image.Clone();
                 // Copy to memory stream
-                bitmapCamaera_02.Save(memoryCamaera_02,ImageFormat.Jpeg);
+                //bitmapCamaera_02.Save(memoryCamaera_02,ImageFormat.Jpeg);
                 pictureBoxCamera02.ResumeLayout();
             }
 
@@ -216,7 +219,7 @@ namespace SC_M4
                 pictureBoxCamera01.Image = new Bitmap(bitmap);
                 bitmapCamaera_01 = (Bitmap)pictureBoxCamera01.Image.Clone();
                 // Copy to memory stream
-                bitmapCamaera_01.Save(memoryCamaera_01, ImageFormat.Jpeg);
+                //bitmapCamaera_01.Save(memoryCamaera_01, ImageFormat.Jpeg);
                 pictureBoxCamera01.ResumeLayout();
             }
         }
@@ -447,6 +450,7 @@ namespace SC_M4
             }
             catch (Exception ex)
             {
+                LogWriter.SaveLog("Error Start :" + ex.Message);
                 MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.isStart = false;
                 btStartStop.Text = "START";
@@ -468,10 +472,11 @@ namespace SC_M4
             string result = string.Empty;
             isStaetReset = true;
             bool detection = false;
-            try
-            {
+
                 while (true)
-                {
+                 {
+                    try
+                    {
                     if (capture_1._isRunning && capture_2._isRunning && bitmapCamaera_01 != null && bitmapCamaera_02 != null && isStaetReset)
                     {
                         detection = !detection;
@@ -496,19 +501,25 @@ namespace SC_M4
                             {
                                 continue;
                             }
-                            // Get Bitmap 
-                            bitmap = (Bitmap)bitmapCamaera_01.Clone();
+                        // Get Bitmap 
+                        // bitmap = (Bitmap)bitmapCamaera_01.Clone();
+                        //bitmap = new Bitmap(bitmapCamaera_01);
+                        memoryCamaera_01.Close();
+                        memoryCamaera_01 = new MemoryStream();
+                        bitmapCamaera_01.Save(memoryCamaera_01, ImageFormat.Jpeg);
+                            bitmap = new Bitmap(memoryCamaera_01);
                             string filename_temp_1 = getFileTemp();
 
                             mat = TCapture.Match.Matching(new Bitmap(item.path_image), bitmap);
                             filename_temp_1 = getFileTemp();
                             LogWriter.SaveLog("File temp 1 :" + filename_temp_1);
-                            //mat.Save(filename_temp_1);
+                            
                             score = TCapture.Match.CompareImage(new Bitmap(item.path_image), new Bitmap(mat));
                             LogWriter.SaveLog("Rate 1 :" + score);
                             Console.WriteLine("Score 01: {0}", score);
                             if (score > item.percent)
                             {
+                                mat.Save(filename_temp_1);
                                 scrollablePictureBoxCamera01.Invoke(new Action(() =>
                                 {
                                     scrollablePictureBoxCamera01.Image = (Image)mat.Clone();
@@ -550,6 +561,11 @@ namespace SC_M4
                                 a = result.IndexOf("|731");
                                 result = result.Substring(a + 1);
                                 result = result.Replace("T31TM", "731TM");
+                                if (result == string.Empty)
+                                {
+                                    continue;
+                                }
+
                                 richTextBox1.Invoke(new Action(() =>
                                 {
                                     this.richTextBox1.Text = result.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", "");
@@ -564,18 +580,23 @@ namespace SC_M4
                                     }
 
                                     bitmap = null;
-                                    bitmap = (Bitmap)bitmapCamaera_02.Clone();
+                                //bitmap = (Bitmap)bitmapCamaera_02.Clone();
+                                    memoryCamaera_02.Close();
+                                    memoryCamaera_02 = new MemoryStream();
+                                    bitmapCamaera_02.Save(memoryCamaera_02,ImageFormat.Jpeg);
+                                    bitmap = new Bitmap(memoryCamaera_02);
                                     string filename_temp_2 = getFileTemp();
                                     LogWriter.SaveLog("File temp 2 :" + filename_temp_2);
                                     mat = null;
                                     mat = TCapture.Match.Matching(new Bitmap(item_2.path_image), bitmap);
 
-                                    mat.Save(filename_temp_2);
+                                    //mat.Save(filename_temp_2);
                                     score = TCapture.Match.CompareImage(new Bitmap(item_2.path_image),new Bitmap(mat));
-
-                                    LogWriter.SaveLog("Rate 2 :" + score);
+                                     Console.WriteLine("Score 02: {0}", score);
+                                     LogWriter.SaveLog("Rate 2 :" + score);
                                     if (score > item_2.percent)
                                     {
+                                        mat.Save(filename_temp_2);
                                         LogWriter.SaveLog("Caompare 2 :" + score);
                                         scrollablePictureBoxCamera02.Invoke(new Action(() =>
                                         {
@@ -608,6 +629,7 @@ namespace SC_M4
                                         result = Regex.Replace(result, "[^a-zA-Z,0-9,(),:,-]", "");
 
                                         result = result.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", "").Replace("'", "").Replace("|", "");
+                                        result = result.Replace(")9U", "9U");
                                         richTextBox2.Invoke(new Action(() =>
                                         {
                                             this.richTextBox2.Text = result.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", "");
@@ -623,13 +645,16 @@ namespace SC_M4
                         }
                     }
                     deletedFileTemp();
-                   Thread.Sleep(2000);
-                }
-            }catch(Exception ex) { 
+                   Thread.Sleep(1500);
+                }catch (Exception ex)
+            {
                 Console.WriteLine(ex.Message);
-                LogWriter.SaveLog("ErrorMessage :" + ex.Message);
+                LogWriter.SaveLog("ErrorMessage E001:" + ex.Message);
+                LogWriter.SaveLog("Data :" + ex.Data);
             }
         }
+            
+}
 
 
         private async void deletedFileTemp()
@@ -866,6 +891,18 @@ namespace SC_M4
         private void testNGToolStripMenuItem_Click(object sender, EventArgs e)
         {
             serialCommand("NG");
+        }
+
+        private void numericUpDownFocus_ValueChanged(object sender, EventArgs e)
+        {
+            if (!checkBoxAutoFocus.Checked)
+            {
+                capture_2.SetFocus((int)numericUpDownFocus.Value);
+            }
+            else
+            {
+                capture_2.AutoFocus();
+            }
         }
 
         private string performOCR(IList<Image> imageList, string inputfilename, int index, Rectangle rect)

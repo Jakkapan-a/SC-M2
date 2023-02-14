@@ -72,8 +72,12 @@
             this.dataGridViewHistory = new System.Windows.Forms.DataGridView();
             this.serialPort = new System.IO.Ports.SerialPort(this.components);
             this.timerMain = new System.Windows.Forms.Timer(this.components);
+            this.numericUpDownFocus = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
             this.scrollablePictureBoxCamera01 = new SC_M4.Controls.ScrollablePictureBox();
             this.scrollablePictureBoxCamera02 = new SC_M4.Controls.ScrollablePictureBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.checkBoxAutoFocus = new System.Windows.Forms.CheckBox();
             this.menuStripHome.SuspendLayout();
             this.statusStripHome.SuspendLayout();
             this.panelHeader.SuspendLayout();
@@ -94,6 +98,7 @@
             this.tableLayoutPanelChild02.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHistory)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFocus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera01)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera02)).BeginInit();
             this.SuspendLayout();
@@ -160,7 +165,7 @@
             this.toolStripStatusConnectSerialPort,
             this.toolStripStatusSerialData,
             this.toolStripStatusSentData});
-            this.statusStripHome.Location = new System.Drawing.Point(0, 569);
+            this.statusStripHome.Location = new System.Drawing.Point(0, 664);
             this.statusStripHome.Name = "statusStripHome";
             this.statusStripHome.Size = new System.Drawing.Size(946, 24);
             this.statusStripHome.TabIndex = 1;
@@ -240,8 +245,8 @@
             // 
             this.splitContainerHomeMain.Panel2.Controls.Add(this.dataGridViewHistory);
             this.splitContainerHomeMain.Panel2.Margin = new System.Windows.Forms.Padding(5);
-            this.splitContainerHomeMain.Size = new System.Drawing.Size(922, 471);
-            this.splitContainerHomeMain.SplitterDistance = 344;
+            this.splitContainerHomeMain.Size = new System.Drawing.Size(922, 566);
+            this.splitContainerHomeMain.SplitterDistance = 413;
             this.splitContainerHomeMain.TabIndex = 3;
             // 
             // groupBox2
@@ -249,7 +254,7 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.txtEmployee);
-            this.groupBox2.Location = new System.Drawing.Point(690, 226);
+            this.groupBox2.Location = new System.Drawing.Point(690, 295);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(225, 100);
             this.groupBox2.TabIndex = 2;
@@ -288,7 +293,7 @@
             // splitContainerHomeBody.Panel2
             // 
             this.splitContainerHomeBody.Panel2.Controls.Add(this.tableLayoutPanel2);
-            this.splitContainerHomeBody.Size = new System.Drawing.Size(679, 323);
+            this.splitContainerHomeBody.Size = new System.Drawing.Size(679, 392);
             this.splitContainerHomeBody.SplitterDistance = 345;
             this.splitContainerHomeBody.TabIndex = 1;
             // 
@@ -306,7 +311,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 63.1769F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36.8231F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(337, 315);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(337, 384);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // pictureBoxCamera01
@@ -317,7 +322,7 @@
             this.pictureBoxCamera01.BackColor = System.Drawing.SystemColors.ControlDark;
             this.pictureBoxCamera01.Location = new System.Drawing.Point(3, 3);
             this.pictureBoxCamera01.Name = "pictureBoxCamera01";
-            this.pictureBoxCamera01.Size = new System.Drawing.Size(331, 193);
+            this.pictureBoxCamera01.Size = new System.Drawing.Size(331, 236);
             this.pictureBoxCamera01.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxCamera01.TabIndex = 0;
             this.pictureBoxCamera01.TabStop = false;
@@ -332,11 +337,11 @@
             this.tableLayoutPanelChild01.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelChild01.Controls.Add(this.richTextBox1, 1, 0);
             this.tableLayoutPanelChild01.Controls.Add(this.scrollablePictureBoxCamera01, 0, 0);
-            this.tableLayoutPanelChild01.Location = new System.Drawing.Point(3, 202);
+            this.tableLayoutPanelChild01.Location = new System.Drawing.Point(3, 245);
             this.tableLayoutPanelChild01.Name = "tableLayoutPanelChild01";
             this.tableLayoutPanelChild01.RowCount = 1;
             this.tableLayoutPanelChild01.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelChild01.Size = new System.Drawing.Size(331, 110);
+            this.tableLayoutPanelChild01.Size = new System.Drawing.Size(331, 136);
             this.tableLayoutPanelChild01.TabIndex = 1;
             // 
             // richTextBox1
@@ -346,7 +351,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox1.Location = new System.Drawing.Point(168, 3);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(160, 104);
+            this.richTextBox1.Size = new System.Drawing.Size(160, 130);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
@@ -364,7 +369,7 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 63.1769F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36.8231F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(322, 312);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(322, 381);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // pictureBoxCamera02
@@ -375,7 +380,7 @@
             this.pictureBoxCamera02.BackColor = System.Drawing.SystemColors.ControlDark;
             this.pictureBoxCamera02.Location = new System.Drawing.Point(3, 3);
             this.pictureBoxCamera02.Name = "pictureBoxCamera02";
-            this.pictureBoxCamera02.Size = new System.Drawing.Size(316, 191);
+            this.pictureBoxCamera02.Size = new System.Drawing.Size(316, 234);
             this.pictureBoxCamera02.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxCamera02.TabIndex = 0;
             this.pictureBoxCamera02.TabStop = false;
@@ -390,11 +395,11 @@
             this.tableLayoutPanelChild02.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelChild02.Controls.Add(this.richTextBox2, 1, 0);
             this.tableLayoutPanelChild02.Controls.Add(this.scrollablePictureBoxCamera02, 0, 0);
-            this.tableLayoutPanelChild02.Location = new System.Drawing.Point(3, 200);
+            this.tableLayoutPanelChild02.Location = new System.Drawing.Point(3, 243);
             this.tableLayoutPanelChild02.Name = "tableLayoutPanelChild02";
             this.tableLayoutPanelChild02.RowCount = 1;
             this.tableLayoutPanelChild02.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelChild02.Size = new System.Drawing.Size(316, 109);
+            this.tableLayoutPanelChild02.Size = new System.Drawing.Size(316, 135);
             this.tableLayoutPanelChild02.TabIndex = 1;
             // 
             // richTextBox2
@@ -404,17 +409,21 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox2.Location = new System.Drawing.Point(161, 3);
             this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(152, 103);
+            this.richTextBox2.Size = new System.Drawing.Size(152, 129);
             this.richTextBox2.TabIndex = 0;
             this.richTextBox2.Text = "";
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.checkBoxAutoFocus);
+            this.groupBox1.Controls.Add(this.numericUpDownFocus);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.comboBoxCamera1);
+            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.comboBoxCOMPort);
             this.groupBox1.Controls.Add(this.label5);
@@ -424,7 +433,7 @@
             this.groupBox1.Controls.Add(this.comboBoxBaud);
             this.groupBox1.Location = new System.Drawing.Point(690, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(231, 211);
+            this.groupBox1.Size = new System.Drawing.Size(231, 286);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "SETTING";
@@ -468,9 +477,9 @@
             // 
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label1.Location = new System.Drawing.Point(93, 87);
+            this.label1.Location = new System.Drawing.Point(94, 87);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(132, 12);
+            this.label1.Size = new System.Drawing.Size(131, 12);
             this.label1.TabIndex = 10;
             // 
             // comboBoxCOMPort
@@ -493,9 +502,9 @@
             // btRefresh
             // 
             this.btRefresh.Image = global::SC_M4.Properties.Resources._refresh_16;
-            this.btRefresh.Location = new System.Drawing.Point(5, 174);
+            this.btRefresh.Location = new System.Drawing.Point(6, 174);
             this.btRefresh.Name = "btRefresh";
-            this.btRefresh.Size = new System.Drawing.Size(31, 25);
+            this.btRefresh.Size = new System.Drawing.Size(28, 21);
             this.btRefresh.TabIndex = 11;
             this.btRefresh.UseVisualStyleBackColor = true;
             this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
@@ -537,7 +546,7 @@
             this.dataGridViewHistory.Name = "dataGridViewHistory";
             this.dataGridViewHistory.RowHeadersVisible = false;
             this.dataGridViewHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewHistory.Size = new System.Drawing.Size(914, 115);
+            this.dataGridViewHistory.Size = new System.Drawing.Size(914, 141);
             this.dataGridViewHistory.TabIndex = 0;
             // 
             // serialPort
@@ -549,6 +558,28 @@
             this.timerMain.Interval = 1000;
             this.timerMain.Tick += new System.EventHandler(this.timerMain_Tick);
             // 
+            // numericUpDownFocus
+            // 
+            this.numericUpDownFocus.Location = new System.Drawing.Point(94, 230);
+            this.numericUpDownFocus.Name = "numericUpDownFocus";
+            this.numericUpDownFocus.Size = new System.Drawing.Size(125, 20);
+            this.numericUpDownFocus.TabIndex = 16;
+            this.numericUpDownFocus.Value = new decimal(new int[] {
+            68,
+            0,
+            0,
+            0});
+            this.numericUpDownFocus.ValueChanged += new System.EventHandler(this.numericUpDownFocus_ValueChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(15, 232);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(75, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Focus Cam 2 :";
+            // 
             // scrollablePictureBoxCamera01
             // 
             this.scrollablePictureBoxCamera01.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -557,7 +588,7 @@
             this.scrollablePictureBoxCamera01.Location = new System.Drawing.Point(3, 3);
             this.scrollablePictureBoxCamera01.Name = "scrollablePictureBoxCamera01";
             this.scrollablePictureBoxCamera01.SegmentedRegions = null;
-            this.scrollablePictureBoxCamera01.Size = new System.Drawing.Size(159, 104);
+            this.scrollablePictureBoxCamera01.Size = new System.Drawing.Size(159, 130);
             this.scrollablePictureBoxCamera01.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.scrollablePictureBoxCamera01.TabIndex = 1;
             this.scrollablePictureBoxCamera01.TabStop = false;
@@ -570,16 +601,37 @@
             this.scrollablePictureBoxCamera02.Location = new System.Drawing.Point(3, 3);
             this.scrollablePictureBoxCamera02.Name = "scrollablePictureBoxCamera02";
             this.scrollablePictureBoxCamera02.SegmentedRegions = null;
-            this.scrollablePictureBoxCamera02.Size = new System.Drawing.Size(152, 103);
+            this.scrollablePictureBoxCamera02.Size = new System.Drawing.Size(152, 129);
             this.scrollablePictureBoxCamera02.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.scrollablePictureBoxCamera02.TabIndex = 1;
             this.scrollablePictureBoxCamera02.TabStop = false;
+            // 
+            // label8
+            // 
+            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label8.Location = new System.Drawing.Point(18, 202);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(208, 12);
+            this.label8.TabIndex = 10;
+            // 
+            // checkBoxAutoFocus
+            // 
+            this.checkBoxAutoFocus.AutoSize = true;
+            this.checkBoxAutoFocus.Checked = true;
+            this.checkBoxAutoFocus.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxAutoFocus.Location = new System.Drawing.Point(145, 255);
+            this.checkBoxAutoFocus.Name = "checkBoxAutoFocus";
+            this.checkBoxAutoFocus.Size = new System.Drawing.Size(77, 17);
+            this.checkBoxAutoFocus.TabIndex = 17;
+            this.checkBoxAutoFocus.Text = "AutoFocus";
+            this.checkBoxAutoFocus.UseVisualStyleBackColor = true;
             // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(946, 593);
+            this.ClientSize = new System.Drawing.Size(946, 688);
             this.Controls.Add(this.splitContainerHomeMain);
             this.Controls.Add(this.panelHeader);
             this.Controls.Add(this.statusStripHome);
@@ -614,6 +666,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHistory)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFocus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera01)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.scrollablePictureBoxCamera02)).EndInit();
             this.ResumeLayout(false);
@@ -667,6 +720,10 @@
         private System.Windows.Forms.ToolStripMenuItem testOKToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem testNGToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusSentData;
+        private System.Windows.Forms.NumericUpDown numericUpDownFocus;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox checkBoxAutoFocus;
     }
 }
 
