@@ -13,7 +13,6 @@ namespace SC_M4.Controls
 {
     public partial class ScrollablePictureBox : PictureBox
     {
-
         Point startPoint;
         int preX, preY;
         Rectangle rect;

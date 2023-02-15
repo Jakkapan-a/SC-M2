@@ -21,6 +21,7 @@ namespace Netdev.Windows.Forms
                 DisabledItemSelected(sender, e);
             }
         }
+
         public ListBox()
         {
             DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
@@ -446,4 +447,5 @@ namespace Netdev.Windows.Forms
             Index = index;
         }
     }
+
 }

@@ -94,7 +94,7 @@ namespace SC_M4
             LogWriter.SaveLog("Starting....." + Thread.CurrentThread.ManagedThreadId);
             timerMain.Start();
             deletedFileTemp();
-
+            loadTableHistory();
             try
             {
                 var s = Setting.GetSettingRemove();
@@ -182,8 +182,6 @@ namespace SC_M4
                 pictureBoxCamera02.SuspendLayout();
                 pictureBoxCamera02.Image = new Bitmap(bitmap);
                 bitmapCamaera_02 = (Bitmap)pictureBoxCamera02.Image.Clone();
-                // Copy to memory stream
-                //bitmapCamaera_02.Save(memoryCamaera_02,ImageFormat.Jpeg);
                 pictureBoxCamera02.ResumeLayout();
             }
 
@@ -218,14 +216,13 @@ namespace SC_M4
                 pictureBoxCamera01.SuspendLayout();
                 pictureBoxCamera01.Image = new Bitmap(bitmap);
                 bitmapCamaera_01 = (Bitmap)pictureBoxCamera01.Image.Clone();
-                // Copy to memory stream
-                //bitmapCamaera_01.Save(memoryCamaera_01, ImageFormat.Jpeg);
                 pictureBoxCamera01.ResumeLayout();
             }
         }
 
         #region Serial Port 
         public string serialportName = string.Empty;
+
         public string baudrate = string.Empty;
 
         public string readDataSerial = string.Empty;
@@ -236,22 +233,7 @@ namespace SC_M4
 
         private void btConnect_Click(object sender, EventArgs e)
         {
-            if (txtEmployee.Text == string.Empty)
-            {
-                lbTitle.Text = "Please input employee ID"; // 
-                MessageBox.Show("Please input employee ID", "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-
-            if(comboBoxCamera1.SelectedIndex == comboBoxCamera2.SelectedIndex)
-            {
-                lbTitle.Text = "Please select camera drive!"; // 
-                MessageBox.Show("Please select camera drive!", "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-            this.serialportName = comboBoxCOMPort.Text;
-            this.baudrate = comboBoxBaud.Text;
-            serialConnect();
+ 
             btStartStop.PerformClick();
         }
 
@@ -321,8 +303,8 @@ namespace SC_M4
             }
             catch (Exception ex)
             {
-                LogWriter.SaveLog("Error :" + ex.Message);
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LogWriter.SaveLog("Error serial:" + ex.Message);
+                MessageBox.Show(ex.Message, "Error serial", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -393,6 +375,17 @@ namespace SC_M4
                     {
                         throw new Exception(Properties.Resources.msg_select_camera);
                     }
+                    if (txtEmployee.Text == string.Empty)
+                    {
+                        lbTitle.Text = "Please input employee ID"; // 
+                        MessageBox.Show("Please input employee ID", "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+
+                    this.serialportName = comboBoxCOMPort.Text;
+                    this.baudrate = comboBoxBaud.Text;
+                    serialConnect();
+
                     if (capture_1.IsOpened)
                         capture_1.Stop();
                     if (capture_2.IsOpened)
@@ -421,6 +414,7 @@ namespace SC_M4
                     scrollablePictureBoxCamera01.Image = null;
                     scrollablePictureBoxCamera02.Image = null;
 
+                    btConnect.Text = "Disconnect";
                 }
                 else
                 {
@@ -431,6 +425,7 @@ namespace SC_M4
                         capture_2.Stop();
 
                     btStartStop.Text = "START";
+                    btConnect.Text = "Connect";
                     pictureBoxCamera01.Image = null;
                     pictureBoxCamera02.Image = null;
 
@@ -484,14 +479,14 @@ namespace SC_M4
                         {
                             Invoke(new Action(() =>
                             {
-                                lbTitle.Text = "Wiat for detect.....";
+                                lbTitle.Text = "Wiat for detect..";
                             }));
                         }
                         else
                         {
                             Invoke(new Action(() =>
                             {
-                                lbTitle.Text = "Detecting.";
+                                lbTitle.Text = "Detecting...";
                             }));
                         }
 
@@ -630,6 +625,11 @@ namespace SC_M4
 
                                         result = result.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", "").Replace("'", "").Replace("|", "");
                                         result = result.Replace(")9U", "9U");
+                                        if (result == string.Empty)
+                                        {
+                                            continue;
+                                        }
+
                                         richTextBox2.Invoke(new Action(() =>
                                         {
                                             this.richTextBox2.Text = result.Trim().Replace(" ", "").Replace("\r", "").Replace("\t", "").Replace("\n", "");
@@ -645,7 +645,7 @@ namespace SC_M4
                         }
                     }
                     deletedFileTemp();
-                   Thread.Sleep(1500);
+                   Thread.Sleep(1400);
                 }catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);

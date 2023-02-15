@@ -13,7 +13,7 @@ namespace TCapture
     {
         private Thread _thread;
         private OpenCvSharp.VideoCapture _videoCapture;
-
+        
         public delegate void VideoCaptureError(string messages);
         public event VideoCaptureError OnError;
 
@@ -31,6 +31,9 @@ namespace TCapture
         public bool _isRunning { get; set; }
 
         private int _frameRate = 50;
+
+        public int width { get; set; }
+        public int height { get; set; }
         public int frameRate
         {
             get { return _frameRate; }
@@ -50,6 +53,11 @@ namespace TCapture
             return false;
         }
 
+        public Capture()
+        {
+            width = 1280;
+            height = 720;
+        }
         public void Start(int device)
         {
             if (_videoCapture != null)
@@ -59,7 +67,7 @@ namespace TCapture
 
             _videoCapture = new OpenCvSharp.VideoCapture(device);
             _videoCapture.Open(device);
-            SetResolution(1280, 720);
+            SetFrame(width, height);
             _isRunning = true;
             _onStarted = true;
             if (_thread != null)
@@ -105,7 +113,7 @@ namespace TCapture
             }
         }
 
-        public void SetResolution(int width, int height)
+        public void SetFrame(int width, int height)
         {
             _videoCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameWidth, width);
             _videoCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameHeight, height);
