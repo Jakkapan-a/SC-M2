@@ -459,7 +459,6 @@ namespace SC_M4
 
             // This thread working in her
             // While loop -> detect came
-            int i = 0;
             TCapture.Match match = new TCapture.Match();
             Bitmap bitmap;
             Bitmap mat;
@@ -556,6 +555,8 @@ namespace SC_M4
                                 a = result.IndexOf("|731");
                                 result = result.Substring(a + 1);
                                 result = result.Replace("T31TM", "731TM");
+                                result = result.Replace("731THC", "731TMC");
+
                                 if (result == string.Empty)
                                 {
                                     continue;
@@ -645,7 +646,7 @@ namespace SC_M4
                         }
                     }
                     deletedFileTemp();
-                   Thread.Sleep(1400);
+                   Thread.Sleep(1500);
                 }catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
@@ -715,6 +716,20 @@ namespace SC_M4
                     scrollablePictureBoxCamera02.Image = null;
                     return;
                 }
+
+                int swa = txt_sw.IndexOf("731TMC");
+                // If not found, IndexOf returns -1.
+                if (swa == -1)
+                {
+                    // Return the original string.
+
+                    richTextBox1.Text = string.Empty;
+                    richTextBox2.Text = string.Empty;
+
+                    scrollablePictureBoxCamera01.Image = null;
+                    scrollablePictureBoxCamera02.Image = null;
+                    return;
+                }
                 var txt = txt_lb.Substring(0, lb);
                 txt = txt.Replace("O", "0");
                 var master_lb = MasterAll.GetMasterALLByLBName(txt);
@@ -769,8 +784,12 @@ namespace SC_M4
             catch (Exception ex)
             {
                 // Reset 
+                LogWriter.SaveLog("Error compare :" + ex.Message);
                 scrollablePictureBoxCamera01.Image = null;
                 scrollablePictureBoxCamera01.Image = null;
+                richTextBox1.Text = string.Empty;
+                richTextBox2.Text = string.Empty;
+
                 lbTitle.Text = "Image not match"; // "Image not match";
                 serialCommand("NG#");
                 isStaetReset = true;
